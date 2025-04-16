@@ -41,6 +41,7 @@ dependencies:
   get: ^4.7.2
   permission_handler: ^12.0.0+1
   flutter_launcher_icons: ^0.14.3
+  animated_flip_counter: ^0.3.4
 
 dev_dependencies:
   flutter_test:
