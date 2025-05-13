@@ -45,6 +45,10 @@ dependencies:
   syncfusion_flutter_gauges: ^29.1.38
   fl_chart: ^0.71.0
   google_fonts: ^6.2.1
+  video_player: ^2.9.5
+  webview_flutter: ^4.11.0
+  flutter_vlc_player: ^7.4.3
+  # better_player: ^0.0.84
 
 dev_dependencies:
   flutter_test:

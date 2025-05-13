@@ -169,6 +169,7 @@ import 'package:fire_guard/screens/accountSettingScreen.dart';
 import 'package:fire_guard/screens/mainDrawerScreen.dart';
 import 'package:fire_guard/widget/SemiCircle.dart';
 import 'package:fire_guard/widget/notifycationIconButton.dart';
+import 'package:fire_guard/screens/streamVideo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -254,8 +255,17 @@ class _MainSCreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home page'),
-        actions: const [
-          NotificationIconButton(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (ctx) => StreamVideoScreen()),
+              );
+            }, 
+            icon: const Icon(Icons.videocam),
+            tooltip: 'Camera',
+          ),
+          const NotificationIconButton(),
         ],
       ),
       drawer: MainDrawerScreen(
@@ -273,57 +283,59 @@ class _MainSCreenState extends State<MainScreen> {
                   ),
                   const SizedBox(height: 10),
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SemiCircleGauge(
-                          label: 'Nhiệt độ',
-                          value: temperature?.toDouble() ?? 0,
-                          unit: '°C',
-                          min: 0,
-                          max: 100,
-                          colors: const [Colors.green, Colors.orange, Colors.red],
-                        ),
-                        SemiCircleGauge(
-                          label: 'Khói',
-                          value: smokeLevel ?? 0,
-                          unit: '',
-                          min: 0,
-                          max: 100,
-                          colors: const [Colors.green, Colors.yellow, Colors.red],
-                        ),
-                        SemiCircleGauge(
-                          label: 'CO',
-                          value: coLevel ?? 0,
-                          unit: '',
-                          min: 0,
-                          max: 100,
-                          colors: const [Colors.green, Colors.orange, Colors.red],
-                        ),
-                      ],
-                    ),
+
                     // child: Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                     //   children: [
-                    //     Expanded(child: buildGauge('Temperature', temperature?.toDouble() ?? 0, 0, 100, [
-                    //       GaugeRange(startValue: 0, endValue: 35, color: Colors.green),
-                    //       GaugeRange(startValue: 36, endValue: 50, color: Colors.orange),
-                    //       GaugeRange(startValue: 51, endValue: 100, color: Colors.red),
-                    //     ], '°C')),
-
-                    //     Expanded(child: buildGauge('Smoke', smokeLevel ?? 0, 0, 100, [
-                    //       GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
-                    //       GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
-                    //       GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
-                    //     ], '')),
-
-                    //     Expanded(child: buildGauge('CO', coLevel ?? 0, 0, 100, [
-                    //       GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
-                    //       GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
-                    //       GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
-                    //     ], '')),
+                    //     SemiCircleGauge(
+                    //       label: 'Nhiệt độ',
+                    //       value: temperature?.toDouble() ?? 0,
+                    //       unit: '°C',
+                    //       min: 0,
+                    //       max: 100,
+                    //       colors: const [Colors.green, Colors.orange, Colors.red],
+                    //     ),
+                    //     SemiCircleGauge(
+                    //       label: 'Khói',
+                    //       value: smokeLevel ?? 0,
+                    //       unit: '',
+                    //       min: 0,
+                    //       max: 100,
+                    //       colors: const [Colors.green, Colors.yellow, Colors.red],
+                    //     ),
+                    //     SemiCircleGauge(
+                    //       label: 'CO',
+                    //       value: coLevel ?? 0,
+                    //       unit: '',
+                    //       min: 0,
+                    //       max: 100,
+                    //       colors: const [Colors.green, Colors.orange, Colors.red],
+                    //     ),
                     //   ],
                     // ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(child: buildGauge('Temperature', temperature?.toDouble() ?? 0, 0, 100, [
+                          GaugeRange(startValue: 0, endValue: 35, color: Colors.green),
+                          GaugeRange(startValue: 36, endValue: 50, color: Colors.orange),
+                          GaugeRange(startValue: 51, endValue: 100, color: Colors.red),
+                        ], '°C')),
+
+                        Expanded(child: buildGauge('Smoke', smokeLevel ?? 0, 0, 100, [
+                          GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
+                          GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
+                          GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
+                        ], '')),
+
+                        Expanded(child: buildGauge('CO', coLevel ?? 0, 0, 100, [
+                          GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
+                          GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
+                          GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
+                        ], '')),
+                      ],
+                    ),
                   ),
                 ],
               ),
