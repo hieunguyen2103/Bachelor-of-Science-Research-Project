@@ -27,6 +27,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
   Set<String> _connectedDeviceIds = {};  // Danh sách thiết bị đã kết nối
   bool _isScanning = false;  // Trạng thái có đang quét hay không, nên đặt là false, true cũng chả vấn đề gì
   StreamSubscription<List<ScanResult>>? _scanSubscription;  // Cái này để lắng nghe kết quả quét
+  String? _userUUID;
 
   // Dùng để theo dõi trạng thái kết nối của từng thiết bị, nếu thiết bị kia hủy kết nối thì trên app cũng phải hiển thị ngắt connect luôn
   final Map<String, StreamSubscription<BluetoothConnectionState>> _connectionSubscriptions = {};
@@ -53,6 +54,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
 
         if (data != null && data.containsKey('activated'))  // Nếu như có data và có field 'activated'
         {
+           _userUUID = userId.uid;
           setState(()   // Thì set trạng thái tài khoản
           {
             _isAccountActivated = (data['activated'] == true);
@@ -170,6 +172,8 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
           });
         });
 
+        _showWifiDialog(device);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Connected ${device.name.isEmpty ? 'No name' : device.name}'),
@@ -194,6 +198,105 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
       sub.cancel();
     }
     super.dispose();
+  }
+
+  // Hàm gửi ssid và password
+  Future<void> _sendWifi(BluetoothDevice device, String ssid, String password) async {
+    print('Gửi ssid và password');
+
+    final serviceUuid = Guid("000000ff-0000-1000-8000-00805f9b34fb");
+    final ssidUuid    = Guid("0000ff01-0000-1000-8000-00805f9b34fb");
+    
+    final passServiceUuid = Guid("000000ee-0000-1000-8000-00805f9b34fb"); // 0x00EE
+    final passUuid    = Guid("0000ee01-0000-1000-8000-00805f9b34fb"); // 0xEE01
+
+
+    try {
+      await device.discoverServices();
+      // final services = await device.services.first;
+      final services = await device.discoverServices(); 
+
+      print("Các service tìm thấy:");
+      for (var s in services) {
+        print("- Service UUID: ${s.uuid}");
+        for (var c in s.characteristics) {
+          print("  - Characteristic UUID: ${c.uuid}");
+        }
+      }
+
+
+      final ssidService = services.firstWhere(
+        (s) => s.uuid == serviceUuid,
+        orElse: () => throw Exception("Không tìm thấy service SSID"),
+      );
+      final passService = services.firstWhere(
+        (s) => s.uuid == passServiceUuid,
+        orElse: () => throw Exception("Không tìm thấy service PASS"),
+      );
+
+      final ssidChar = ssidService.characteristics.firstWhere(
+        (c) => c.uuid == ssidUuid,
+        orElse: () => throw Exception("Không tìm thấy characteristic SSID"),
+      );
+      final passChar = passService.characteristics.firstWhere(
+        (c) => c.uuid == passUuid,
+        orElse: () => throw Exception("Không tìm thấy characteristic PASS"),
+      );
+
+      await ssidChar.write(ssid.codeUnits, withoutResponse: false);
+      await passChar.write(password.codeUnits, withoutResponse: false);
+      
+      print("Đã gửi SSID và PASS thành công.");
+    } catch (e) {
+      print("Lỗi khi gửi dữ liệu BLE: $e");
+    }
+  }
+
+
+  // Hiển thị cửa sổ để nhập ssid và password
+  Future<void> _showWifiDialog(BluetoothDevice device) async
+  {
+    final ssidController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    await showDialog(
+      context: context, 
+      builder: (ctx) => AlertDialog(
+        title: Text('Setup Wifi'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: ssidController,
+              decoration: const InputDecoration(labelText: 'SSID'),
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(), 
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              final ssid = ssidController.text.trim();
+              final password = passwordController.text.trim();
+              if(ssid.isNotEmpty && password.isNotEmpty)
+              {
+                _sendWifi(device, ssid, password);
+                Navigator.of(ctx).pop();
+              }
+            }, 
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
