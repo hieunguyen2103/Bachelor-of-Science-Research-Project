@@ -1,14 +1,0 @@
-[1/9] Performing build step for 'bootloader'
-[1/1] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Technology\DANC\source_code\gatt_server\build\bootloader\esp-idf\esptool_py && D:\Technology\esp-idf\setup\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 D:/Technology/DANC/source_code/gatt_server/build/bootloader/bootloader.bin"
-Bootloader binary size 0x6880 bytes. 0x780 bytes (7%) free.
-[2/9] No install step for 'bootloader'
-[3/9] Completed 'bootloader'
-[4/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj
-[5/9] Linking C static library esp-idf\main\libmain.a
-[6/9] Generating ld/sections.ld
-[7/9] Linking CXX executable gatt_server_demos.elf
-FAILED: gatt_server_demos.elf 
-C:\WINDOWS\system32\cmd.exe /C "cd . && D:\Technology\esp-idf\setup\Espressif\tools\xtensa-esp-elf\esp-13.2.0_20240530\xtensa-esp-elf\bin\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32=0 -Wl,--Map=D:/Technology/DANC/source_code/gatt_server/build/gatt_server_demos.map -Wl,--no-warn-rwx-segments -fno-rtti -fno-lto -Wl,--gc-sections -Wl,--warn-common -T esp32.peripherals.ld -T esp32.rom.ld -T esp32.rom.api.ld -T esp32.rom.libgcc.ld -T esp32.rom.newlib-data.ld -T esp32.rom.syscalls.ld -T esp32.rom.newlib-funcs.ld -T memory.ld -T sections.ld @CMakeFiles\gatt_server_demos.elf.rsp -o gatt_server_demos.elf && cd ."
-D:/Technology/esp-idf/setup/Espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/../lib/gcc/xtensa-esp-elf/13.2.0/../../../../xtensa-esp-elf/bin/ld.exe: esp-idf/bt/libbt.a(gap_api.c.obj):D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/bt/host/bluedroid/stack/gap/gap_api.c:27: multiple definition of `gap_cb'; esp-idf/main/libmain.a(gatts_demo.c.obj):D:/Technology/DANC/source_code/gatt_server/main/gatts_demo.c:55: first defined here
-collect2.exe: error: ld returned 1 exit status
-ninja: build stopped: subcommand failed.

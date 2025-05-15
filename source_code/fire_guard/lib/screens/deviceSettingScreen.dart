@@ -201,7 +201,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
   }
 
   // Hàm gửi ssid và password
-  Future<void> _sendWifi(BluetoothDevice device, String ssid, String password) async {
+  Future<void> _sendWifi(BluetoothDevice device, String ssid, String password, String userID) async {
     print('Gửi ssid và password');
 
     final serviceUuid = Guid("000000ff-0000-1000-8000-00805f9b34fb");
@@ -209,6 +209,9 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
     
     final passServiceUuid = Guid("000000ee-0000-1000-8000-00805f9b34fb"); // 0x00EE
     final passUuid    = Guid("0000ee01-0000-1000-8000-00805f9b34fb"); // 0xEE01
+
+    final userServiceUuid = Guid("000000dd-0000-1000-8000-00805f9b34fb"); // 0x00EE
+    final userUuid    = Guid("0000dd01-0000-1000-8000-00805f9b34fb"); // 0xEE01
 
 
     try {
@@ -233,6 +236,10 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (s) => s.uuid == passServiceUuid,
         orElse: () => throw Exception("Không tìm thấy service PASS"),
       );
+      final userService = services.firstWhere(
+        (s) => s.uuid == userServiceUuid,
+        orElse: () => throw Exception("Không tìm thấy service USER"),
+      );
 
       final ssidChar = ssidService.characteristics.firstWhere(
         (c) => c.uuid == ssidUuid,
@@ -242,9 +249,14 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (c) => c.uuid == passUuid,
         orElse: () => throw Exception("Không tìm thấy characteristic PASS"),
       );
+      final userChar = userService.characteristics.firstWhere(
+        (c) => c.uuid == userUuid,
+        orElse: () => throw Exception("Không tìm thấy characteristic USER"),
+      );
 
       await ssidChar.write(ssid.codeUnits, withoutResponse: false);
       await passChar.write(password.codeUnits, withoutResponse: false);
+      await userChar.write(userID.codeUnits, withoutResponse: false);
       
       print("Đã gửi SSID và PASS thành công.");
     } catch (e) {
@@ -286,9 +298,9 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
             onPressed: () {
               final ssid = ssidController.text.trim();
               final password = passwordController.text.trim();
-              if(ssid.isNotEmpty && password.isNotEmpty)
+              if(ssid.isNotEmpty && password.isNotEmpty && _userUUID != null)
               {
-                _sendWifi(device, ssid, password);
+                _sendWifi(device, ssid, password, _userUUID!);
                 Navigator.of(ctx).pop();
               }
             }, 

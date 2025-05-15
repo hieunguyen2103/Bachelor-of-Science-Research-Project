@@ -1,4 +1,4 @@
-/* * Data converted from D:/Technology/DANC/source_code/gatt_server/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)
