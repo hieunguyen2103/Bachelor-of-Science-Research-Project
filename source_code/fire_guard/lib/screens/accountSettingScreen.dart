@@ -23,6 +23,18 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
   bool _isAccountActivated = false;
   bool _isLoading = true;
 
+  String originalFullName = '';
+  String originalPhone = '';
+  String originalEmail = '';
+  String currentPassword = ''; 
+
+  String newPassword = '';
+  String fullName = '';
+  String phone = '';
+  String email = '';
+  String password = '';
+  final _formKey = GlobalKey<FormState>();
+
   Future<void> _getUser() async
   {
     final userId = FirebaseAuth.instance.currentUser;
@@ -42,16 +54,89 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
           setState(() 
           {
             _isAccountActivated = data['activated'] == true;
+            fullName = data['fullname'] ?? '';
+            phone = data.containsKey('phone') ? data['phone'] ?? '' : '';
+            email = data['email'];
+
+            originalFullName = fullName;
+            originalPhone = phone;
+            originalEmail = email;
           });
         }
       } catch (e) {
         print('Error checking activation status: $e');
       }
     }
-
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<void> _changePassword() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      final cred = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(cred);
+      await user.updatePassword(newPassword);
+
+      // Sau khi đổi mật khẩu thành công thì sign out và quay về màn hình Auth
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).popUntil((route) => route.isFirst);  // Quay về AuthScreen
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.')),
+      );
+    } catch (e) {
+      print('Password change failed: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi: $e')),
+      );
+    }
+  }
+
+  Future<void> _updateUser() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      final uid = user.uid;
+
+      // So sánh với dữ liệu cũ để chỉ update nếu thay đổi
+      Map<String, dynamic> updateData = {};
+
+      if (fullName.isNotEmpty && fullName != originalFullName) {
+        updateData['fullname'] = fullName;
+      }
+
+      if (phone != originalPhone && phone.isNotEmpty) {
+        updateData['phone'] = phone;
+      }
+
+      if (updateData.isNotEmpty) {
+        await FirebaseFirestore.instance.collection('users').doc(uid).update(updateData);
+      }
+
+      if (email != originalEmail) {
+        await user.updateEmail(email);
+      }
+
+      if (password.isNotEmpty) {
+        await user.updatePassword(password);
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Cập nhật thành công')),
+      );
+    } catch (e) {
+      print('Update failed: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi: $e')),
+      );
+    }
   }
 
   void initState() 
@@ -59,6 +144,18 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
     super.initState();
     _getUser();
   }
+
+  InputDecoration inputDecoration(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      prefixIcon: Icon(icon),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,30 +177,102 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
           }
       }),
       body: Center(
-        child: _isLoading ? CircularProgressIndicator() : _isAccountActivated ? Text('Your account is already activated')
-        : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'No account information found!\nActivate now?', 
-              style: TextStyle(fontSize: 16), 
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 16,),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(  // Tạo màu nền cho cái nút nổi này
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (ctx) => const ActivateAccountScreen()),
-                );
-              }, 
-              child: Text('Activate'),
-            )
-          ],
-        ),
-      ),
+        child: _isLoading
+            ? CircularProgressIndicator()
+            : _isAccountActivated
+                ? Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Form(
+                      key: _formKey,
+                      child: ListView(
+                        children: [
+                          TextFormField(
+                            initialValue: fullName,
+                            decoration: inputDecoration('Họ và tên', Icons.person),
+                            onChanged: (value) => fullName = value.trim(),
+                          ),
+                          SizedBox(height: 12),
+                          TextFormField(
+                            initialValue: phone,
+                            decoration: inputDecoration('Số điện thoại', Icons.phone),
+                            onChanged: (value) => phone = value.trim(),
+                          ),
+                          SizedBox(height: 12),
+                          TextFormField(
+                            initialValue: email,
+                            decoration: inputDecoration('Email', Icons.email),
+                            onChanged: (value) => email = value.trim(),
+                            validator: (value) =>
+                                value!.contains('@') ? null : 'Email không hợp lệ',
+                          ),
+                          SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: _updateUser,
+                            child: Text('Cập nhật thông tin'),
+                          ),
+                          SizedBox(height: 30),
+                          Divider(),
+                          Text(
+                            'Đổi mật khẩu',
+                            style:
+                                TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 12),
+                          TextFormField(
+                            decoration: inputDecoration(
+                                'Mật khẩu hiện tại', Icons.lock_outline),
+                            onChanged: (value) => currentPassword = value,
+                            obscureText: true,
+                          ),
+                          SizedBox(height: 12),
+                          TextFormField(
+                            decoration:
+                                inputDecoration('Mật khẩu mới', Icons.lock),
+                            onChanged: (value) => newPassword = value,
+                            obscureText: true,
+                          ),
+                          SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (currentPassword.isEmpty ||
+                                  newPassword.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'Vui lòng nhập cả mật khẩu hiện tại và mật khẩu mới'),
+                                ));
+                              } else {
+                                _changePassword();
+                              }
+                            },
+                            child: Text('Đổi mật khẩu'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No account information found!\nActivate now?',
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 16),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => const ActivateAccountScreen()));
+                        },
+                        child: Text('Activate'),
+                      ),
+                    ],
+                  ),
+      )
     );
   }
 }

@@ -174,6 +174,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'dart:async';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -190,12 +192,25 @@ class _MainSCreenState extends State<MainScreen> {
 
   double? coLevel;
   double? smokeLevel;
-  int? temperature;
+  DateTime _lastUpdated = DateTime.now();
+  DateTime _currentTime = DateTime.now();
+  Timer? _clockTimer;
 
   @override
   void initState() {
     super.initState();
     _loadUserAndData();
+    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {
+        _currentTime = DateTime.now();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _clockTimer?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadUserAndData() async {
@@ -226,7 +241,7 @@ class _MainSCreenState extends State<MainScreen> {
           setState(() {
             coLevel = (sensorData['Co_level'] as num).toDouble();
             smokeLevel = (sensorData['Smoke_level'] as num).toDouble();
-            temperature = (sensorData['Temp'] as num).toInt();
+            _lastUpdated = DateTime.now();
           });
         }
       }
@@ -261,7 +276,7 @@ class _MainSCreenState extends State<MainScreen> {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => StreamVideoScreen()),
               );
-            }, 
+            },
             icon: const Icon(Icons.videocam),
             tooltip: 'Camera',
           ),
@@ -272,81 +287,77 @@ class _MainSCreenState extends State<MainScreen> {
         onSelectScreen: _setScreen,
       ),
       body: _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : _isAccountActivated
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text('Fire Guard',
-                    style: Theme.of(context).textTheme.headlineMedium,
+          ? const Center(child: CircularProgressIndicator())
+          : _isAccountActivated
+              ? Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Fire Guard',
+                        style: GoogleFonts.robotoSlab(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 240,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: buildGauge(
+                                  'Smoke',
+                                  smokeLevel ?? 0,
+                                  0,
+                                  100,
+                                  [
+                                    GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
+                                    GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
+                                    GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
+                                  ],
+                                  '',
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: buildGauge(
+                                  'CO',
+                                  coLevel ?? 0,
+                                  0,
+                                  100,
+                                  [
+                                    GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
+                                    GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
+                                    GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
+                                  ],
+                                  '',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      _buildStatusWarning(coLevel, smokeLevel),
+                      const SizedBox(height: 16),
+                      Text(
+                        '⏱ Bây giờ là: ${DateFormat('HH:mm:ss dd/MM/yyyy').format(_currentTime)}',
+                        style: const TextStyle(fontSize: 14, color: Colors.grey),
+                      )
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Expanded(
-
-                    // child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-                    //     SemiCircleGauge(
-                    //       label: 'Nhiệt độ',
-                    //       value: temperature?.toDouble() ?? 0,
-                    //       unit: '°C',
-                    //       min: 0,
-                    //       max: 100,
-                    //       colors: const [Colors.green, Colors.orange, Colors.red],
-                    //     ),
-                    //     SemiCircleGauge(
-                    //       label: 'Khói',
-                    //       value: smokeLevel ?? 0,
-                    //       unit: '',
-                    //       min: 0,
-                    //       max: 100,
-                    //       colors: const [Colors.green, Colors.yellow, Colors.red],
-                    //     ),
-                    //     SemiCircleGauge(
-                    //       label: 'CO',
-                    //       value: coLevel ?? 0,
-                    //       unit: '',
-                    //       min: 0,
-                    //       max: 100,
-                    //       colors: const [Colors.green, Colors.orange, Colors.red],
-                    //     ),
-                    //   ],
-                    // ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(child: buildGauge('Temperature', temperature?.toDouble() ?? 0, 0, 100, [
-                          GaugeRange(startValue: 0, endValue: 35, color: Colors.green),
-                          GaugeRange(startValue: 36, endValue: 50, color: Colors.orange),
-                          GaugeRange(startValue: 51, endValue: 100, color: Colors.red),
-                        ], '°C')),
-
-                        Expanded(child: buildGauge('Smoke', smokeLevel ?? 0, 0, 100, [
-                          GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
-                          GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
-                          GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
-                        ], '')),
-
-                        Expanded(child: buildGauge('CO', coLevel ?? 0, 0, 100, [
-                          GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
-                          GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
-                          GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
-                        ], '')),
-                      ],
-                    ),
+                )
+              : const Center(
+                  child: Text(
+                    'Please activate your account to use features',
+                    style: TextStyle(color: Colors.red),
                   ),
-                ],
-              ),
-            )
-          : const Center(
-              child: Text(
-                'Please activate your account to use features',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-
+                ),
     );
   }
 
@@ -361,24 +372,54 @@ class _MainSCreenState extends State<MainScreen> {
     return SfRadialGauge(
       title: GaugeTitle(
         text: title,
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        textStyle: GoogleFonts.roboto(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        alignment: GaugeAlignment.center,
       ),
       axes: <RadialAxis>[
         RadialAxis(
+          showTicks: false,
+          showLabels: false,
           minimum: min,
           maximum: max,
+          radiusFactor: 0.9,
+          axisLineStyle: AxisLineStyle(
+            thickness: 0.18,
+            thicknessUnit: GaugeSizeUnit.factor,
+            cornerStyle: CornerStyle.bothCurve,
+            color: Colors.grey.shade300,
+          ),
           ranges: ranges,
           pointers: <GaugePointer>[
-            NeedlePointer(value: value),
+            NeedlePointer(
+              value: value,
+              needleColor: Colors.deepPurple,
+              knobStyle: KnobStyle(color: Colors.deepPurple),
+            ),
           ],
           annotations: <GaugeAnnotation>[
             GaugeAnnotation(
-              widget: Text(
-                '${value.toStringAsFixed(1)} $unit',
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
               angle: 90,
-              positionFactor: 0.75,
+              positionFactor: 0.6,
+              widget: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    value.toStringAsFixed(1),
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (unit.isNotEmpty)
+                    Text(
+                      unit,
+                      style: GoogleFonts.roboto(fontSize: 14),
+                    ),
+                ],
+              ),
             ),
           ],
         ),
@@ -386,4 +427,38 @@ class _MainSCreenState extends State<MainScreen> {
     );
   }
 
+  Widget _buildStatusWarning(double? co, double? smoke) {
+    String coStatus = 'Chưa có dữ liệu';
+    String smokeStatus = 'Chưa có dữ liệu';
+
+    if (co != null) {
+      if (co > 35) {
+        coStatus = '⚠️ Mức CO cao! Nguy hiểm!';
+      } else if (co > 10) {
+        coStatus = 'CO ở mức trung bình';
+      } else {
+        coStatus = '✅ Mức CO an toàn';
+      }
+    }
+
+    if (smoke != null) {
+      if (smoke > 60) {
+        smokeStatus = '🚨 Phát hiện khói dày!';
+      } else if (smoke > 20) {
+        smokeStatus = '⚠️ Mức khói tăng cao';
+      } else {
+        smokeStatus = '✅ Mức khói ổn định';
+      }
+    }
+
+    return Column(
+      children: [
+        Text(coStatus, style: const TextStyle(fontSize: 16)),
+        const SizedBox(height: 8),
+        Text(smokeStatus, style: const TextStyle(fontSize: 16)),
+      ],
+    );
+  }
 }
+
+

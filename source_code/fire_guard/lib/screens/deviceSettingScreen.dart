@@ -28,6 +28,9 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
   bool _isScanning = false;  // Trạng thái có đang quét hay không, nên đặt là false, true cũng chả vấn đề gì
   StreamSubscription<List<ScanResult>>? _scanSubscription;  // Cái này để lắng nghe kết quả quét
   String? _userUUID;
+  StreamSubscription<List<int>>? _userNotifySub;
+  bool _isWaitingWifi = false;
+
 
   // Dùng để theo dõi trạng thái kết nối của từng thiết bị, nếu thiết bị kia hủy kết nối thì trên app cũng phải hiển thị ngắt connect luôn
   final Map<String, StreamSubscription<BluetoothConnectionState>> _connectionSubscriptions = {};
@@ -128,16 +131,34 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
     }
   }
 
-  void _stopScan() async 
-  {
-    await FlutterBluePlus.stopScan();  // Dĩ nhiên cái này để dừng scan
-    await _scanSubscription?.cancel();  // Nhưng người dừng scan còn phải hủy lắng nghe scanResults, có scan nữa đầu mà nghe
-    setState(() 
-    {
-      _isScanning = false; // Đặt lại trạng thái
-      _devices.clear();  // Xóa danh sách thiết bị đã quét được đi
+  Future<void> _stopScan() async {
+    setState(() {
+      _isScanning = false;
+    });
+
+    await FlutterBluePlus.stopScan();
+    await _scanSubscription?.cancel();
+
+    // Ngắt kết nối với tất cả thiết bị đang connect
+    final connectedDevices = await FlutterBluePlus.connectedDevices;
+    for (var device in connectedDevices) {
+      if (_connectedDeviceIds.contains(device.remoteId.str)) {
+        await device.disconnect();
+      }
+    }
+
+    // Hủy lắng nghe trạng thái kết nối
+    for (var sub in _connectionSubscriptions.values) {
+      await sub.cancel();
+    }
+
+    setState(() {
+      _devices.clear();
+      _connectedDeviceIds.clear();
+      _connectionSubscriptions.clear();
     });
   }
+
 
   Future<void> _connectToDevice(BluetoothDevice device) async 
   {
@@ -197,6 +218,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
     {
       sub.cancel();
     }
+    _userNotifySub?.cancel();
     super.dispose();
   }
 
@@ -219,14 +241,13 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
       // final services = await device.services.first;
       final services = await device.discoverServices(); 
 
-      print("Các service tìm thấy:");
-      for (var s in services) {
-        print("- Service UUID: ${s.uuid}");
-        for (var c in s.characteristics) {
-          print("  - Characteristic UUID: ${c.uuid}");
-        }
-      }
-
+      // print("Các service tìm thấy:");
+      // for (var s in services) {
+      //   print("- Service UUID: ${s.uuid}");
+      //   for (var c in s.characteristics) {
+      //     print("  - Characteristic UUID: ${c.uuid}");
+      //   }
+      // }
 
       final ssidService = services.firstWhere(
         (s) => s.uuid == serviceUuid,
@@ -253,6 +274,33 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (c) => c.uuid == userUuid,
         orElse: () => throw Exception("Không tìm thấy characteristic USER"),
       );
+
+      // Hủy stream cũ nếu có
+      await _userNotifySub?.cancel();
+      // Bật Notify và listen thông báo từ ESP32
+      await userChar.setNotifyValue(true);
+      _userNotifySub = userChar.lastValueStream.listen((data) {
+        final message = String.fromCharCodes(data);
+        if (message == "Wifi Connected") {
+          setState(() {
+            _isWaitingWifi = false;
+          });
+          print("ESP32 đã kết nối Wi-Fi thành công!");
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("ESP32 đã kết nối Wi-Fi thành công"),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else {
+          print("Nhận được BLE notify: $message");
+        }
+      });
+
+      setState(() {
+        _isWaitingWifi = true;
+      });
+
 
       await ssidChar.write(ssid.codeUnits, withoutResponse: false);
       await passChar.write(password.codeUnits, withoutResponse: false);
@@ -300,8 +348,15 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
               final password = passwordController.text.trim();
               if(ssid.isNotEmpty && password.isNotEmpty && _userUUID != null)
               {
-                _sendWifi(device, ssid, password, _userUUID!);
+                setState(() {
+                  _isWaitingWifi = true;
+                });
+
                 Navigator.of(ctx).pop();
+
+                Future.microtask(() {
+                  _sendWifi(device, ssid, password, _userUUID!);
+                });
               }
             }, 
             child: const Text('OK'),
@@ -333,56 +388,65 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _isAccountActivated
-              ? Column(
+              ? Stack(
                   children: [
-                    SwitchListTile(
-                      title: const Text('Quét các thiết bị ở gần'),
-                      value: _isScanning,
-                      onChanged: (bool value) 
-                      {
-                        if (value) 
-                        {
-                          _startScan();
-                        } 
-                        else 
-                        {
-                          _stopScan();
-                        }
-                      },
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _devices.length,
-                        itemBuilder: (context, index) 
-                        {
-                          final device = _devices[index];
-                          final deviceId = device.device.remoteId.str;
-                          final isConnected = _connectedDeviceIds.contains(deviceId);
+                    Column(
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Quét các thiết bị ở gần'),
+                          value: _isScanning,
+                          onChanged: (bool value) 
+                          {
+                            if (value) 
+                            {
+                              _startScan();
+                            } 
+                            else 
+                            {
+                              _stopScan();
+                            }
+                          },
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: _devices.length,
+                            itemBuilder: (context, index) 
+                            {
+                              final device = _devices[index];
+                              final deviceId = device.device.remoteId.str;
+                              final isConnected = _connectedDeviceIds.contains(deviceId);
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ListTile(
-                                title: Text(device.device.name.isEmpty ? "Thiết bị không tên" : device.device.name),
-                                subtitle: Text(deviceId),
-                                onTap: () => _connectToDevice(device.device),
-                              ),
-                              if (isConnected)
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16.0, bottom: 8),
-                                  child: Row(
-                                    children: const [
-                                      Icon(Icons.circle, color: Colors.green, size: 12),
-                                      SizedBox(width: 6),
-                                      Text('Connected', style: TextStyle(color: Colors.green)),
-                                    ],
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ListTile(
+                                    title: Text(device.device.name.isEmpty ? "Thiết bị không tên" : device.device.name),
+                                    subtitle: Text(deviceId),
+                                    onTap: () => _connectToDevice(device.device),
                                   ),
-                                ),
-                            ],
-                          );
-                        },
-                      ),
+                                  if (isConnected)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16.0, bottom: 8),
+                                      child: Row(
+                                        children: const [
+                                          Icon(Icons.circle, color: Colors.green, size: 12),
+                                          SizedBox(width: 6),
+                                          Text('Connected', style: TextStyle(color: Colors.green)),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
+                    if(_isWaitingWifi)
+                      Container(
+                        color: Colors.black.withOpacity(0.5),
+                        child: const Center(child: CircularProgressIndicator(),),
+                      ),
                   ],
                 )
               : const Center(

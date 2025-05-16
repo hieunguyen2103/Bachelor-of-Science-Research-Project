@@ -145,6 +145,7 @@ class _StreamVideoScreenState extends State<StreamVideoScreen> {
     // Khởi tạo video HLS từ đường dẫn m3u8
     _controller = VideoPlayerController.network(
       'http://103.69.97.153:8888/hls/cam.m3u8',
+      //'http://103.69.97.153:8888/hls/latest/llhls.m3u8'
     );
 
     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
@@ -347,6 +348,10 @@ class _StreamVideoScreenState extends State<StreamVideoScreen> {
 //     );
 //   }
 // }
+
+
+
+
 
 
 
