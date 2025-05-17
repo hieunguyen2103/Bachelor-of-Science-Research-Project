@@ -38,8 +38,10 @@
 
 #include "sdkconfig.h"
 
-// Thư viện để gửi data sensor lên firebase
+// Thư viện để gửi data sensor lên server
 #include "esp_http_client.h"
+#include "cJSON.h"  
+
 
 #define GATTS_TAG "GATTS_DEMO"
 static char g_ssid[64] = {0};
@@ -212,16 +214,65 @@ static prepare_type_env_t b_prepare_write_env;
 void example_write_event_env(esp_gatt_if_t gatts_if, prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void wifi_connect(const char *ssid, const char *pass);
+void ble_notify_wifi_ok();
+
 
 
 
 /*************************HÀM ĐỂ GỬI DATA SENSOR LÊN FIREBASE ****************************************
 ******************************************************************************************************
 */
+void send_sensor_data(const char *user_id, float temp, float co, float smoke)
+{
+    ESP_LOGI("HTTP", "Bắt đầu gửi dữ liệu sensor lên server");
 
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "user_id", user_id);
+    cJSON_AddNumberToObject(root, "temp", temp);
+    cJSON_AddNumberToObject(root, "co", co);
+    cJSON_AddNumberToObject(root, "smokes", smoke);
+    char *json_str = cJSON_PrintUnformatted(root);
 
+    esp_http_client_config_t config = {
+        .url = "http://103.69.97.153:5000/upload-data",  // Thay bằng IP thật
+        .method = HTTP_METHOD_POST,
+    };
 
+    esp_http_client_handle_t client = esp_http_client_init(&config);
+    esp_http_client_set_header(client, "Content-Type", "application/json");
+    esp_http_client_set_post_field(client, json_str, strlen(json_str));
 
+    esp_err_t err = esp_http_client_perform(client);
+    if (err == ESP_OK) {
+        ESP_LOGI("HTTP", "Payload gửi đi: %s", json_str);
+        ESP_LOGI("HTTP", "Gửi thành công! Status = %d", esp_http_client_get_status_code(client));
+    } else {
+        ESP_LOGE("HTTP", "Gửi thất bại: %s", esp_err_to_name(err));
+    }
+
+    esp_http_client_cleanup(client);
+    cJSON_Delete(root);
+    free(json_str);
+}
+
+void sensor_task(void *param) {
+    float temp = 1;
+    float co = 1;
+    float smoke = 1;
+
+    while (1) {
+        // Tăng giả lập
+        temp += 1;
+        co += 1;
+        smoke += 1;
+        if (temp > 100) temp = 1;
+        if (co > 100) co = 1;
+        if (smoke > 100) smoke = 1;
+
+        send_sensor_data(g_userid, temp, co, smoke);
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+    }
+}
 
 
 static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
@@ -590,7 +641,7 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             ESP_LOGI(GATTS_TAG, "PASSWORD nhận được: %s", pass_str);
 
             strncpy(g_pass, pass_str, sizeof(g_pass));
-            wifi_connect(g_ssid, g_pass);
+            // wifi_connect(g_ssid, g_pass);
 
 
             if (gl_profile_tab[PROFILE_B_APP_ID].descr_handle == param->write.handle && param->write.len == 2){
@@ -845,6 +896,7 @@ static void gatts_profile_c_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
         ESP_LOGI(GATTS_TAG, "Connected, conn_id %d, remote "ESP_BD_ADDR_STR"",
                  param->connect.conn_id, ESP_BD_ADDR_HEX(param->connect.remote_bda));
         gl_profile_tab[PROFILE_C_APP_ID].conn_id = param->connect.conn_id;
+        gl_profile_tab[PROFILE_C_APP_ID].gatts_if = gatts_if;
         break;
     case ESP_GATTS_CONF_EVT:
         ESP_LOGI(GATTS_TAG, "Confirm receive, status %d, attr_handle %d", param->conf.status, param->conf.handle);
@@ -934,6 +986,32 @@ void wifi_connect(const char *ssid, const char *pass)
     esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
     esp_wifi_start();       // Bắt đầu lại
     esp_wifi_connect();     // Kết nối mới
+
+    vTaskDelay(3000 / portTICK_PERIOD_MS);  // sau khi connect thành công nên delay 1 chút
+
+    ble_notify_wifi_ok();
+
+    xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 5, NULL);
+}
+
+
+void ble_notify_wifi_ok()
+{
+    const char *msg = "Wifi Connected";
+    esp_err_t err = esp_ble_gatts_send_indicate(
+        gl_profile_tab[PROFILE_C_APP_ID].gatts_if,
+        gl_profile_tab[PROFILE_C_APP_ID].conn_id,
+        gl_profile_tab[PROFILE_C_APP_ID].char_handle,
+        strlen(msg),
+        (uint8_t *)msg,
+        false  // false nếu chỉ notify, true nếu cần confirmation
+    );
+
+    if (err != ESP_OK) {
+        ESP_LOGE(GATTS_TAG, "Gửi notify thất bại: %s", esp_err_to_name(err));
+    } else {
+        ESP_LOGI(GATTS_TAG, "Đã gửi notify: Wifi Connected");
+    }
 }
 
 

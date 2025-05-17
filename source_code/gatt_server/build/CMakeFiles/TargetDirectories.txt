@@ -818,6 +818,13 @@ D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetoo
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/wifi_provisioning/CMakeFiles/install.dir
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/wifi_provisioning/CMakeFiles/install/local.dir
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/__idf_cJSON.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/edit_cache.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/rebuild_cache.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/list_install_components.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/install.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/install/local.dir
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/CMakeFiles/install/strip.dir
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/main/CMakeFiles/__idf_main.dir
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/main/CMakeFiles/edit_cache.dir
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/main/CMakeFiles/rebuild_cache.dir

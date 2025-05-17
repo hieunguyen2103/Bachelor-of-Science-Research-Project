@@ -1,0 +1,98 @@
+[1/5] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Technology\esp-idf\setup\Espressif\frameworks\esp-idf-v5.3.2\examples\bluetooth\bluedroid\ble\gatt_server\build\esp-idf\esptool_py && D:\Technology\esp-idf\setup\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/partition_table/check_sizes.py --offset 0x8000 partition --type app D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/partition_table/partition-table.bin D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/gatt_server_demos.bin"
+gatt_server_demos.bin binary size 0x157750 bytes. Smallest app partition is 0x180000 bytes. 0x288b0 bytes (11%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Technology\esp-idf\setup\Espressif\frameworks\esp-idf-v5.3.2\examples\bluetooth\bluedroid\ble\gatt_server\build\bootloader\esp-idf\esptool_py && D:\Technology\esp-idf\setup\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6880 bytes. 0x780 bytes (7%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Technology\esp-idf\setup\Espressif\frameworks\esp-idf-v5.3.2\components\esptool_py && D:\Technology\esp-idf\setup\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2 -D SERIAL_TOOL=D:/Technology/esp-idf/setup/Espressif/python_env/idf5.3_py3.11_env/Scripts/python.exe;;D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build -P D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM5 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 gatt_server_demos.bin 0x8000 partition_table/partition-table.bin 0xe000 ota_data_initial.bin
+esptool.py v4.8.1
+Serial port COM5
+Connecting..............
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 08:d1:f9:27:d9:b4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x00167fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000e000 to 0x0000ffff...
+SHA digest in image updated
+Compressed 26752 bytes to 16360...
+Writing at 0x00001000... (100 %)
+Wrote 26752 bytes (16360 compressed) at 0x00001000 in 0.6 seconds (effective 374.7 kbit/s)...
+Hash of data verified.
+Compressed 1406800 bytes to 851975...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001f302... (3 %)
+Writing at 0x0002d55a... (5 %)
+Writing at 0x0003a073... (7 %)
+Writing at 0x00042460... (9 %)
+Writing at 0x0004ed00... (11 %)
+Writing at 0x00054c1f... (13 %)
+Writing at 0x0005ab2c... (15 %)
+Writing at 0x00060b9a... (16 %)
+Writing at 0x00066740... (18 %)
+Writing at 0x0006c1be... (20 %)
+Writing at 0x00071e75... (22 %)
+Writing at 0x00077a5d... (24 %)
+Writing at 0x0007e5ec... (26 %)
+Writing at 0x00084a92... (28 %)
+Writing at 0x0008add4... (30 %)
+Writing at 0x00090c6c... (32 %)
+Writing at 0x00096a9d... (33 %)
+Writing at 0x0009cd5a... (35 %)
+Writing at 0x000a2c1f... (37 %)
+Writing at 0x000a8d2a... (39 %)
+Writing at 0x000aea00... (41 %)
+Writing at 0x000b5274... (43 %)
+Writing at 0x000ba68f... (45 %)
+Writing at 0x000bf93d... (47 %)
+Writing at 0x000c50fb... (49 %)
+Writing at 0x000ca901... (50 %)
+Writing at 0x000cfcad... (52 %)
+Writing at 0x000d526e... (54 %)
+Writing at 0x000db0c9... (56 %)
+Writing at 0x000e1084... (58 %)
+Writing at 0x000e69e5... (60 %)
+Writing at 0x000ec5d4... (62 %)
+Writing at 0x000f233c... (64 %)
+Writing at 0x000f7b47... (66 %)
+Writing at 0x000fd899... (67 %)
+Writing at 0x00103e1a... (69 %)
+Writing at 0x0010980f... (71 %)
+Writing at 0x0010f35c... (73 %)
+Writing at 0x00115118... (75 %)
+Writing at 0x0011ac4d... (77 %)
+Writing at 0x00120b21... (79 %)
+Writing at 0x00126e19... (81 %)
+Writing at 0x0012caec... (83 %)
+Writing at 0x00132919... (84 %)
+Writing at 0x0013ce5c... (86 %)
+Writing at 0x00145382... (88 %)
+Writing at 0x0014b145... (90 %)
+Writing at 0x00150d04... (92 %)
+Writing at 0x0015620c... (94 %)
+Writing at 0x0015c583... (96 %)
+Writing at 0x00161d71... (98 %)
+Writing at 0x0016774f... (100 %)
+Wrote 1406800 bytes (851975 compressed) at 0x00010000 in 21.1 seconds (effective 532.9 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 119...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (119 compressed) at 0x00008000 in 0.0 seconds (effective 1143.8 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000e000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000e000 in 0.0 seconds (effective 2380.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
