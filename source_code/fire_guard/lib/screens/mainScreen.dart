@@ -176,6 +176,9 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -229,21 +232,37 @@ class _MainSCreenState extends State<MainScreen> {
           _isAccountActivated = true;
         });
 
-        final sensorDoc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .collection('data_sensor')
-            .doc('00000000')
-            .get();
-
-        final sensorData = sensorDoc.data();
-        if (sensorData != null) {
+        final url = Uri.parse('http://103.69.97.153:5000/get-sensor-data?user_id=${user.uid}');
+        final response = await http.get(url);
+        if(response.statusCode == 200)
+        {
+          final jsonData = json.decode(response.body);
           setState(() {
-            coLevel = (sensorData['Co_level'] as num).toDouble();
-            smokeLevel = (sensorData['Smoke_level'] as num).toDouble();
+            coLevel = (jsonData['co'] as num?)?.toDouble() ?? 0;
+            smokeLevel = (jsonData['smokes'] as num?)?.toDouble() ?? 0;
             _lastUpdated = DateTime.now();
           });
         }
+        else
+        {
+          print('Lỗi khi gọi API: ${response.statusCode}');
+        }
+
+        // final sensorDoc = await FirebaseFirestore.instance
+        //     .collection('users')
+        //     .doc(user.uid)
+        //     .collection('data_sensor')
+        //     .doc('00000000')
+        //     .get();
+
+        // final sensorData = sensorDoc.data();
+        // if (sensorData != null) {
+        //   setState(() {
+        //     coLevel = (sensorData['Co_level'] as num).toDouble();
+        //     smokeLevel = (sensorData['Smoke_level'] as num).toDouble();
+        //     _lastUpdated = DateTime.now();
+        //   });
+        // }
       }
     } catch (e) {
       print('Error loading user or sensor data: $e');
