@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/CMakeFiles/bootloader
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/CMakeFiles/bootloader.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/CMakeFiles/bootloader-complete.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader-complete.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
