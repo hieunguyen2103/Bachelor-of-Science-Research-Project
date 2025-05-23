@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationIconButton extends StatefulWidget {
   const NotificationIconButton({super.key});
@@ -12,40 +11,34 @@ class NotificationIconButton extends StatefulWidget {
 class _NotificationIconButtonState extends State<NotificationIconButton> {
   final List<Map<String, dynamic>> _alertHistory = [];
 
-  Future<void> _loadAlerts(BuildContext context) async {
-    const apiUrl = 'http://yourserver.com/api/latest-alert'; // sửa URL
+  @override
+  void initState() {
+    super.initState();
 
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        if (_isValidAlert(data)) {
-          setState(() {
-            // Nếu chưa có hoặc khác thời gian thì thêm
-            if (_alertHistory.isEmpty ||
-                data['timestamp'] != _alertHistory.first['timestamp']) {
-              _alertHistory.insert(0, data);
-            }
-          });
+    // Đăng ký topic chung để nhận thông báo từ FCM
+    FirebaseMessaging.instance.subscribeToTopic('fire_guard');
 
-          _showBottomSheet(context);
-        } else {
-          _showBottomSheet(context); // vẫn mở sheet nhưng không có dữ liệu
-        }
-      } else {
-        _showBottomSheet(context);
+    // Nhận thông báo khi app đang mở
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        final title = message.notification!.title ?? 'Thông báo';
+        final body = message.notification!.body ?? '';
+
+        _handlePushNotification(title, body);
       }
-    } catch (e) {
-      _showBottomSheet(context);
-    }
+    });
   }
 
-  bool _isValidAlert(dynamic data) {
-    return data != null &&
-        data is Map &&
-        data['type'] != null &&
-        data['location'] != null &&
-        data['timestamp'] != null;
+  void _handlePushNotification(String title, String body) {
+    setState(() {
+      _alertHistory.insert(0, {
+        'type': title,
+        'location': body,
+        'timestamp': DateTime.now().toString(),
+      });
+    });
+
+    _showBottomSheet(context);
   }
 
   void _showBottomSheet(BuildContext context) {
@@ -98,7 +91,7 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     return IconButton(
       icon: const Icon(Icons.notifications),
       color: Theme.of(context).colorScheme.primary,
-      onPressed: () => _loadAlerts(context),
+      onPressed: () => _showBottomSheet(context),  // chỉ mở sheet, không gọi API nữa
     );
   }
 }

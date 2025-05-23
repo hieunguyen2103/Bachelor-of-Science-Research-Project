@@ -80,5 +80,6 @@ D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetoo
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/perfmon/libperfmon.a
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/spiffs/libspiffs.a
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
-D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cJSON/libcJSON.a
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/dht11/libdht11.a
+D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/cjson/libcjson.a
 D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/esp-idf/main/libmain.a

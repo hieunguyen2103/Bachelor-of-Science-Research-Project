@@ -25,6 +25,8 @@
 #include "esp_log.h"
 #include "nvs_flash.h"
 #include "esp_bt.h"
+#include "driver/gpio.h"
+#include "driver/adc.h"
 
 #include "esp_gap_ble_api.h"
 #include "esp_gatts_api.h"
@@ -35,7 +37,7 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_netif.h"
-
+#include "dht11.h"
 #include "sdkconfig.h"
 
 // Thư viện để gửi data sensor lên server
@@ -69,6 +71,12 @@ static void gatts_profile_c_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 #define GATTS_DESCR_UUID_TEST_C     0x1111
 #define GATTS_NUM_HANDLE_TEST_C     4
 // #define PROFILE_C_APP_ID            2
+
+// Các chân GPIO cho cảm biến
+#define MQ2_PIN     GPIO_NUM_18
+#define MQ5_PIN     GPIO_NUM_19
+#define PIR_PIN     GPIO_NUM_33
+#define DHT11_PIN   GPIO_NUM_4
 
 
 static char test_device_name[ESP_BLE_ADV_NAME_LEN_MAX] = "ESP_NTH";
@@ -256,21 +264,42 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
 }
 
 void sensor_task(void *param) {
-    float temp = 1;
-    float co = 1;
-    float smoke = 1;
+    // Khởi tạo DHT11
+    dht11_init(DHT11_PIN);
+
+    // Cấu hình chân PIR là input
+    // gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
+
+    // Cấu hình ADC1 với độ phân giải 12-bit
+    adc1_config_width(ADC_WIDTH_BIT_12);
+    adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_DB_11); // MQ2 (GPIO18)
+    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11); // MQ5 (GPIO19)
 
     while (1) {
-        // Tăng giả lập
-        temp += 1;
-        co += 1;
-        smoke += 1;
-        if (temp > 100) temp = 1;
-        if (co > 100) co = 1;
-        if (smoke > 100) smoke = 1;
+        int mq2_raw = adc1_get_raw(ADC1_CHANNEL_6);
+        int mq5_raw = adc1_get_raw(ADC1_CHANNEL_7);
+        int temp = 0, humidity = 0;
+        // int pir_raw = gpio_get_level(PIR_PIN);
 
-        send_sensor_data(g_userid, temp, co, smoke);
-        vTaskDelay(5000 / portTICK_PERIOD_MS);
+        esp_err_t result = dht11_read(DHT11_PIN, &temp, &humidity);
+
+        if(result == ESP_OK)
+        {
+            float co = mq2_raw * 3.3f / 4095.0f;
+            float smoke = mq5_raw * 3.3f / 4095.0f;
+            ESP_LOGI("SENSOR", "Temp: %d°C | Humi: %d%% | CO: %.2f V | Smoke: %.2f V", temp, humidity, co, smoke);
+        
+            // Gửi dữ liệu lên server nếu có Wi-Fi
+            send_sensor_data(g_userid, (float)temp, co, smoke);
+        }
+        else
+        {
+            ESP_LOGE("DHT11", "READ DHT11 FAILED!");
+            // vTaskDelay(pdMS_TO_TICKS(1000));
+            // continue;
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(5000));
     }
 }
 
@@ -461,7 +490,7 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             ESP_LOG_BUFFER_HEX(GATTS_TAG, param->write.value, param->write.len);
             char ssid_str[65] = {0};
             memcpy(ssid_str, param->write.value, param->write.len);
-            ESP_LOGI(GATTS_TAG, "SSID nhận được: %s", ssid_str);
+            ESP_LOGI(GATTS_TAG, "SSID receive: %s", ssid_str);
             strncpy(g_ssid, ssid_str, sizeof(g_ssid));
 
             if (gl_profile_tab[PROFILE_A_APP_ID].descr_handle == param->write.handle && param->write.len == 2){
@@ -638,7 +667,7 @@ static void gatts_profile_b_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             ESP_LOG_BUFFER_HEX(GATTS_TAG, param->write.value, param->write.len);
             char pass_str[65] = {0};
             memcpy(pass_str, param->write.value, param->write.len);
-            ESP_LOGI(GATTS_TAG, "PASSWORD nhận được: %s", pass_str);
+            ESP_LOGI(GATTS_TAG, "PASSWORD receive: %s", pass_str);
 
             strncpy(g_pass, pass_str, sizeof(g_pass));
             // wifi_connect(g_ssid, g_pass);
@@ -796,7 +825,7 @@ static void gatts_profile_c_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             ESP_LOG_BUFFER_HEX(GATTS_TAG, param->write.value, param->write.len);
             char user_str[65] = {0};
             memcpy(user_str, param->write.value, param->write.len);
-            ESP_LOGI(GATTS_TAG, "User ID nhận được: %s", user_str);
+            ESP_LOGI(GATTS_TAG, "User ID receive: %s", user_str);
 
             strncpy(g_userid, user_str, sizeof(g_userid));
 
@@ -952,7 +981,7 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
 
 void wifi_connect(const char *ssid, const char *pass)
 {
-    ESP_LOGI(GATTS_TAG, "👉 Bắt đầu kết nối Wi-Fi với SSID: %s", ssid);
+    ESP_LOGI(GATTS_TAG, "Start connect Wi-fi: %s", ssid);
 
     static bool wifi_inited = false;
 
@@ -1008,9 +1037,9 @@ void ble_notify_wifi_ok()
     );
 
     if (err != ESP_OK) {
-        ESP_LOGE(GATTS_TAG, "Gửi notify thất bại: %s", esp_err_to_name(err));
+        ESP_LOGE(GATTS_TAG, "Send notify failed: %s", esp_err_to_name(err));
     } else {
-        ESP_LOGI(GATTS_TAG, "Đã gửi notify: Wifi Connected");
+        ESP_LOGI(GATTS_TAG, "Send notify success: Wifi Connected");
     }
 }
 
