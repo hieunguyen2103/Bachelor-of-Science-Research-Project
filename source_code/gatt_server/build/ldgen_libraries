@@ -159,5 +159,9 @@
 /home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 /home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/json/libjson.a
 /home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/cJSON/libcJSON.a
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/dht/libdht.a
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/sensor_filter/libsensor_filter.a
 /home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/main/libmain.a
 /home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/cJSON/libcJSON.a
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/dht/libdht.a
+/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/sensor_filter/libsensor_filter.a

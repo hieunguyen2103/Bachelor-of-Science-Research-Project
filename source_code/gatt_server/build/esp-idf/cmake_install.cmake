@@ -564,6 +564,21 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/esp_idf_lib_helpers/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/dht/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/sensor_filter/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/main/cmake_install.cmake")
 endif()
 

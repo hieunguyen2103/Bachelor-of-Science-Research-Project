@@ -46,6 +46,9 @@
 #include "esp_http_client.h"
 #include "cJSON.h"  
 
+#include "dht.h"
+#include "sensor_filter.h"
+#include <math.h>
 
 #define GATTS_TAG "GATTS_DEMO"
 static char g_ssid[64] = {0};
@@ -101,7 +104,16 @@ static uint8_t adv_config_done = 0;
 // define sensor
 #define MP2_CHANNEL ADC1_CHANNEL_6  // GPIO34
 #define MQ7_CHANNEL ADC1_CHANNEL_7  // GPIO35
-#define DHT11_CHANNEL ADC1_CHANNEL_4  // GPIO32
+//#define DHT11_CHANNEL ADC1_CHANNEL_4  // GPIO32
+#define DHT_GPIO 33
+#define DHT_TYPE DHT_TYPE_DHT11
+#define PIR_GPIO        GPIO_NUM_32
+
+static const char *TAG = "DHT11_APP";
+
+#define EMA_ALPHA_SMOKE  0.2             // Độ mượt (0.1 - 0.3 là hợp lý)
+#define EMA_ALPHA_CO 0.1
+
 
 #define TEMP_THRESHOLD 50.0    // Ngưỡng nhiệt độ
 #define CO_THRESHOLD 2500.0     // Ngưỡng CO
@@ -243,96 +255,40 @@ void ble_notify_wifi_ok();
 ******************************************************************************************************
 */
 
-typedef struct {
-    float temperature;
-    float humidity;
-} dht11_data_t;
-
-// Hàm delay bằng vòng lặp (tạo delay ngắn)
-//static void delay_us(uint32_t us) {
-//    uint32_t start = esp_timer_get_time();
-//    while ((esp_timer_get_time() - start) < us) {
-        // chờ cho đến khi đủ micro giây
-//    }
-//}
-
-// Đọc dữ liệu từ DHT11
-static int read_dht11(dht11_data_t *data) {
-    uint8_t bits[5] = {0};
-    uint8_t checksum = 0;
-
-    // Khởi tạo chân DHT11
-    gpio_set_direction(DHT11_CHANNEL, GPIO_MODE_OUTPUT);
-    gpio_set_level(DHT11_CHANNEL, 0);
-    vTaskDelay(pdMS_TO_TICKS(18)); 
-    gpio_set_level(DHT11_CHANNEL, 1);
-    vTaskDelay(pdMS_TO_TICKS(30 / 1000));     // Mức cao 20-40 µs
-
-    gpio_set_direction(DHT11_CHANNEL, GPIO_MODE_INPUT);
-
-    // Kiểm tra tín hiệu phản hồi từ DHT11
-    if (gpio_get_level(DHT11_CHANNEL) == 1) return -1;
-    vTaskDelay(pdMS_TO_TICKS(80 / 1000));
-    if (gpio_get_level(DHT11_CHANNEL) == 0) return -1;
-    vTaskDelay(pdMS_TO_TICKS(80 / 1000));
-
-    // Đọc 40 bit dữ liệu
-    for (int i = 0; i < 40; i++) {
-        while (gpio_get_level(DHT11_CHANNEL) == 0);  // Chờ bit bắt đầu
-        vTaskDelay(pdMS_TO_TICKS(40 / 1000));  // Đợi 40 µs để xác định 0 hoặc 1
-        bits[i / 8] <<= 1;
-        if (gpio_get_level(DHT11_CHANNEL) == 1) {
-            bits[i / 8] |= 1;
-        }
-        while (gpio_get_level(DHT11_CHANNEL) == 1);  // Chờ bit kết thúc
-    }
-
-    // Kiểm tra checksum
-    checksum = bits[0] + bits[1] + bits[2] + bits[3];
-    if (checksum != bits[4]) {
-        //ESP_LOGE(TAG, "Checksum không hợp lệ");
-        return -1;
-    }
-
-    // Ghép giá trị nhiệt độ và độ ẩm
-    data->humidity = bits[0];
-    data->temperature = bits[2];
-
-    return 0;
-}
-
 // Hàm đọc nhiệt độ từ DHT11
-static float get_temperature() {
-    dht11_data_t dht11_data;
-    if (read_dht11(&dht11_data) == 0) {
-        //ESP_LOGI(TAG, "Nhiệt độ: %.1f°C", dht11_data.temperature);
-        return dht11_data.temperature;
+float get_temperature() {
+    int16_t temperature = 0;
+    int16_t humidity = 0;
+    esp_err_t ret = dht_read_data(DHT_TYPE, DHT_GPIO, &humidity, &temperature);
+    if (ret == ESP_OK) {
+        ESP_LOGI(TAG, "Nhiệt độ: %d.%d °C", temperature / 10, abs(temperature % 10));
+        return temperature / 10.0; // Trả về giá trị nhiệt độ
+    } else {
+        ESP_LOGE(TAG, "Lỗi đọc nhiệt độ: %s", esp_err_to_name(ret));
+        return -1.0; // Trả về giá trị lỗi
     }
-    //ESP_LOGE(TAG, "Không thể đọc dữ liệu từ DHT11");
-    return -1.0;
 }
-
 
 
 // hàm tắt quạt và còi khi nhấn nút
-static void IRAM_ATTR button_isr_handler(void *arg)
-{
-    ESP_LOGI("BUTTON", "Nút nhấn - Tắt còi và quạt");
-    gpio_set_level(RELAY_ALARM_GPIO, 0);  // Tắt còi
-    gpio_set_level(RELAY_FAN_GPIO, 0);    // Tắt quạt
-    alarm_active = false;                 // Hủy trạng thái cảnh báo
-}
+//static void IRAM_ATTR button_isr_handler(void *arg)
+//{
+//    ESP_LOGI("BUTTON", "Nút nhấn - Tắt còi và quạt");
+//    gpio_set_level(RELAY_ALARM_GPIO, 0);  // Tắt còi
+//    gpio_set_level(RELAY_FAN_GPIO, 0);    // Tắt quạt
+//    alarm_active = false;                 // Hủy trạng thái cảnh báo
+//}
 
-static void init_button()
-{
-    gpio_reset_pin(BUTTON_GPIO);
-    gpio_set_direction(BUTTON_GPIO, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(BUTTON_GPIO, GPIO_PULLUP_ONLY);  // Kéo lên mặc định
-    gpio_set_intr_type(BUTTON_GPIO, GPIO_INTR_NEGEDGE); // Ngắt khi nhấn (mức thấp)
+//static void init_button()
+//{
+//    gpio_reset_pin(BUTTON_GPIO);
+//    gpio_set_direction(BUTTON_GPIO, GPIO_MODE_INPUT);
+//    gpio_set_pull_mode(BUTTON_GPIO, GPIO_PULLUP_ONLY);  // Kéo lên mặc định
+//    gpio_set_intr_type(BUTTON_GPIO, GPIO_INTR_NEGEDGE); // Ngắt khi nhấn (mức thấp)
 
-    gpio_install_isr_service(0);
-    gpio_isr_handler_add(BUTTON_GPIO, button_isr_handler, NULL);
-}
+//    gpio_install_isr_service(0);
+//    gpio_isr_handler_add(BUTTON_GPIO, button_isr_handler, NULL);
+//}
 
 static void init_relay()
 {
@@ -359,6 +315,8 @@ static void control_relay(float temp, float co, float smoke)
 }
 
 // Hàm đọc và lọc tín hiệu sensor
+
+//bộ lọc trung bình
 static int read_adc_filtered(adc1_channel_t channel) {
     int sum = 0;
     for (int i = 0; i < 10; i++) {
@@ -367,8 +325,6 @@ static int read_adc_filtered(adc1_channel_t channel) {
     }
     return sum / 10; // giá trị trung bình
 }
-
-
 
 void send_sensor_data(const char *user_id, float temp, float co, float smoke)
 {
@@ -405,17 +361,29 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
 
 void sensor_task(void *param) {
     init_relay();
-    init_button();
+    //init_button();
+    
     while (1) {
-        float temp = get_temperature();
-        float co = read_adc_filtered(MQ7_CHANNEL);
-        float smoke = read_adc_filtered(MP2_CHANNEL);
+        //DHT11
+        float raw_temp = get_temperature();
+        float temp = filter_dht11_temperature(raw_temp);
+        ESP_LOGI("Sensor", "[DHT11] Nhiệt độ (raw): %.2f°C, sau lọc: %.2f°C", raw_temp, temp);
 
-        ESP_LOGI("Sensor", "Nhiệt độ: %.2f, CO: %.2f, Khói: %.2f", temp, co, smoke);
+        //MQ7 CO
+        int raw_co = read_adc_filtered(MQ7_CHANNEL);
+        int filtered_co = filter_mq7_apply_ema(raw_co, 0.3f);
+        ESP_LOGI("Sensor", "[MQ7] CO (raw): %d, sau lọc EMA: %d", raw_co, filtered_co);
 
-        control_relay(temp, co, smoke);
+        //MQ2 Smoke
+        float raw_smoke = read_adc_filtered(MP2_CHANNEL);
+        int filtered_smoke = filter_mq2_apply(raw_smoke, 10);
+        ESP_LOGI("Sensor", "[MQ2] Khói (raw): %d, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
 
-        send_sensor_data(g_userid, temp, co, smoke);
+        ESP_LOGI("Sensor", "Nhiệt độ: %.2f, CO: %d, Khói: %d", temp, filtered_co, filtered_smoke);
+
+        control_relay(temp, filtered_co, filtered_smoke);
+
+        send_sensor_data(g_userid, temp, filtered_co, filtered_smoke);
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
