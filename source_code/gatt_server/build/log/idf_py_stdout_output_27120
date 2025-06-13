@@ -1,0 +1,325 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3.2-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Jun 12 2025 14:01:25[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v3.1[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00180000[0m
+[0;32mI (92) boot:  3 storage          Unknown data     01 82 00190000 00060000[0m
+[0;32mI (100) boot: End of partition table[0m
+[0;32mI (104) boot: Defaulting to factory image[0m
+[0;32mI (109) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=392c8h (234184) map[0m
+[0;32mI (197) esp_image: segment 1: paddr=000492f0 vaddr=3ffbdb60 size=05dfch ( 24060) load[0m
+[0;32mI (207) esp_image: segment 2: paddr=0004f0f4 vaddr=40080000 size=00f24h (  3876) load[0m
+[0;32mI (208) esp_image: segment 3: paddr=00050020 vaddr=400d0020 size=fceb4h (1035956) map[0m
+[0;32mI (569) esp_image: segment 4: paddr=0014cedc vaddr=40080f24 size=1d9e0h (121312) load[0m
+[0;32mI (632) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (632) boot: Disabling RNG early entropy source...[0m
+[0;32mI (645) cpu_start: Multicore app[0m
+[0;32mI (653) cpu_start: Pro cpu start user code[0m
+[0;32mI (653) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (653) app_init: Application information:[0m
+[0;32mI (656) app_init: Project name:     gatt_server[0m
+[0;32mI (661) app_init: App version:      8b34b3dc-dirty[0m
+[0;32mI (667) app_init: Compile time:     Jun 12 2025 14:01:17[0m
+[0;32mI (673) app_init: ELF file SHA256:  ac7a83a23...[0m
+[0;32mI (678) app_init: ESP-IDF:          v5.3.2-dirty[0m
+[0;32mI (683) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (688) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (693) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (698) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (705) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (711) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (717) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (723) heap_init: At 3FFCC190 len 00013E70 (79 KiB): DRAM[0m
+[0;32mI (729) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (736) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (742) heap_init: At 4009E904 len 000016FC (5 KiB): IRAM[0m
+[0;32mI (750) spi_flash: detected chip: generic[0m
+[0;32mI (753) spi_flash: flash io: dio[0m
+[0;33mW (757) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (770) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (779) coexist: coex firmware version: cbb41d7[0m
+[0;32mI (784) main_task: Started on CPU0[0m
+[0;32mI (794) main_task: Calling app_main()[0m
+[0;32mI (824) BLE: Đã lưu tên BLE vào NVS: ESP_NTH_EE111A[0m
+[0;32mI (824) BLE: Đã khôi phục tên BLE: ESP_NTH_EE111A[0m
+[0;32mI (824) BTDM_INIT: BT controller compile version [faadb75][0m
+[0;32mI (834) BTDM_INIT: Bluetooth MAC: 08:d1:f9:ee:11:1a[0m
+[0;32mI (834) phy_init: phy_version 4840,02e0d70,Sep  2 2024,19:39:07[0m
+[0;32mI (1234) GATTS_DEMO: GATT server register, status 0, app_id 0, gatts_if 3[0m
+[0;32mI (1234) main_task: Returned from app_main()[0m
+[0;32mI (1244) GATTS_DEMO: Service create, status 0, service_handle 40[0m
+[0;32mI (1244) GATTS_DEMO: GATT server register, status 0, app_id 1, gatts_if 4[0m
+[0;32mI (1244) GATTS_DEMO: GATT server register, status 0, app_id 2, gatts_if 5[0m
+[0;32mI (1274) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (1274) GATTS_DEMO: Service start, status 0, service_handle 40[0m
+[0;32mI (1274) GATTS_DEMO: Characteristic add, status 0, attr_handle 42, service_handle 40[0m
+[0;32mI (1284) GATTS_DEMO: the gatts demo char length = 3[0m
+[0;32mI (1284) GATTS_DEMO: prf_char[0] =11[0m
+[0;32mI (1294) GATTS_DEMO: prf_char[1] =22[0m
+[0;32mI (1294) GATTS_DEMO: prf_char[2] =33[0m
+[0;32mI (1304) GATTS_DEMO: Service create, status 0,  service_handle 44[0m
+[0;32mI (1304) GATTS_DEMO: Service create, status 0,  service_handle 48[0m
+[0;32mI (1314) GATTS_DEMO: Descriptor add, status 0, attr_handle 43, service_handle 40[0m
+[0;32mI (1324) GATTS_DEMO: Service start, status 0, service_handle 44[0m
+[0;32mI (1324) GATTS_DEMO: Characteristic add, status 0, attr_handle 46, service_handle 44[0m
+[0;32mI (1334) GATTS_DEMO: Service start, status 0, service_handle 48[0m
+[0;32mI (1344) GATTS_DEMO: Characteristic add, status 0, attr_handle 50, service_handle 48[0m
+[0;32mI (1354) GATTS_DEMO: Descriptor add, status 0, attr_handle 47, service_handle 44[0m
+[0;32mI (1364) GATTS_DEMO: Descriptor add, status 0, attr_handle 51, service_handle 48[0m
+[0;32mI (28614) GATTS_DEMO: Connected, conn_id 0, remote 6c:0e:7f:78:0a:03[0m
+[0;32mI (28614) GATTS_DEMO: Connected, conn_id 0, remote 6c:0e:7f:78:0a:03[0m
+[0;32mI (28614) GATTS_DEMO: Connected, conn_id 0, remote 6c:0e:7f:78:0a:03[0m
+[0;32mI (28704) GATTS_DEMO: Packet length update, status 0, rx 27, tx 251[0m
+[0;32mI (29244) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (29704) GATTS_DEMO: Connection params update, status 0, conn_int 6, latency 0, timeout 500[0m
+[0;32mI (30144) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (30144) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (30144) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (30214) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (30264) GATTS_DEMO: Packet length update, status 0, rx 251, tx 251[0m
+[0;32mI (39944) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 2, handle 51[0m
+[0;32mI (39944) GATTS_DEMO: value len 2, value [0m
+[0;32mI (39944) GATTS_DEMO: 01 00 [0m
+[0;32mI (39944) GATTS_DEMO: User ID receive: [0m
+[0;32mI (39954) GATTS_DEMO: Start connect Wi-fi: [0m
+[0;32mI (39974) wifi:wifi driver task: 3ffd6718, prio:23, stack:6656, core=0[0m
+[0;32mI (39984) wifi:wifi firmware version: b0fd6006b[0m
+[0;32mI (39984) wifi:wifi certification version: v7.0[0m
+[0;32mI (39984) wifi:config NVS flash: enabled[0m
+[0;32mI (39984) wifi:config nano formating: disabled[0m
+[0;32mI (39994) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (39994) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (40004) wifi:Init management short buffer num: 32[0m
+[0;32mI (40004) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (40014) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (40014) wifi:Init static rx buffer num: 10[0m
+[0;32mI (40014) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (40024) wifi_init: rx ba win: 6[0m
+[0;32mI (40024) wifi_init: accept mbox: 6[0m
+[0;32mI (40034) wifi_init: tcpip mbox: 32[0m
+[0;32mI (40034) wifi_init: udp mbox: 6[0m
+[0;32mI (40034) wifi_init: tcp mbox: 6[0m
+[0;32mI (40044) wifi_init: tcp tx win: 5760[0m
+[0;32mI (40044) wifi_init: tcp rx win: 5760[0m
+[0;32mI (40054) wifi_init: tcp mss: 1440[0m
+[0;32mI (40054) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (40064) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (40064) wifi:Password length is zero, but authmode threshold is 3, making it impossible to connect to an AP with authmode OPEN[0m
+[0;32mI (40124) wifi:mode : sta (08:d1:f9:ee:11:18)[0m
+[0;32mI (40124) wifi:enable tsf[0m
+[0;31mE (45134) GATTS_DEMO: Wi-Fi kết nối thất bại sau 5 giây[0m
+[0;32mI (45134) GATTS_DEMO: Send notify success[0m
+[0;32mI (45134) GATTS_DEMO: Notification enable[0m
+[0;32mI (45144) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (45144) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (45344) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 3, handle 42[0m
+[0;32mI (45344) GATTS_DEMO: value len 6, value [0m
+[0;32mI (45344) GATTS_DEMO: 54 61 6e 67 20 34 [0m
+[0;32mI (45344) GATTS_DEMO: SSID received: Tang 4[0m
+[0;32mI (45414) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 4, handle 46[0m
+[0;32mI (45414) GATTS_DEMO: value len 16, value [0m
+[0;32mI (45414) GATTS_DEMO: 6e 67 75 79 65 6e 74 68 69 63 68 69 30 31 30 39 [0m
+[0;32mI (45424) GATTS_DEMO: PASSWORD receive: nguyenthichi0109[0m
+[0;32mI (45494) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 5, handle 50[0m
+[0;32mI (45494) GATTS_DEMO: value len 28, value [0m
+[0;32mI (45494) GATTS_DEMO: 58 6f 79 49 47 76 35 45 72 32 58 4f 71 79 4a 6a [0m
+[0;32mI (45504) GATTS_DEMO: 74 6b 4a 45 71 38 6d 43 59 32 6c 31 [0m
+[0;32mI (45504) GATTS_DEMO: User ID receive: XoyIGv5Er2XOqyJjtkJEq8mCY2l1[0m
+[0;32mI (45514) GATTS_DEMO: Start connect Wi-fi: Tang 4[0m
+[0;32mI (45524) wifi:flush txq[0m
+[0;32mI (45524) wifi:stop sw txq[0m
+[0;32mI (45524) wifi:lmac stop hw txq[0m
+[0;32mI (45594) wifi:mode : sta (08:d1:f9:ee:11:18)[0m
+[0;32mI (45594) wifi:enable tsf[0m
+[0;32mI (47064) wifi:new:<7,2>, old:<1,0>, ap:<255,255>, sta:<7,2>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (47074) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (47074) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (47084) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (47104) wifi:connected with Tang 4, aid = 4, channel 7, 40D, bssid = c4:6e:1f:9c:f0:ba[0m
+[0;32mI (47104) wifi:security: WPA2-PSK, phy: bgn, rssi: -62[0m
+[0;32mI (47124) wifi:pm start, type: 1[0m
+
+[0;32mI (47124) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (47124) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (48134) esp_netif_handlers: sta ip: 192.168.1.105, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (48134) WiFi: Đã nhận IP, kết nối thành công[0m
+[0;32mI (48134) GATTS_DEMO: Wi-Fi đã kết nối thành công.[0m
+[0;32mI (48144) GATTS_DEMO: Send notify success[0m
+[0;32mI (48144) gpio: GPIO[25]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (48154) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (48154) gpio: GPIO[26]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;31mE (48194) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (48194) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (48194) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (48304) Sensor: [MQ7] CO (raw): 2173, sau lọc EMA: 2173[0m
+[0;32mI (48404) Sensor: [MQ2] Khói (raw): 3065.00, sau lọc TB + ngưỡng: 3065[0m
+[0;32mI (48404) Sensor: Nhiệt độ: -1.00, CO: 2173, Khói: 3065[0m
+[0;33mW (48404) ALARM: Cảnh báo: Nhiệt độ hoặc khí vượt ngưỡng![0m
+[0;32mI (48414) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (48454) wifi:<ba-add>idx:0 (ifx:0, c4:6e:1f:9c:f0:ba), tid:0, ssn:0, winSize:64[0m
+[0;31mE (48544) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (48544) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (48544) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (48554) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2173,"smokes":3065}[0m
+[0;31mE (48564) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;31mE (53594) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (53594) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (53594) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (53704) Sensor: [MQ7] CO (raw): 1541, sau lọc EMA: 1983[0m
+[0;32mI (53804) Sensor: [MQ2] Khói (raw): 2779.00, sau lọc TB + ngưỡng: 2779[0m
+[0;32mI (53804) Sensor: Nhiệt độ: -1.00, CO: 1983, Khói: 2779[0m
+[0;32mI (53804) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (54484) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (54484) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (54484) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (54494) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":1983,"smokes":2779}[0m
+[0;31mE (54504) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;31mE (59534) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (59534) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (59534) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (59644) Sensor: [MQ7] CO (raw): 2222, sau lọc EMA: 2054[0m
+[0;32mI (59744) Sensor: [MQ2] Khói (raw): 2429.00, sau lọc TB + ngưỡng: 2429[0m
+[0;32mI (59744) Sensor: Nhiệt độ: -1.00, CO: 2054, Khói: 2429[0m
+[0;32mI (59744) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (60434) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2054,"smokes":2429}[0m
+[0;32mI (60444) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (65464) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (65464) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (65464) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (65574) Sensor: [MQ7] CO (raw): 2347, sau lọc EMA: 2142[0m
+[0;32mI (65674) Sensor: [MQ2] Khói (raw): 2930.00, sau lọc TB + ngưỡng: 2930[0m
+[0;32mI (65674) Sensor: Nhiệt độ: -1.00, CO: 2142, Khói: 2930[0m
+[0;32mI (65674) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (66074) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2142,"smokes":2930}[0m
+[0;32mI (66074) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (71094) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (71094) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (71094) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (71204) Sensor: [MQ7] CO (raw): 2178, sau lọc EMA: 2153[0m
+[0;32mI (71304) Sensor: [MQ2] Khói (raw): 2609.00, sau lọc TB + ngưỡng: 2609[0m
+[0;32mI (71304) Sensor: Nhiệt độ: -1.00, CO: 2153, Khói: 2609[0m
+[0;32mI (71304) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (71794) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2153,"smokes":2609}[0m
+[0;32mI (71804) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (76824) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (76824) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (76824) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (76934) Sensor: [MQ7] CO (raw): 2481, sau lọc EMA: 2251[0m
+[0;32mI (77034) Sensor: [MQ2] Khói (raw): 2810.00, sau lọc TB + ngưỡng: 2810[0m
+[0;32mI (77034) Sensor: Nhiệt độ: -1.00, CO: 2251, Khói: 2810[0m
+[0;32mI (77034) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (77434) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2251,"smokes":2810}[0m
+[0;32mI (77434) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (82464) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (82464) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (82464) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (82574) Sensor: [MQ7] CO (raw): 2231, sau lọc EMA: 2245[0m
+[0;32mI (82674) Sensor: [MQ2] Khói (raw): 2836.00, sau lọc TB + ngưỡng: 2836[0m
+[0;32mI (82674) Sensor: Nhiệt độ: -1.00, CO: 2245, Khói: 2836[0m
+[0;32mI (82674) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (83064) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2245,"smokes":2836}[0m
+[0;32mI (83064) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (88094) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (88094) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (88094) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (88204) Sensor: [MQ7] CO (raw): 1637, sau lọc EMA: 2062[0m
+[0;32mI (88304) Sensor: [MQ2] Khói (raw): 2586.00, sau lọc TB + ngưỡng: 2586[0m
+[0;32mI (88304) Sensor: Nhiệt độ: -1.00, CO: 2062, Khói: 2586[0m
+[0;32mI (88304) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (88694) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2062,"smokes":2586}[0m
+[0;32mI (88704) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (93724) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (93724) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (93724) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (93834) Sensor: [MQ7] CO (raw): 1881, sau lọc EMA: 2008[0m
+[0;32mI (93934) Sensor: [MQ2] Khói (raw): 2915.00, sau lọc TB + ngưỡng: 2915[0m
+[0;32mI (93934) Sensor: Nhiệt độ: -1.00, CO: 2008, Khói: 2915[0m
+[0;32mI (93934) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (94324) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2008,"smokes":2915}[0m
+[0;32mI (94324) HTTP: Gửi thành công! Status = 200[0m
+[0;33mW (97424) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (97434) GATTS_DEMO: Disconnected, remote 6c:0e:7f:78:0a:03, reason 0x13[0m
+[0;32mI (97434) GATTS_DEMO: Disconnected, remote 6c:0e:7f:78:0a:03, reason 0x13[0m
+[0;32mI (97434) GATTS_DEMO: Disconnected, remote 6c:0e:7f:78:0a:03, reason 0x13[0m
+[0;32mI (97464) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (97474) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (97484) GATTS_DEMO: Advertising start successfully[0m
+[0;31mE (99354) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (99354) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (99354) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (99464) Sensor: [MQ7] CO (raw): 2386, sau lọc EMA: 2121[0m
+[0;32mI (99564) Sensor: [MQ2] Khói (raw): 2683.00, sau lọc TB + ngưỡng: 2683[0m
+[0;32mI (99564) Sensor: Nhiệt độ: -1.00, CO: 2121, Khói: 2683[0m
+[0;32mI (99564) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (100164) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2121,"smokes":2683}[0m
+[0;32mI (100164) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (105194) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (105194) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (105194) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (105304) Sensor: [MQ7] CO (raw): 2194, sau lọc EMA: 2143[0m
+[0;32mI (105404) Sensor: [MQ2] Khói (raw): 2598.00, sau lọc TB + ngưỡng: 2598[0m
+[0;32mI (105404) Sensor: Nhiệt độ: -1.00, CO: 2143, Khói: 2598[0m
+[0;32mI (105404) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;33mW (110534) HTTP_CLIENT: Connection timed out before data was ready![0m
+[0;32mI (110534) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2143,"smokes":2598}[0m
+[0;31mE (110544) HTTP: Gửi thất bại: ESP_ERR_HTTP_EAGAIN[0m
+[0;31mE (115564) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (115564) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (115564) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (115674) Sensor: [MQ7] CO (raw): 1946, sau lọc EMA: 2084[0m
+[0;32mI (115774) Sensor: [MQ2] Khói (raw): 2826.00, sau lọc TB + ngưỡng: 2826[0m
+[0;32mI (115774) Sensor: Nhiệt độ: -1.00, CO: 2084, Khói: 2826[0m
+[0;32mI (115774) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;33mW (120974) HTTP_CLIENT: Connection timed out before data was ready![0m
+[0;32mI (120974) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2084,"smokes":2826}[0m
+[0;31mE (120984) HTTP: Gửi thất bại: ESP_ERR_HTTP_EAGAIN[0m
+[0;31mE (126004) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (126004) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (126004) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (126114) Sensor: [MQ7] CO (raw): 3008, sau lọc EMA: 2361[0m
+[0;32mI (126214) Sensor: [MQ2] Khói (raw): 3722.00, sau lọc TB + ngưỡng: 3722[0m
+[0;32mI (126214) Sensor: Nhiệt độ: -1.00, CO: 2361, Khói: 3722[0m
+[0;32mI (126214) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;33mW (131314) HTTP_CLIENT: Connection timed out before data was ready![0m
+[0;32mI (131314) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2361,"smokes":3722}[0m
+[0;31mE (131324) HTTP: Gửi thất bại: ESP_ERR_HTTP_EAGAIN[0m
+[0;31mE (136344) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (136344) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (136344) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (136454) Sensor: [MQ7] CO (raw): 2667, sau lọc EMA: 2453[0m
+[0;32mI (136554) Sensor: [MQ2] Khói (raw): 3115.00, sau lọc TB + ngưỡng: 3115[0m
+[0;32mI (136554) Sensor: Nhiệt độ: -1.00, CO: 2453, Khói: 3115[0m
+[0;32mI (136554) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;33mW (141664) HTTP_CLIENT: Connection timed out before data was ready![0m
+[0;32mI (141664) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2453,"smokes":3115}[0m
+[0;31mE (141674) HTTP: Gửi thất bại: ESP_ERR_HTTP_EAGAIN[0m
+[0;31mE (146694) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (146694) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (146694) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (146804) Sensor: [MQ7] CO (raw): 2273, sau lọc EMA: 2399[0m
+[0;32mI (146904) Sensor: [MQ2] Khói (raw): 2790.00, sau lọc TB + ngưỡng: 2790[0m
+[0;32mI (146904) Sensor: Nhiệt độ: -1.00, CO: 2399, Khói: 2790[0m
+[0;32mI (146904) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;33mW (152074) HTTP_CLIENT: Connection timed out before data was ready![0m
+[0;32mI (152074) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_EE111A","temp":-1,"co":2399,"smokes":2790}[0m
+[0;31mE (152084) HTTP: Gửi thất bại: ESP_ERR_HTTP_EAGAIN[0m

@@ -26,6 +26,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
   String originalFullName = '';
   String originalPhone = '';
   String originalEmail = '';
+  String originalFloor = '';
   String currentPassword = ''; 
 
   String newPassword = '';
@@ -33,6 +34,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
   String phone = '';
   String email = '';
   String password = '';
+  String selectedFloor = '';
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _getUser() async
@@ -57,7 +59,9 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
             fullName = data['fullname'] ?? '';
             phone = data.containsKey('phone') ? data['phone'] ?? '' : '';
             email = data['email'];
+            selectedFloor = data['level_id'] ?? '';
 
+            originalFloor = selectedFloor;
             originalFullName = fullName;
             originalPhone = phone;
             originalEmail = email;
@@ -116,6 +120,10 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
         updateData['phone'] = phone;
       }
 
+      if (selectedFloor != originalFloor && selectedFloor.isNotEmpty) {
+        updateData['level_id'] = selectedFloor;
+      }
+
       if (updateData.isNotEmpty) {
         await FirebaseFirestore.instance.collection('users').doc(uid).update(updateData);
       }
@@ -129,7 +137,11 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cập nhật thành công')),
+        SnackBar(
+          content: Text('Cập nhật thành công'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
       );
     } catch (e) {
       print('Update failed: $e');
@@ -205,6 +217,26 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
                             validator: (value) =>
                                 value!.contains('@') ? null : 'Email không hợp lệ',
                           ),
+                          SizedBox(height: 12),
+                          DropdownMenu<String>(
+                            initialSelection: selectedFloor,
+                            label: const Text('Tầng'),
+                            width: MediaQuery.of(context).size.width - 32, // same width as form
+                            leadingIcon: const Icon(Icons.apartment),
+                            onSelected: (value) {
+                              setState(() {
+                                selectedFloor = value!;
+                              });
+                            },
+                            dropdownMenuEntries: List.generate(9, (index) {
+                              final value = (index + 1).toString().padLeft(2, '0');
+                              return DropdownMenuEntry(
+                                value: value,
+                                label: 'Tầng ${index + 1}',
+                              );
+                            }),
+                          ),
+
                           SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: _updateUser,

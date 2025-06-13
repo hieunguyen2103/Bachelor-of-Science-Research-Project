@@ -1,4 +1,4 @@
-# Install script for directory: D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/components/cjson
+# Install script for directory: D:/Technology/DANC/backup/gatt_server/components/cjson
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

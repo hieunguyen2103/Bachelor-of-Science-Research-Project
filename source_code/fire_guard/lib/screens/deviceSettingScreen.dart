@@ -223,7 +223,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
   }
 
   // Hàm gửi ssid và password
-  Future<void> _sendWifi(BluetoothDevice device, String ssid, String password, String userID) async {
+  Future<void> _sendWifi(BluetoothDevice device, String ssid, String password, String userID, String nameDevice) async {
     print('Gửi ssid và password');
 
     final serviceUuid = Guid("000000ff-0000-1000-8000-00805f9b34fb");
@@ -234,7 +234,9 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
 
     final userServiceUuid = Guid("000000dd-0000-1000-8000-00805f9b34fb"); // 0x00EE
     final userUuid    = Guid("0000dd01-0000-1000-8000-00805f9b34fb"); // 0xEE01
-
+    
+    // final nameDeviceServiceUuid = Guid("000000aa-0000-1000-8000-00805f9b34fb"); // 0x00AA
+    // final nameDeviceUuid    = Guid("0000aa01-0000-1000-8000-00805f9b34fb"); // 0xAA01
 
     try {
       await device.discoverServices();
@@ -261,6 +263,10 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (s) => s.uuid == userServiceUuid,
         orElse: () => throw Exception("Không tìm thấy service USER"),
       );
+      // final nameDeviceService = services.firstWhere(
+      //   (s) => s.uuid == nameDeviceServiceUuid,
+      //   orElse: () => throw Exception("Không tìm thấy service NAME"),
+      // );
 
       final ssidChar = ssidService.characteristics.firstWhere(
         (c) => c.uuid == ssidUuid,
@@ -274,6 +280,10 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (c) => c.uuid == userUuid,
         orElse: () => throw Exception("Không tìm thấy characteristic USER"),
       );
+      // final nameChar = nameDeviceService.characteristics.firstWhere(
+      //   (c) => c.uuid == nameDeviceUuid,
+      //   orElse: () => throw Exception("Không tìm thấy characteristic NAME"),
+      // );
 
       // Hủy stream cũ nếu có
       await _userNotifySub?.cancel();
@@ -290,9 +300,25 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
             const SnackBar(
               content: Text("ESP32 đã kết nối Wi-Fi thành công"),
               backgroundColor: Colors.green,
+              duration: Duration(seconds: 2),
             ),
           );
-        } else {
+        } 
+        else if(message == "Wifi Failed")
+        {
+          setState(() {
+            _isWaitingWifi = false;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("ESP32 kết nối Wifi thất bại"),
+              backgroundColor: Colors.black,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+        else 
+        {
           print("Nhận được BLE notify: $message");
         }
       });
@@ -305,6 +331,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
       await ssidChar.write(ssid.codeUnits, withoutResponse: false);
       await passChar.write(password.codeUnits, withoutResponse: false);
       await userChar.write(userID.codeUnits, withoutResponse: false);
+      // await nameChar.write(nameDevice.codeUnits, withoutResponse: false);
       
       print("Đã gửi SSID và PASS thành công.");
     } catch (e) {
@@ -318,24 +345,31 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
   {
     final ssidController = TextEditingController();
     final passwordController = TextEditingController();
+    final nameDeviceController = TextEditingController();
 
     await showDialog(
       context: context, 
       builder: (ctx) => AlertDialog(
         title: Text('Setup Wifi'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: ssidController,
-              decoration: const InputDecoration(labelText: 'SSID'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-          ],
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: ssidController,
+                decoration: const InputDecoration(labelText: 'SSID'),
+              ),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              // TextField(
+              //   controller: nameDeviceController,
+              //   decoration: const InputDecoration(labelText: 'Name Device'),
+              // ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -346,6 +380,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
             onPressed: () {
               final ssid = ssidController.text.trim();
               final password = passwordController.text.trim();
+              final nameDevice = nameDeviceController.text.trim();
               if(ssid.isNotEmpty && password.isNotEmpty && _userUUID != null)
               {
                 setState(() {
@@ -355,7 +390,7 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
                 Navigator.of(ctx).pop();
 
                 Future.microtask(() {
-                  _sendWifi(device, ssid, password, _userUUID!);
+                  _sendWifi(device, ssid, password, _userUUID!, nameDevice);
                 });
               }
             }, 

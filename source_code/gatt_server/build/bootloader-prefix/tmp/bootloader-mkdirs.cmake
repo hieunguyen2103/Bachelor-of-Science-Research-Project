@@ -10,18 +10,18 @@ if(NOT EXISTS "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/c
   file(MAKE_DIRECTORY "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader"
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix"
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/tmp"
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp"
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src"
-  "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/tmp"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/src"
+  "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "D:/Technology/esp-idf/setup/Espressif/frameworks/esp-idf-v5.3.2/examples/bluetooth/bluedroid/ble/gatt_server/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "D:/Technology/DANC/backup/gatt_server/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

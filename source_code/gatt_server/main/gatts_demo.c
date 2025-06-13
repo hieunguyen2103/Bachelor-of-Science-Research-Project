@@ -27,6 +27,7 @@
 #include "esp_bt.h"
 #include "driver/gpio.h"
 #include "driver/adc.h"
+#include "esp_rom_sys.h"
 
 #include "esp_gap_ble_api.h"
 #include "esp_gatts_api.h"
@@ -37,15 +38,23 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_netif.h"
-#include "dht11.h"
 #include "sdkconfig.h"
-
 // Thư viện để gửi data sensor lên server
 #include "esp_http_client.h"
 #include "cJSON.h"  
+#include "esp_mac.h"
+
+#include "dht.h"
+#include "sensor_filter.h"
+#include <math.h>
 
 
 #define GATTS_TAG "GATTS_DEMO"
+
+#ifndef MIN
+#define MIN(a,b) ((a)<(b)?(a):(b))
+#endif
+
 static char g_ssid[64] = {0};
 static char g_pass[64] = {0};
 static char g_userid[64] = {0};
@@ -70,7 +79,6 @@ static void gatts_profile_c_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 #define GATTS_CHAR_UUID_TEST_C      0xDD01
 #define GATTS_DESCR_UUID_TEST_C     0x1111
 #define GATTS_NUM_HANDLE_TEST_C     4
-// #define PROFILE_C_APP_ID            2
 
 // Các chân GPIO cho cảm biến
 #define MQ2_PIN     GPIO_NUM_18
@@ -79,7 +87,7 @@ static void gatts_profile_c_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 #define DHT11_PIN   GPIO_NUM_4
 
 
-static char test_device_name[ESP_BLE_ADV_NAME_LEN_MAX] = "ESP_NTH";
+static char device_name[ESP_BLE_ADV_NAME_LEN_MAX] = "ESP_NTH";
 
 #define TEST_MANUFACTURER_DATA_LEN  17
 
@@ -91,6 +99,9 @@ static uint8_t char1_str[] = {0x11,0x22,0x33};
 static esp_gatt_char_prop_t a_property = 0;
 static esp_gatt_char_prop_t b_property = 0;
 
+static EventGroupHandle_t wifi_event_group;
+const int WIFI_CONNECTED_BIT = BIT0;
+
 static esp_attr_value_t gatts_demo_char1_val =
 {
     .attr_max_len = GATTS_DEMO_CHAR_VAL_LEN_MAX,
@@ -101,6 +112,30 @@ static esp_attr_value_t gatts_demo_char1_val =
 static uint8_t adv_config_done = 0;
 #define adv_config_flag      (1 << 0)
 #define scan_rsp_config_flag (1 << 1)
+
+// define sensor
+#define MP2_CHANNEL ADC1_CHANNEL_6  // GPIO34
+#define MQ7_CHANNEL ADC1_CHANNEL_7  // GPIO35
+//#define DHT11_CHANNEL ADC1_CHANNEL_4  // GPIO32
+#define DHT_GPIO 33
+#define DHT_TYPE DHT_TYPE_DHT11
+#define PIR_GPIO        GPIO_NUM_32
+
+static const char *TAG = "DHT11_APP";
+
+#define EMA_ALPHA_SMOKE  0.2             // Độ mượt (0.1 - 0.3 là hợp lý)
+#define EMA_ALPHA_CO 0.1
+
+
+#define TEMP_THRESHOLD 50.0    // Ngưỡng nhiệt độ
+#define CO_THRESHOLD 2500.0     // Ngưỡng CO
+#define SMOKE_THRESHOLD 3000.0  // Ngưỡng khói
+
+#define RELAY_ALARM_GPIO GPIO_NUM_25  // GPIO cho relay còi báo
+#define RELAY_FAN_GPIO GPIO_NUM_26    // GPIO cho relay quạt hút
+#define BUTTON_GPIO GPIO_NUM_27       // GPIO cho nút bấm
+
+static volatile bool alarm_active = false;
 
 #ifdef CONFIG_EXAMPLE_SET_RAW_ADV_DATA
 static uint8_t raw_adv_data[] = {
@@ -222,9 +257,61 @@ static prepare_type_env_t b_prepare_write_env;
 void example_write_event_env(esp_gatt_if_t gatts_if, prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void wifi_connect(const char *ssid, const char *pass);
-void ble_notify_wifi_ok();
+void ble_notify();
+void save_ble_name_to_nvs(const char *name);
 
+static void wifi_event_handler(void *arg, esp_event_base_t event_base,
+                               int32_t event_id, void *event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        ESP_LOGW("WiFi", "Wi-Fi ngắt kết nối");
+        xEventGroupClearBits(wifi_event_group, WIFI_CONNECTED_BIT);
+        // KHÔNG reconnect nữa
+    }
+    if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ESP_LOGI("WiFi", "Đã nhận IP, kết nối thành công");
+        xEventGroupSetBits(wifi_event_group, WIFI_CONNECTED_BIT);
+    }
+}
 
+// Hàm lưu tên BLE vào NVS
+void save_ble_name_to_nvs(const char *name) {
+    nvs_handle_t handle;
+    if (nvs_open("ble_cfg", NVS_READWRITE, &handle) == ESP_OK) {
+        nvs_set_str(handle, "ble_name", name);
+        nvs_commit(handle);
+        nvs_close(handle);
+        ESP_LOGI("BLE", "Đã lưu tên BLE vào NVS: %s", name);
+    }
+}
+
+// Hàm load tên BLE từ NVS khi khởi động
+void load_ble_name_from_nvs() {
+    nvs_handle_t handle;
+    size_t len = ESP_BLE_ADV_NAME_LEN_MAX;
+    char name[ESP_BLE_ADV_NAME_LEN_MAX] = {0};
+
+    if (nvs_open("ble_cfg", NVS_READONLY, &handle) == ESP_OK) {
+        if (nvs_get_str(handle, "ble_name", name, &len) == ESP_OK && strlen(name) > 0) {
+            strncpy(device_name, name, sizeof(device_name));
+            ESP_LOGI("BLE", "Đã khôi phục tên BLE: %s", device_name);
+        }
+        nvs_close(handle);
+    }
+}
+
+void set_ble_name_to_mac()
+{
+    uint8_t mac[6];
+    esp_read_mac(mac, ESP_MAC_BT);  // hoặc ESP_MAC_WIFI_STA
+
+    char mac_str[18];
+    snprintf(mac_str, sizeof(mac_str),
+             "ESP_NTH_%02X%02X%02X",
+             mac[3], mac[4], mac[5]);
+
+    save_ble_name_to_nvs(mac_str);
+}
 
 
 /*************************HÀM ĐỂ GỬI DATA SENSOR LÊN FIREBASE ****************************************
@@ -236,6 +323,7 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
 
     cJSON *root = cJSON_CreateObject();
     cJSON_AddStringToObject(root, "user_id", user_id);
+    cJSON_AddStringToObject(root, "device_name", device_name);
     cJSON_AddNumberToObject(root, "temp", temp);
     cJSON_AddNumberToObject(root, "co", co);
     cJSON_AddNumberToObject(root, "smokes", smoke);
@@ -251,8 +339,9 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
     esp_http_client_set_post_field(client, json_str, strlen(json_str));
 
     esp_err_t err = esp_http_client_perform(client);
+    ESP_LOGI("HTTP", "Payload gửi đi: %s", json_str);
     if (err == ESP_OK) {
-        ESP_LOGI("HTTP", "Payload gửi đi: %s", json_str);
+        // ESP_LOGI("HTTP", "Payload gửi đi: %s", json_str);
         ESP_LOGI("HTTP", "Gửi thành công! Status = %d", esp_http_client_get_status_code(client));
     } else {
         ESP_LOGE("HTTP", "Gửi thất bại: %s", esp_err_to_name(err));
@@ -263,43 +352,119 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
     free(json_str);
 }
 
-void sensor_task(void *param) {
-    // Khởi tạo DHT11
-    dht11_init(DHT11_PIN);
+// Hàm đọc nhiệt độ từ DHT11
+float get_temperature() {
+    int16_t temperature = 0;
+    int16_t humidity = 0;
+    esp_err_t ret = dht_read_data(DHT_TYPE, DHT_GPIO, &humidity, &temperature);
+    if (ret == ESP_OK) {
+        ESP_LOGI(TAG, "Nhiệt độ: %d.%d °C", temperature / 10, abs(temperature % 10));
+        return temperature / 10.0; // Trả về giá trị nhiệt độ
+    } else {
+        ESP_LOGE(TAG, "Lỗi đọc nhiệt độ: %s", esp_err_to_name(ret));
+        return -1.0; // Trả về giá trị lỗi
+    }
+}
 
-    // Cấu hình chân PIR là input
-    // gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
+static void init_relay()
+{
+    gpio_reset_pin(RELAY_ALARM_GPIO);
+    gpio_set_direction(RELAY_ALARM_GPIO, GPIO_MODE_OUTPUT);
 
-    // Cấu hình ADC1 với độ phân giải 12-bit
-    adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_DB_11); // MQ2 (GPIO18)
-    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11); // MQ5 (GPIO19)
+    gpio_reset_pin(RELAY_FAN_GPIO);
+    gpio_set_direction(RELAY_FAN_GPIO, GPIO_MODE_OUTPUT);
 
-    while (1) {
-        int mq2_raw = adc1_get_raw(ADC1_CHANNEL_6);
-        int mq5_raw = adc1_get_raw(ADC1_CHANNEL_7);
-        int temp = 0, humidity = 0;
-        // int pir_raw = gpio_get_level(PIR_PIN);
+    gpio_set_level(RELAY_ALARM_GPIO, 0); // Tắt còi
+    gpio_set_level(RELAY_FAN_GPIO, 0);   // Tắt quạt
+}
 
-        esp_err_t result = dht11_read(DHT11_PIN, &temp, &humidity);
+static void control_relay(float temp, float co, float smoke)
+{
+    bool alarm = (temp > TEMP_THRESHOLD) || (co > CO_THRESHOLD) || (smoke > SMOKE_THRESHOLD);
 
-        if(result == ESP_OK)
-        {
-            float co = mq2_raw * 3.3f / 4095.0f;
-            float smoke = mq5_raw * 3.3f / 4095.0f;
-            ESP_LOGI("SENSOR", "Temp: %d°C | Humi: %d%% | CO: %.2f V | Smoke: %.2f V", temp, humidity, co, smoke);
+    if (alarm && !alarm_active) {
+        ESP_LOGW("ALARM", "Cảnh báo: Nhiệt độ hoặc khí vượt ngưỡng!");
+        gpio_set_level(RELAY_ALARM_GPIO, 1); // Bật còi
+        gpio_set_level(RELAY_FAN_GPIO, 1);   // Bật quạt
+        alarm_active = true;
+    }
+}
+
+//bộ lọc trung bình
+static int read_adc_filtered(adc1_channel_t channel) {
+    int sum = 0;
+    for (int i = 0; i < 10; i++) {
+        sum += adc1_get_raw(channel);
+        vTaskDelay(pdMS_TO_TICKS(10)); // delay 10ms giữa mỗi lần đọc
+    }
+    return sum / 10; // giá trị trung bình
+}
+   
+
+// void sensor_task(void *param) {
+//     // Khởi tạo DHT11
+//     dht11_init(DHT11_PIN);
+
+//     // Cấu hình chân PIR là input
+//     // gpio_set_direction(PIR_PIN, GPIO_MODE_INPUT);
+
+//     // Cấu hình ADC1 với độ phân giải 12-bit
+//     adc1_config_width(ADC_WIDTH_BIT_12);
+//     adc1_config_channel_atten(ADC1_CHANNEL_6, ADC_ATTEN_DB_11); // MQ2 (GPIO18)
+//     adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_11); // MQ5 (GPIO19)
+
+//     while (1) {
+//         int mq2_raw = adc1_get_raw(ADC1_CHANNEL_6);
+//         int mq5_raw = adc1_get_raw(ADC1_CHANNEL_7);
+//         int temp = 0, humidity = 0;
+//         // int pir_raw = gpio_get_level(PIR_PIN);
+
+//         esp_err_t result = dht11_read(DHT11_PIN, &temp, &humidity);
+
+//         if(result == ESP_OK)
+//         {
+//             float co = mq2_raw * 3.3f / 4095.0f;
+//             float smoke = mq5_raw * 3.3f / 4095.0f;
+//             ESP_LOGI("SENSOR", "Temp: %d°C | Humi: %d%% | CO: %.2f V | Smoke: %.2f V", temp, humidity, co, smoke);
         
-            // Gửi dữ liệu lên server nếu có Wi-Fi
-            send_sensor_data(g_userid, (float)temp, co, smoke);
-        }
-        else
-        {
-            ESP_LOGE("DHT11", "READ DHT11 FAILED!");
-            // vTaskDelay(pdMS_TO_TICKS(1000));
-            // continue;
-        }
+//             // Gửi dữ liệu lên server nếu có Wi-Fi
+//             send_sensor_data(g_userid, (float)temp, co, smoke);
+//         }
+//         else
+//         {
+//             ESP_LOGE("DHT11", "READ DHT11 FAILED!");
+//             // vTaskDelay(pdMS_TO_TICKS(1000));
+//             // continue;
+//         }
 
-        vTaskDelay(pdMS_TO_TICKS(5000));
+//         vTaskDelay(pdMS_TO_TICKS(5000));
+//     }
+// }
+void sensor_task(void *param) {
+    init_relay();
+    //init_button();
+    
+    while (1) {
+        //DHT11
+        float raw_temp = get_temperature();
+        float temp = filter_dht11_temperature(raw_temp);
+        ESP_LOGI("Sensor", "[DHT11] Nhiệt độ (raw): %.2f°C, sau lọc: %.2f°C", raw_temp, temp);
+
+        //MQ7 CO
+        int raw_co = read_adc_filtered(MQ7_CHANNEL);
+        int filtered_co = filter_mq7_apply_ema(raw_co, 0.3f);
+        ESP_LOGI("Sensor", "[MQ7] CO (raw): %d, sau lọc EMA: %d", raw_co, filtered_co);
+
+        //MQ2 Smoke
+        float raw_smoke = read_adc_filtered(MP2_CHANNEL);
+        int filtered_smoke = filter_mq2_apply(raw_smoke, 10);
+        ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+        ESP_LOGI("Sensor", "Nhiệt độ: %.2f, CO: %d, Khói: %d", temp, filtered_co, filtered_smoke);
+
+        control_relay(temp, filtered_co, filtered_smoke);
+
+        send_sensor_data(g_userid, temp, filtered_co, filtered_smoke);
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
 
@@ -437,7 +602,7 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
         gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.len = ESP_UUID_LEN_16;
         gl_profile_tab[PROFILE_A_APP_ID].service_id.id.uuid.uuid.uuid16 = GATTS_SERVICE_UUID_TEST_A;
 
-        esp_err_t set_dev_name_ret = esp_ble_gap_set_device_name(test_device_name);
+        esp_err_t set_dev_name_ret = esp_ble_gap_set_device_name(device_name);
         if (set_dev_name_ret){
             ESP_LOGE(GATTS_TAG, "set device name failed, error code = %x", set_dev_name_ret);
         }
@@ -490,7 +655,7 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             ESP_LOG_BUFFER_HEX(GATTS_TAG, param->write.value, param->write.len);
             char ssid_str[65] = {0};
             memcpy(ssid_str, param->write.value, param->write.len);
-            ESP_LOGI(GATTS_TAG, "SSID receive: %s", ssid_str);
+            ESP_LOGI(GATTS_TAG, "SSID received: %s", ssid_str);
             strncpy(g_ssid, ssid_str, sizeof(g_ssid));
 
             if (gl_profile_tab[PROFILE_A_APP_ID].descr_handle == param->write.handle && param->write.len == 2){
@@ -994,6 +1159,13 @@ void wifi_connect(const char *ssid, const char *pass)
         esp_wifi_init(&cfg);
         esp_wifi_set_mode(WIFI_MODE_STA);
 
+        // Khởi tạo Event Group
+        wifi_event_group = xEventGroupCreate();
+
+        // Đăng ký event handler
+        esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
+        esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL);
+
         wifi_inited = true;
     }
 
@@ -1016,17 +1188,35 @@ void wifi_connect(const char *ssid, const char *pass)
     esp_wifi_start();       // Bắt đầu lại
     esp_wifi_connect();     // Kết nối mới
 
-    vTaskDelay(3000 / portTICK_PERIOD_MS);  // sau khi connect thành công nên delay 1 chút
+    // vTaskDelay(3000 / portTICK_PERIOD_MS);  // sau khi connect thành công nên delay 1 chút
 
-    ble_notify_wifi_ok();
+    // ble_notify("Wifi Connected");
 
-    xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 5, NULL);
+    // xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 5, NULL);
+
+
+    EventBits_t bits = xEventGroupWaitBits(
+        wifi_event_group,
+        WIFI_CONNECTED_BIT,
+        pdFALSE,
+        pdTRUE,
+        pdMS_TO_TICKS(5000) // timeout 5 giây
+    );
+
+    if (bits & WIFI_CONNECTED_BIT) {
+        ESP_LOGI(GATTS_TAG, "Wi-Fi đã kết nối thành công.");
+        ble_notify("Wifi Connected");  // Gửi notify "Wifi Connected"
+        xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 5, NULL);
+    } else {
+        ESP_LOGE(GATTS_TAG, "Wi-Fi kết nối thất bại sau 5 giây");
+        ble_notify("Wifi Failed");  // Gửi thông báo lỗi BLE
+    }
 }
 
 
-void ble_notify_wifi_ok()
+void ble_notify(const char *msg)
 {
-    const char *msg = "Wifi Connected";
+    // const char *msg = "Wifi Connected";
     esp_err_t err = esp_ble_gatts_send_indicate(
         gl_profile_tab[PROFILE_C_APP_ID].gatts_if,
         gl_profile_tab[PROFILE_C_APP_ID].conn_id,
@@ -1039,7 +1229,7 @@ void ble_notify_wifi_ok()
     if (err != ESP_OK) {
         ESP_LOGE(GATTS_TAG, "Send notify failed: %s", esp_err_to_name(err));
     } else {
-        ESP_LOGI(GATTS_TAG, "Send notify success: Wifi Connected");
+        ESP_LOGI(GATTS_TAG, "Send notify success");
     }
 }
 
@@ -1058,9 +1248,13 @@ void app_main(void)
     ESP_ERROR_CHECK( ret );
 
     #if CONFIG_EXAMPLE_CI_PIPELINE_ID
-    memcpy(test_device_name, esp_bluedroid_get_example_name(), ESP_BLE_ADV_NAME_LEN_MAX);
+    memcpy(device_name, esp_bluedroid_get_example_name(), ESP_BLE_ADV_NAME_LEN_MAX);
     #endif
 
+    set_ble_name_to_mac();
+
+    load_ble_name_from_nvs(); 
+    
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
 
     // Sửa phần cấu hình controller

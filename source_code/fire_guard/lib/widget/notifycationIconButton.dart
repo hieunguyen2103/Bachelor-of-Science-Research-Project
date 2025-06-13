@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationIconButton extends StatefulWidget {
   const NotificationIconButton({super.key});
@@ -9,11 +12,14 @@ class NotificationIconButton extends StatefulWidget {
 }
 
 class _NotificationIconButtonState extends State<NotificationIconButton> {
-  final List<Map<String, dynamic>> _alertHistory = [];
+  List<Map<String, dynamic>> _alertHistory = [];
+
+  bool _isSheetOpen = false;
 
   @override
   void initState() {
     super.initState();
+    _loadAlertsFromLocal();
 
     // Đăng ký topic chung để nhận thông báo từ FCM
     FirebaseMessaging.instance.subscribeToTopic('fire_guard');
@@ -23,25 +29,64 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
       if (message.notification != null) {
         final title = message.notification!.title ?? 'Thông báo';
         final body = message.notification!.body ?? '';
-
         _handlePushNotification(title, body);
       }
     });
   }
 
-  void _handlePushNotification(String title, String body) {
+  Future<void> _loadAlertsFromLocal() async 
+  {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> stored = prefs.getStringList('alert_history') ?? [];
+
+    final List<Map<String, dynamic>> parsed =
+        stored.map((e) => jsonDecode(e) as Map<String, dynamic>).toList();
+
     setState(() {
-      _alertHistory.insert(0, {
-        'type': title,
-        'location': body,
-        'timestamp': DateTime.now().toString(),
-      });
+      _alertHistory = parsed;
+    });
+  }
+
+  Future<void> _saveAlertsToLocal() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> data = _alertHistory.map((e) => jsonEncode(e)).toList();
+    await prefs.setStringList('alert_history', data);
+  }
+
+  // void _handlePushNotification(String title, String body) {
+  //   setState(() {
+  //     _alertHistory.insert(0, {
+  //       'type': title,
+  //       'location': body,
+  //       'timestamp': DateTime.now().toString(),
+  //     });
+  //   });
+
+  //   _showBottomSheet(context);
+  // }
+
+  void _handlePushNotification(String title, String body) {
+    final newAlert = {
+      'type': title,
+      'location': body,
+      'timestamp': DateTime.now().toIso8601String(),
+    };
+
+    setState(() {
+      _alertHistory.insert(0, newAlert);
+      _alertHistory = _alertHistory.take(10).toList(); // Giới hạn 10 thông báo
     });
 
+    _saveAlertsToLocal(); // Ghi vào local
     _showBottomSheet(context);
   }
 
   void _showBottomSheet(BuildContext context) {
+    if(_isSheetOpen) return;
+
+    _isSheetOpen = true;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: false,
@@ -66,6 +111,12 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
                       itemCount: _alertHistory.length,
                       itemBuilder: (ctx, index) {
                         final alert = _alertHistory[index];
+                        final timestamp = DateTime.tryParse(alert['timestamp'] ?? '');
+                        final formattedTime = timestamp != null
+                            ? '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')} '
+                              '${timestamp.day.toString().padLeft(2, '0')}/${timestamp.month.toString().padLeft(2, '0')}'
+                            : 'Không rõ thời gian';
+
                         return ListTile(
                           leading: const Icon(Icons.warning_amber_rounded, color: Colors.red),
                           title: Text("${alert['type']}"),
@@ -73,7 +124,8 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("${alert['location']}"),
-                              Text("${alert['timestamp']}"),
+                              Text(formattedTime),
+                              // Text("${alert['timestamp']}"),
                             ],
                           ),
                         );
@@ -83,7 +135,9 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
           ],
         ),
       ),
-    );
+    ).whenComplete((){
+      _isSheetOpen = false;
+    });
   }
 
   @override
