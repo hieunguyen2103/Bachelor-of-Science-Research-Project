@@ -363,33 +363,34 @@ class _MainSCreenState extends State<MainScreen> {
     }
 
     // Lắng nghe khi app đang mở
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print("🔔 Nhận thông báo: ${message.notification?.title}");
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    //   print("🔔 Nhận thông báo: ${message.notification?.title}");
 
-      if (message.notification != null) {
-        // Đóng dialog đang mở (nếu có)
-        if (Navigator.canPop(context)) {
-          Navigator.of(context, rootNavigator: true).pop();
-        }
+    //   if (message.notification != null) {
+    //     // Đóng dialog đang mở (nếu có)
+    //     if (Navigator.of(context, rootNavigator: true).canPop()) {
+    //       Navigator.of(context, rootNavigator: true).pop();
+    //       await Future.delayed(const Duration(milliseconds: 100));
+    //     }
 
-        // Chờ 100ms để đảm bảo dialog trước đã đóng
-        await Future.delayed(Duration(milliseconds: 100));
+    //     // Chờ 100ms để đảm bảo dialog trước đã đóng
+    //     // await Future.delayed(Duration(milliseconds: 100));
         
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(message.notification!.title ?? "Thông báo"),
-            content: Text(message.notification!.body ?? "Không có nội dung"),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("Đóng"),
-              )
-            ],
-          ),
-        );
-      }
-    });
+    //     showDialog(
+    //       context: context,
+    //       builder: (_) => AlertDialog(
+    //         title: Text(message.notification!.title ?? "Thông báo"),
+    //         content: Text(message.notification!.body ?? "Không có nội dung"),
+    //         actions: [
+    //           TextButton(
+    //             onPressed: () => Navigator.pop(context),
+    //             child: const Text("Đóng"),
+    //           )
+    //         ],
+    //       ),
+    //     );
+    //   }
+    // });
   }
 
   @override

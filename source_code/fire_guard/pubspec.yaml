@@ -46,12 +46,13 @@ dependencies:
   fl_chart: ^0.71.0
   google_fonts: ^6.2.1
   video_player: ^2.9.5
-  webview_flutter: ^4.11.0
+  webview_flutter: ^4.13.0
   flutter_vlc_player: ^7.4.3
   http: ^1.4.0
   firebase_messaging: ^15.2.5
   shared_preferences: ^2.5.3
   dropdown_button2: ^2.3.9
+  rtmp_broadcaster: ^2.3.4
   # better_player: ^0.0.84
 
 dev_dependencies:

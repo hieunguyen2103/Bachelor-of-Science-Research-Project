@@ -125,8 +125,119 @@
 // }
 
 
+// import 'package:flutter/material.dart';
+// import 'package:video_player/video_player.dart';
+
+// class StreamVideoScreen extends StatefulWidget {
+//   @override
+//   State<StreamVideoScreen> createState() => _StreamVideoScreenState();
+// }
+
+// class _StreamVideoScreenState extends State<StreamVideoScreen> {
+//   late VideoPlayerController _controller;
+//   late Future<void> _initializeVideoPlayerFuture;
+//   bool _isError = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     // Khởi tạo video HLS từ đường dẫn m3u8
+//     _controller = VideoPlayerController.network(
+//       'http://103.69.97.153:8888/hls/cam.m3u8',
+//       //'http://103.69.97.153:8888/hls/latest/llhls.m3u8'
+//     );
+
+//     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+//       setState(() {});
+//       _controller.setLooping(true);
+//       _controller.play();
+//     }).catchError((error) {
+//       setState(() => _isError = true);
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+
+//   void _reloadVideo() {
+//     setState(() {
+//       _isError = false;
+//       _controller.pause();
+//       _controller.dispose();
+
+//       _controller = VideoPlayerController.network(
+//         'http://103.69.97.153:8888/hls/cam.m3u8',
+//       );
+
+//       _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+//         setState(() {});
+//         _controller.setLooping(true);
+//         _controller.play();
+//       }).catchError((error) {
+//         setState(() => _isError = true);
+//       });
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Video Stream'),
+//         actions: [
+//           IconButton(
+//             onPressed: _reloadVideo,
+//             icon: Icon(Icons.refresh),
+//           ),
+//         ],
+//       ),
+//       body: _isError
+//           ? Center(
+//               child: Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: [
+//                   Icon(Icons.wifi_off, size: 60, color: Colors.grey),
+//                   SizedBox(height: 10),
+//                   Text(
+//                     'Can not connect to stream',
+//                     style: TextStyle(fontSize: 16),
+//                   ),
+//                   SizedBox(height: 10),
+//                   ElevatedButton(
+//                     onPressed: _reloadVideo,
+//                     child: Text('Try again'),
+//                   ),
+//                 ],
+//               ),
+//             )
+//           : FutureBuilder<void>(
+//               future: _initializeVideoPlayerFuture,
+//               builder: (context, snapshot) {
+//                 if (snapshot.connectionState == ConnectionState.done) {
+//                   return Center(
+//                     child: AspectRatio(
+//                       aspectRatio: _controller.value.aspectRatio,
+//                       child: VideoPlayer(_controller),
+//                     ),
+//                   );
+//                 } else if (snapshot.hasError) {
+//                   return Center(child: Text('Error loading video'));
+//                 } else {
+//                   return Center(child: CircularProgressIndicator());
+//                 }
+//               },
+//             ),
+//     );
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class StreamVideoScreen extends StatefulWidget {
   @override
@@ -134,63 +245,40 @@ class StreamVideoScreen extends StatefulWidget {
 }
 
 class _StreamVideoScreenState extends State<StreamVideoScreen> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
+  late final WebViewController _webViewController;
   bool _isError = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Khởi tạo video HLS từ đường dẫn m3u8
-    _controller = VideoPlayerController.network(
-      'http://103.69.97.153:8888/hls/cam.m3u8',
-      //'http://103.69.97.153:8888/hls/latest/llhls.m3u8'
-    );
-
-    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-      setState(() {});
-      _controller.setLooping(true);
-      _controller.play();
-    }).catchError((error) {
-      setState(() => _isError = true);
-    });
+    _webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (_) {
+            setState(() => _isError = false);
+          },
+          onWebResourceError: (error) {
+            setState(() => _isError = true);
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse('http://103.69.97.153:8888/pi_tang_1.html'));
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _reloadVideo() {
-    setState(() {
-      _isError = false;
-      _controller.pause();
-      _controller.dispose();
-
-      _controller = VideoPlayerController.network(
-        'http://103.69.97.153:8888/hls/cam.m3u8',
-      );
-
-      _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-        setState(() {});
-        _controller.setLooping(true);
-        _controller.play();
-      }).catchError((error) {
-        setState(() => _isError = true);
-      });
-    });
+  void _reloadPage() {
+    _webViewController.reload();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video Stream'),
+        title: Text('Camera Live Stream'),
         actions: [
           IconButton(
-            onPressed: _reloadVideo,
+            onPressed: _reloadPage,
             icon: Icon(Icons.refresh),
           ),
         ],
@@ -202,38 +290,20 @@ class _StreamVideoScreenState extends State<StreamVideoScreen> {
                 children: [
                   Icon(Icons.wifi_off, size: 60, color: Colors.grey),
                   SizedBox(height: 10),
-                  Text(
-                    'Can not connect to stream',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  Text('Can not load stream'),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: _reloadVideo,
+                    onPressed: _reloadPage,
                     child: Text('Try again'),
                   ),
                 ],
               ),
             )
-          : FutureBuilder<void>(
-              future: _initializeVideoPlayerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Center(
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error loading video'));
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
+          : WebViewWidget(controller: _webViewController),
     );
   }
 }
+
 
 
 

@@ -25,13 +25,18 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     FirebaseMessaging.instance.subscribeToTopic('fire_guard');
 
     // Nhận thông báo khi app đang mở
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        final title = message.notification!.title ?? 'Thông báo';
-        final body = message.notification!.body ?? '';
-        _handlePushNotification(title, body);
-      }
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   if (message.notification != null) {
+    //     final title = message.notification!.title ?? 'Thông báo';
+    //     final body = message.notification!.body ?? '';
+    //     _handlePushNotification(title, body);
+    //   }
+    // });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadAlertsFromLocal();  // Load lại sau khi build
     });
+
   }
 
   Future<void> _loadAlertsFromLocal() async 
@@ -79,13 +84,15 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     });
 
     _saveAlertsToLocal(); // Ghi vào local
-    _showBottomSheet(context);
+    // _showBottomSheet(context);
   }
 
-  void _showBottomSheet(BuildContext context) {
+  void _showBottomSheet(BuildContext context) async {
     if(_isSheetOpen) return;
 
     _isSheetOpen = true;
+
+    await _loadAlertsFromLocal();  // Load lại mới nhất
 
     showModalBottomSheet(
       context: context,
