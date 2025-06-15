@@ -3,4 +3,4 @@ source "/home/doannhat214031/esp-idf/components/esp_app_format/Kconfig.projbuild
 source "/home/doannhat214031/esp-idf/components/esp_rom/Kconfig.projbuild"
 source "/home/doannhat214031/esp-idf/components/esptool_py/Kconfig.projbuild"
 source "/home/doannhat214031/esp-idf/components/partition_table/Kconfig.projbuild"
-source "/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/Kconfig.projbuild"
+source "/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/Kconfig.projbuild"

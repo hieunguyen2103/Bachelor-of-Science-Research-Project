@@ -1,8 +1,6 @@
 source "/home/doannhat214031/esp-idf/components/efuse/Kconfig"
 source "/home/doannhat214031/esp-idf/components/esp_common/Kconfig"
 source "/home/doannhat214031/esp-idf/components/esp_hw_support/Kconfig"
-source "/home/doannhat214031/esp-idf/components/esp_rom/Kconfig"
-source "/home/doannhat214031/esp-idf/components/esp_security/Kconfig"
 source "/home/doannhat214031/esp-idf/components/esp_system/Kconfig"
 source "/home/doannhat214031/esp-idf/components/freertos/Kconfig"
 source "/home/doannhat214031/esp-idf/components/hal/Kconfig"

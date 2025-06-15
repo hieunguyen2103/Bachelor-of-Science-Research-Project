@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader-complete.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/CMakeFiles/bootloader-complete.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/doannhat214031/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-objdump")
+  set(CMAKE_OBJDUMP "/home/doannhat214031/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -45,7 +45,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/asn1write.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/base64.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/bignum.h"
-    "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/block_cipher.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/build_info.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/camellia.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/mbedtls/ccm.h"
@@ -121,7 +120,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/build_info.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto_adjust_auto_enabled.h"
-    "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto_adjust_config_dependencies.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto_adjust_config_key_pair_types.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto_adjust_config_synonyms.h"
     "/home/doannhat214031/esp-idf/components/mbedtls/mbedtls/include/psa/crypto_builtin_composites.h"

@@ -34,11 +34,11 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/doannhat214031/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-objdump")
+  set(CMAKE_OBJDUMP "/home/doannhat214031/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/doannhat214031/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/esp_system/port/soc/esp32/cmake_install.cmake")
+  include("/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/esp-idf/esp_system/port/soc/esp32/cmake_install.cmake")
 endif()
 
