@@ -119,9 +119,9 @@ static const char *TAG = "DHT11_APP";
 #define EMA_ALPHA_CO 0.1
 
 
-#define TEMP_THRESHOLD 35.0    // Ngưỡng nhiệt độ
-#define CO_THRESHOLD 400.0     // Ngưỡng CO
-#define SMOKE_THRESHOLD 300.0  // Ngưỡng khói
+#define TEMP_THRESHOLD 40.0    // Ngưỡng nhiệt độ
+#define CO_THRESHOLD 200    // Ngưỡng CO
+#define SMOKE_THRESHOLD 100  // Ngưỡng khói
 
 #define RELAY_ALARM_GPIO GPIO_NUM_4  // GPIO cho relay còi báo
 #define BUTTON_GPIO GPIO_NUM_2     // GPIO cho nút bấm
@@ -449,7 +449,7 @@ void sensor_task(void *param) {
         {
             if (gpio_get_level(BUTTON_GPIO) == 0)
             {
-                vTaskDelay(pdMS_TO_TICKS(50));
+                vTaskDelay(pdMS_TO_TICKS(500));
                 if (gpio_get_level(BUTTON_GPIO) == 0)
                 {
                     alarm_silenced = true;
