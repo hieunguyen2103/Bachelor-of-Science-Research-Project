@@ -1,0 +1,214 @@
+[1/11] Building C object esp-idf/sensor_filter/CMakeFiles/__idf_sensor_filter.dir/sensor_filter.c.obj
+FAILED: esp-idf/sensor_filter/CMakeFiles/__idf_sensor_filter.dir/sensor_filter.c.obj 
+/home/doannhat214031/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc -DESP_PLATFORM -DIDF_VER=\"v5.1.2\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/config -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter -I/home/doannhat214031/esp-idf/components/newlib/platform_include -I/home/doannhat214031/esp-idf/components/freertos/FreeRTOS-Kernel/include -I/home/doannhat214031/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/include/freertos -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/include -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/arch/xtensa/include -I/home/doannhat214031/esp-idf/components/esp_hw_support/include -I/home/doannhat214031/esp-idf/components/esp_hw_support/include/soc -I/home/doannhat214031/esp-idf/components/esp_hw_support/include/soc/esp32 -I/home/doannhat214031/esp-idf/components/esp_hw_support/port/esp32/. -I/home/doannhat214031/esp-idf/components/esp_hw_support/port/esp32/private_include -I/home/doannhat214031/esp-idf/components/heap/include -I/home/doannhat214031/esp-idf/components/log/include -I/home/doannhat214031/esp-idf/components/soc/include -I/home/doannhat214031/esp-idf/components/soc/esp32 -I/home/doannhat214031/esp-idf/components/soc/esp32/include -I/home/doannhat214031/esp-idf/components/hal/esp32/include -I/home/doannhat214031/esp-idf/components/hal/include -I/home/doannhat214031/esp-idf/components/hal/platform_port/include -I/home/doannhat214031/esp-idf/components/esp_rom/include -I/home/doannhat214031/esp-idf/components/esp_rom/include/esp32 -I/home/doannhat214031/esp-idf/components/esp_rom/esp32 -I/home/doannhat214031/esp-idf/components/esp_common/include -I/home/doannhat214031/esp-idf/components/esp_system/include -I/home/doannhat214031/esp-idf/components/esp_system/port/soc -I/home/doannhat214031/esp-idf/components/esp_system/port/include/private -I/home/doannhat214031/esp-idf/components/xtensa/include -I/home/doannhat214031/esp-idf/components/xtensa/esp32/include -I/home/doannhat214031/esp-idf/components/lwip/include -I/home/doannhat214031/esp-idf/components/lwip/include/apps -I/home/doannhat214031/esp-idf/components/lwip/include/apps/sntp -I/home/doannhat214031/esp-idf/components/lwip/lwip/src/include -I/home/doannhat214031/esp-idf/components/lwip/port/include -I/home/doannhat214031/esp-idf/components/lwip/port/freertos/include -I/home/doannhat214031/esp-idf/components/lwip/port/esp32xx/include -I/home/doannhat214031/esp-idf/components/lwip/port/esp32xx/include/arch -mlongcalls -Wno-frame-address  -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fmacro-prefix-map=/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server=. -fmacro-prefix-map=/home/doannhat214031/esp-idf=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -DconfigENABLE_FREERTOS_DEBUG_OCDAWARE=1 -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/sensor_filter/CMakeFiles/__idf_sensor_filter.dir/sensor_filter.c.obj -MF esp-idf/sensor_filter/CMakeFiles/__idf_sensor_filter.dir/sensor_filter.c.obj.d -o esp-idf/sensor_filter/CMakeFiles/__idf_sensor_filter.dir/sensor_filter.c.obj -c /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.c
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.c:51:7: error: conflicting types for 'filter_mq7_apply_ema'; have 'float(int,  float)'
+   51 | float filter_mq7_apply_ema(int new_value, float alpha) {
+      |       ^~~~~~~~~~~~~~~~~~~~
+In file included from /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.c:1:
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.h:15:5: note: previous declaration of 'filter_mq7_apply_ema' with type 'int(int,  float)'
+   15 | int filter_mq7_apply_ema(int new_value, float alpha);
+      |     ^~~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.c: In function 'filter_dht11_temperature':
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter/sensor_filter.c:71:9: warning: using integer absolute value function 'abs' when argument is of floating-point type 'float' [-Wabsolute-value]
+   71 |     if (abs(raw_temp - last_dht_temp) >= 1) {
+      |         ^~~
+[2/11] Performing build step for 'bootloader'
+[1/1] cd /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader/esp-idf/esptool_py && /home/doannhat214031/.espressif/python_env/idf5.1_py3.12_env/bin/python /home/doannhat214031/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/bootloader/bootloader.bin
+Bootloader binary size 0x6810 bytes. 0x7f0 bytes (7%) free.
+[3/11] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj
+FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj 
+/home/doannhat214031/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin/xtensa-esp32-elf-gcc -DESP_PLATFORM -DIDF_VER=\"v5.1.2\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/build/config -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main -I/home/doannhat214031/esp-idf/components/newlib/platform_include -I/home/doannhat214031/esp-idf/components/freertos/FreeRTOS-Kernel/include -I/home/doannhat214031/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/include/freertos -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/include -I/home/doannhat214031/esp-idf/components/freertos/esp_additions/arch/xtensa/include -I/home/doannhat214031/esp-idf/components/esp_hw_support/include -I/home/doannhat214031/esp-idf/components/esp_hw_support/include/soc -I/home/doannhat214031/esp-idf/components/esp_hw_support/include/soc/esp32 -I/home/doannhat214031/esp-idf/components/esp_hw_support/port/esp32/. -I/home/doannhat214031/esp-idf/components/esp_hw_support/port/esp32/private_include -I/home/doannhat214031/esp-idf/components/heap/include -I/home/doannhat214031/esp-idf/components/log/include -I/home/doannhat214031/esp-idf/components/soc/include -I/home/doannhat214031/esp-idf/components/soc/esp32 -I/home/doannhat214031/esp-idf/components/soc/esp32/include -I/home/doannhat214031/esp-idf/components/hal/esp32/include -I/home/doannhat214031/esp-idf/components/hal/include -I/home/doannhat214031/esp-idf/components/hal/platform_port/include -I/home/doannhat214031/esp-idf/components/esp_rom/include -I/home/doannhat214031/esp-idf/components/esp_rom/include/esp32 -I/home/doannhat214031/esp-idf/components/esp_rom/esp32 -I/home/doannhat214031/esp-idf/components/esp_common/include -I/home/doannhat214031/esp-idf/components/esp_system/include -I/home/doannhat214031/esp-idf/components/esp_system/port/soc -I/home/doannhat214031/esp-idf/components/esp_system/port/include/private -I/home/doannhat214031/esp-idf/components/xtensa/include -I/home/doannhat214031/esp-idf/components/xtensa/esp32/include -I/home/doannhat214031/esp-idf/components/lwip/include -I/home/doannhat214031/esp-idf/components/lwip/include/apps -I/home/doannhat214031/esp-idf/components/lwip/include/apps/sntp -I/home/doannhat214031/esp-idf/components/lwip/lwip/src/include -I/home/doannhat214031/esp-idf/components/lwip/port/include -I/home/doannhat214031/esp-idf/components/lwip/port/freertos/include -I/home/doannhat214031/esp-idf/components/lwip/port/esp32xx/include -I/home/doannhat214031/esp-idf/components/lwip/port/esp32xx/include/arch -I/home/doannhat214031/esp-idf/components/esp_http_client/include -I/home/doannhat214031/esp-idf/components/esp_event/include -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/cJSON/include -I/home/doannhat214031/esp-idf/components/nvs_flash/include -I/home/doannhat214031/esp-idf/components/spi_flash/include -I/home/doannhat214031/esp-idf/components/esp_partition/include -I/home/doannhat214031/esp-idf/components/bt/include/esp32/include -I/home/doannhat214031/esp-idf/components/bt/common/osi/include -I/home/doannhat214031/esp-idf/components/bt/common/api/include/api -I/home/doannhat214031/esp-idf/components/bt/common/btc/profile/esp/blufi/include -I/home/doannhat214031/esp-idf/components/bt/common/btc/profile/esp/include -I/home/doannhat214031/esp-idf/components/bt/host/bluedroid/api/include/api -I/home/doannhat214031/esp-idf/components/bt/porting/ext/tinycrypt/include -I/home/doannhat214031/esp-idf/components/esp_timer/include -I/home/doannhat214031/esp-idf/components/esp_wifi/include -I/home/doannhat214031/esp-idf/components/esp_wifi/wifi_apps/include -I/home/doannhat214031/esp-idf/components/esp_phy/include -I/home/doannhat214031/esp-idf/components/esp_phy/esp32/include -I/home/doannhat214031/esp-idf/components/esp_netif/include -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/dht -I/home/doannhat214031/esp-idf/components/driver/include -I/home/doannhat214031/esp-idf/components/driver/deprecated -I/home/doannhat214031/esp-idf/components/driver/analog_comparator/include -I/home/doannhat214031/esp-idf/components/driver/dac/include -I/home/doannhat214031/esp-idf/components/driver/gpio/include -I/home/doannhat214031/esp-idf/components/driver/gptimer/include -I/home/doannhat214031/esp-idf/components/driver/i2c/include -I/home/doannhat214031/esp-idf/components/driver/i2s/include -I/home/doannhat214031/esp-idf/components/driver/ledc/include -I/home/doannhat214031/esp-idf/components/driver/mcpwm/include -I/home/doannhat214031/esp-idf/components/driver/parlio/include -I/home/doannhat214031/esp-idf/components/driver/pcnt/include -I/home/doannhat214031/esp-idf/components/driver/rmt/include -I/home/doannhat214031/esp-idf/components/driver/sdio_slave/include -I/home/doannhat214031/esp-idf/components/driver/sdmmc/include -I/home/doannhat214031/esp-idf/components/driver/sigma_delta/include -I/home/doannhat214031/esp-idf/components/driver/spi/include -I/home/doannhat214031/esp-idf/components/driver/temperature_sensor/include -I/home/doannhat214031/esp-idf/components/driver/touch_sensor/include -I/home/doannhat214031/esp-idf/components/driver/twai/include -I/home/doannhat214031/esp-idf/components/driver/uart/include -I/home/doannhat214031/esp-idf/components/driver/usb_serial_jtag/include -I/home/doannhat214031/esp-idf/components/driver/touch_sensor/esp32/include -I/home/doannhat214031/esp-idf/components/esp_pm/include -I/home/doannhat214031/esp-idf/components/esp_ringbuf/include -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/esp_idf_lib_helpers -I/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/components/sensor_filter -mlongcalls -Wno-frame-address  -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fmacro-prefix-map=/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server=. -fmacro-prefix-map=/home/doannhat214031/esp-idf=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -DconfigENABLE_FREERTOS_DEBUG_OCDAWARE=1 -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj -MF esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/gatts_demo.c.obj -c /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c
+In file included from /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:29:
+/home/doannhat214031/esp-idf/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from /home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:25:
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c: In function 'sensor_task':
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%f' expects argument of type 'double', but argument 6 has type 'int' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:9: note: in expansion of macro 'ESP_LOGI'
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      |         ^~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%f' expects argument of type 'double', but argument 6 has type 'int' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:9: note: in expansion of macro 'ESP_LOGI'
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      |         ^~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:1: error: format '%f' expects argument of type 'double', but argument 6 has type 'int' [-Werror=format=]
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      | ^       ~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:9: note: in expansion of macro 'ESP_LOGI'
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      |         ^~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:1: error: format '%f' expects argument of type 'double', but argument 6 has type 'int' [-Werror=format=]
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      | ^       ~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:9: note: in expansion of macro 'ESP_LOGI'
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      |         ^~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%f' expects argument of type 'double', but argument 6 has type 'int' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:432:9: note: in expansion of macro 'ESP_LOGI'
+  432 |         ESP_LOGI("Sensor", "[MQ7] CO (raw): %.2f, sau lọc EMA: %.2f", raw_co, filtered_co);
+      |         ^~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%d' expects argument of type 'int', but argument 7 has type 'double' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:9: note: in expansion of macro 'ESP_LOGI'
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      |         ^~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%d' expects argument of type 'int', but argument 7 has type 'double' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:9: note: in expansion of macro 'ESP_LOGI'
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      |         ^~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:1: error: format '%d' expects argument of type 'int', but argument 7 has type 'double' [-Werror=format=]
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      | ^       ~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:9: note: in expansion of macro 'ESP_LOGI'
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      |         ^~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:1: error: format '%d' expects argument of type 'int', but argument 7 has type 'double' [-Werror=format=]
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      | ^       ~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:9: note: in expansion of macro 'ESP_LOGI'
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      |         ^~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:265:27: error: format '%d' expects argument of type 'int', but argument 7 has type 'double' [-Werror=format=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+/home/doannhat214031/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/doannhat214031/Desktop/Bachelor-of-Science-Research-Project/source_code/gatt_server/main/gatts_demo.c:439:9: note: in expansion of macro 'ESP_LOGI'
+  439 |         ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+      |         ^~~~~~~~
+cc1: some warnings being treated as errors
+ninja: build stopped: subcommand failed.

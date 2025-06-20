@@ -119,9 +119,17 @@ static const char *TAG = "DHT11_APP";
 #define EMA_ALPHA_CO 0.1
 
 
-#define TEMP_THRESHOLD 40.0    // Ngưỡng nhiệt độ
-#define CO_THRESHOLD 200    // Ngưỡng CO
-#define SMOKE_THRESHOLD 100  // Ngưỡng khói
+#define TEMP_THRESHOLD 45.0    // Ngưỡng nhiệt độ
+#define CO_THRESHOLD 100.0   // Ngưỡng CO
+#define SMOKE_THRESHOLD 400.0  // Ngưỡng khói
+
+// Điện trở tải của cảm biến MP2
+#define RL_SMOKE 20000.0f         // điện trở tải 10kΩ 
+#define RO_CLEAN_AIR_SMOKE 90000.0f    // Rs đo được khi không khí sạch (ADC = 110)
+// Điện trở tải của cảm biến MQ7
+#define RL_MQ7     10000.0f
+#define RO_MQ7     40000.0f // Rs đo được khi không khí sạch (ADC = 90)
+
 
 #define RELAY_ALARM_GPIO GPIO_NUM_4  // GPIO cho relay còi báo
 #define BUTTON_GPIO GPIO_NUM_2     // GPIO cho nút bấm
@@ -387,6 +395,25 @@ static int read_adc_filtered(adc1_channel_t channel) {
     return sum / 10; // giá trị trung bình
 }
    
+float smoke_ppm_from_adc(int adc_value) {
+    float V_rl = ((float)adc_value / 4095.0f) * 5.0f;  // Chuyển ADC thành điện áp
+    float R_s = RL_SMOKE * (5.0f - V_rl) / V_rl;         // Tính Rs
+    float ratio = R_s / RO_CLEAN_AIR_SMOKE;                 // Tỷ lệ Rs/R0
+
+    // Hệ số từ đồ thị "Smoke" của MP-2: m = -0.395, b = 1.37
+    float ppm = powf(10.0f, (log10f(ratio) - 1.37f) / -0.395f);
+    return ppm;
+}
+
+float co_ppm_from_adc(int adc_val) {
+    float V_rl = ((float)adc_val / 4095.0f) * 5.0f;  // Chuyển ADC thành điện áp
+    float R_s = RL_MQ7 * (5.0f - V_rl) / V_rl;
+    float ratio = R_s / RO_MQ7;
+
+    // Hệ số chính xác từ datasheet MQ-7: m = -0.79, b = 1.57
+    float ppm = powf(10.0f, (log10f(ratio) - 1.57f) / -0.79f);
+    return ppm;
+}
 
 void sensor_task(void *param) {
     init_relay();
@@ -400,15 +427,19 @@ void sensor_task(void *param) {
 
         //MQ7 CO
         int raw_co = 4095 - read_adc_filtered(MQ7_CHANNEL);
-        int filtered_co = filter_mq7_apply_ema(raw_co, 0.3f);
-        ESP_LOGI("Sensor", "[MQ7] CO (raw): %d, sau lọc EMA: %d", raw_co, filtered_co);
+        float ppm_co = co_ppm_from_adc(raw_co);
+        int filtered_co = (int)filter_mq7_apply_ema(ppm_co, 0.3f);  // Lọc EMA với alpha = 0.3
 
         //MQ2 Smoke
         float raw_smoke = 4095 - read_adc_filtered(MP2_CHANNEL);
-        int filtered_smoke = filter_mq2_apply(raw_smoke, 10);
-        ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
-        ESP_LOGI("Sensor", "Nhiệt độ: %.2f, CO: %d, Khói: %d", temp, filtered_co, filtered_smoke);
-        ESP_LOGI("Sensor", "Nhiệt độ: %.2f, CO: %d, Khói: %f", temp, raw_co,  raw_smoke);
+        float ppm_smoke = smoke_ppm_from_adc(raw_smoke);
+        int filtered_smoke = (int)ppm_smoke; // Không cần lọc EMA cho khói, chỉ dùng trung bình
+        //int filtered_smoke = filter_mq2_apply(raw_smoke, 10);
+        //ESP_LOGI("Sensor", "[MQ2] Khói (raw): %.2f, sau lọc TB + ngưỡng: %d", raw_smoke, filtered_smoke);
+        
+        ESP_LOGI("Sensor raw", "Nhiệt độ: %.2f, CO: %d, Khói: %f", temp, raw_co,  raw_smoke);
+        ESP_LOGI("Sensor ppm", "Nhiệt độ: %.2f, CO: %f, Khói: %f", temp, ppm_co,  ppm_smoke);
+        ESP_LOGI("Sensor filter", "Nhiệt độ: %.2f, CO: %d, Khói: %d", temp, filtered_co, filtered_smoke);
         //control_relay(temp, filtered_co, filtered_smoke);
 
         bool over_threshold = (filtered_smoke > SMOKE_THRESHOLD) || (filtered_co > CO_THRESHOLD) || (temp > TEMP_THRESHOLD);
@@ -441,7 +472,7 @@ void sensor_task(void *param) {
             }
             alarm_triggered = false;
             alarm_silenced = false;
-            gpio_set_level(RELAY_ALARM_GPIO, 0);
+            gpio_set_level(RELAY_ALARM_GPIO, 0); //tat coi
         }
 
         // Xử lý nút nhấn để tắt còi thủ công
@@ -465,7 +496,7 @@ void sensor_task(void *param) {
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
-
+    
 
 static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
 {

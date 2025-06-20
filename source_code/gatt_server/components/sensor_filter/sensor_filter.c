@@ -48,7 +48,7 @@ int filter_mq7_apply_median(int new_value) {
     return sorted[FILTER_MQ7_SAMPLE_COUNT / 2];
 }
 
-int filter_mq7_apply_ema(int new_value, float alpha) {
+float filter_mq7_apply_ema(int new_value, float alpha) {
     static float ema = 0;
     static int initialized = 0;
     if (!initialized) {
@@ -57,7 +57,7 @@ int filter_mq7_apply_ema(int new_value, float alpha) {
     } else {
         ema = alpha * new_value + (1.0f - alpha) * ema;
     }
-    return (int)ema;
+    return ema;
 }
 
 // -------- DHT11 --------
