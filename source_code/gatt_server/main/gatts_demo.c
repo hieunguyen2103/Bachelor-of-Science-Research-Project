@@ -120,7 +120,7 @@ static const char *TAG = "DHT11_APP";
 
 
 #define TEMP_THRESHOLD 45.0    // Ngưỡng nhiệt độ
-#define CO_THRESHOLD 100.0   // Ngưỡng CO
+#define CO_THRESHOLD 150.0   // Ngưỡng CO
 #define SMOKE_THRESHOLD 400.0  // Ngưỡng khói
 
 // Điện trở tải của cảm biến MP2
@@ -402,6 +402,12 @@ float smoke_ppm_from_adc(int adc_value) {
 
     // Hệ số từ đồ thị "Smoke" của MP-2: m = -0.395, b = 1.37
     float ppm = powf(10.0f, (log10f(ratio) - 1.37f) / -0.395f);
+    if(ppm > 10000.0f) {
+        ppm = 10000.0f; // Giới hạn ppm tối đa để tránh giá trị quá lớn
+    }
+    if(ppm < 8.0f) {
+        ppm = 8.0f; // Tránh giá trị âm
+    }
     return ppm;
 }
 
@@ -412,6 +418,12 @@ float co_ppm_from_adc(int adc_val) {
 
     // Hệ số chính xác từ datasheet MQ-7: m = -0.79, b = 1.57
     float ppm = powf(10.0f, (log10f(ratio) - 1.57f) / -0.79f);
+    if(ppm > 1000.0f) {
+        ppm = 1000.0f; // Giới hạn ppm tối đa để tránh giá trị quá lớn
+    }
+    if(ppm < 3.0f) {
+        ppm = 3.0f; // Tránh giá trị âm
+    }
     return ppm;
 }
 

@@ -1,0 +1,405 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x1b (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Jun 15 2025 10:13:04[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00180000[0m
+[0;32mI (92) boot:  3 storage          Unknown data     01 82 00190000 00060000[0m
+[0;32mI (99) boot: End of partition table[0m
+[0;32mI (103) boot: Defaulting to factory image[0m
+[0;32mI (108) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=38bd0h (232400) map[0m
+[0;32mI (200) esp_image: segment 1: paddr=00048bf8 vaddr=3ffbdb60 size=059c8h ( 22984) load[0m
+[0;32mI (210) esp_image: segment 2: paddr=0004e5c8 vaddr=40080000 size=01a50h (  6736) load[0m
+[0;32mI (213) esp_image: segment 3: paddr=00050020 vaddr=400d0020 size=102c80h (1059968) map[0m
+[0;32mI (600) esp_image: segment 4: paddr=00152ca8 vaddr=40081a50 size=1d488h (119944) load[0m
+[0;32mI (665) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (665) boot: Disabling RNG early entropy source...[0m
+[0;32mI (677) cpu_start: Multicore app[0m
+[0;32mI (677) cpu_start: Pro cpu up.[0m
+[0;32mI (677) cpu_start: Starting app cpu, entry point is 0x40081418[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (697) cpu_start: Pro cpu start user code[0m
+[0;32mI (697) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (697) cpu_start: Application information:[0m
+[0;32mI (702) cpu_start: Project name:     gatt_server_demos[0m
+[0;32mI (708) cpu_start: App version:      055b8aa2-dirty[0m
+[0;32mI (714) cpu_start: Compile time:     Jun 24 2025 01:38:43[0m
+[0;32mI (720) cpu_start: ELF file SHA256:  b4af7bc9...[0m
+[0;32mI (725) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (730) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (734) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (739) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (744) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (751) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (757) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (763) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (770) heap_init: At 3FFCBC60 len 000143A0 (80 KiB): DRAM[0m
+[0;32mI (776) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (782) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (788) heap_init: At 4009EED8 len 00001128 (4 KiB): IRAM[0m
+[0;32mI (796) spi_flash: detected chip: generic[0m
+[0;32mI (799) spi_flash: flash io: dio[0m
+[0;33mW (803) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (817) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (825) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (831) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (835) app_start: Starting scheduler on CPU1[0m
+mI (835) main_task: Started on CPU0[0m
+[0;32mI (845) main_task: Calling app_main()[0m
+[0;32mI (875) BLE: Đã lưu tên BLE vào NVS: ESP_NTH_A77E1E[0m
+[0;32mI (885) BLE: Đã khôi phục tên BLE: ESP_NTH_A77E1E[0m
+[0;32mI (885) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (885) BTDM_INIT: Bluetooth MAC: 3c:8a:1f:a7:7e:1e[0m
+[0;32mI (895) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (1305) GATTS_DEMO: GATT server register, status 0, app_id 0, gatts_if 3[0m
+[0;32mI (1305) main_task: Returned from app_main()[0m
+[0;32mI (1315) GATTS_DEMO: Service create, status 0, service_handle 40[0m
+[0;32mI (1315) GATTS_DEMO: GATT server register, status 0, app_id 1, gatts_if 4[0m
+[0;32mI (1315) GATTS_DEMO: GATT server register, status 0, app_id 2, gatts_if 5[0m
+[0;32mI (1345) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (1345) GATTS_DEMO: Service start, status 0, service_handle 40[0m
+[0;32mI (1345) GATTS_DEMO: Characteristic add, status 0, attr_handle 42, service_handle 40[0m
+[0;32mI (1355) GATTS_DEMO: the gatts demo char length = 3[0m
+[0;32mI (1355) GATTS_DEMO: prf_char[0] =11[0m
+[0;32mI (1365) GATTS_DEMO: prf_char[1] =22[0m
+[0;32mI (1365) GATTS_DEMO: prf_char[2] =33[0m
+[0;32mI (1365) GATTS_DEMO: Service create, status 0,  service_handle 44[0m
+[0;32mI (1375) GATTS_DEMO: Service create, status 0,  service_handle 48[0m
+[0;32mI (1385) GATTS_DEMO: Descriptor add, status 0, attr_handle 43, service_handle 40[0m
+[0;32mI (1395) GATTS_DEMO: Service start, status 0, service_handle 44[0m
+[0;32mI (1395) GATTS_DEMO: Characteristic add, status 0, attr_handle 46, service_handle 44[0m
+[0;32mI (1405) GATTS_DEMO: Service start, status 0, service_handle 48[0m
+[0;32mI (1415) GATTS_DEMO: Characteristic add, status 0, attr_handle 50, service_handle 48[0m
+[0;32mI (1425) GATTS_DEMO: Descriptor add, status 0, attr_handle 47, service_handle 44[0m
+[0;32mI (1425) GATTS_DEMO: Descriptor add, status 0, attr_handle 51, service_handle 48[0m
+[0;32mI (65315) GATTS_DEMO: Connected, conn_id 0, remote 7e:86:71:db:cd:c4[0m
+[0;32mI (65315) GATTS_DEMO: Connected, conn_id 0, remote 7e:86:71:db:cd:c4[0m
+[0;32mI (65315) GATTS_DEMO: Connected, conn_id 0, remote 7e:86:71:db:cd:c4[0m
+[0;32mI (65935) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (66405) GATTS_DEMO: Connection params update, status 0, conn_int 6, latency 0, timeout 500[0m
+[0;32mI (66905) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (66905) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (66905) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (66975) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (79605) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 4, handle 51[0m
+[0;32mI (79605) GATTS_DEMO: value len 2, value [0m
+[0;32mI (79605) GATTS_DEMO: 01 00 [0m
+[0;32mI (79605) GATTS_DEMO: User ID receive: [0m
+[0;32mI (79615) GATTS_DEMO: Start connect Wi-fi: [0m
+[0;32mI (79635) wifi:wifi driver task: 3ffd6e8c, prio:23, stack:6656, core=0[0m
+[0;32mI (79655) wifi:wifi firmware version: 91b9630[0m
+[0;32mI (79655) wifi:wifi certification version: v7.0[0m
+[0;32mI (79655) wifi:config NVS flash: enabled[0m
+[0;32mI (79655) wifi:config nano formating: disabled[0m
+[0;32mI (79655) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (79665) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (79665) wifi:Init management short buffer num: 32[0m
+[0;32mI (79675) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (79675) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (79675) wifi:Init static rx buffer num: 10[0m
+[0;32mI (79685) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (79685) wifi_init: rx ba win: 6[0m
+[0;32mI (79695) wifi_init: tcpip mbox: 32[0m
+[0;32mI (79695) wifi_init: udp mbox: 6[0m
+[0;32mI (79695) wifi_init: tcp mbox: 6[0m
+[0;32mI (79705) wifi_init: tcp tx win: 5760[0m
+[0;32mI (79705) wifi_init: tcp rx win: 5760[0m
+[0;32mI (79715) wifi_init: tcp mss: 1440[0m
+[0;32mI (79715) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (79725) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (79765) wifi:mode : sta (3c:8a:1f:a7:7e:1c)[0m
+[0;32mI (79775) wifi:enable tsf[0m
+[0;31mE (84775) GATTS_DEMO: Wi-Fi kết nối thất bại sau 5 giây[0m
+[0;32mI (84775) GATTS_DEMO: Send notify success[0m
+[0;32mI (84775) GATTS_DEMO: Notification enable[0m
+[0;32mI (84785) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (84785) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (84965) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 5, handle 42[0m
+[0;32mI (84965) GATTS_DEMO: value len 10, value [0m
+[0;32mI (84965) GATTS_DEMO: 42 31 30 2d 35 31 30 20 34 47 [0m
+[0;32mI (84975) GATTS_DEMO: SSID received: B10-510 4G[0m
+[0;32mI (85045) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 6, handle 46[0m
+[0;32mI (85045) GATTS_DEMO: value len 8, value [0m
+[0;32mI (85045) GATTS_DEMO: 32 30 32 31 30 35 33 31 [0m
+[0;32mI (85045) GATTS_DEMO: PASSWORD receive: 20210531[0m
+[0;32mI (85115) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 7, handle 50[0m
+[0;32mI (85125) GATTS_DEMO: value len 28, value [0m
+[0;32mI (85125) GATTS_DEMO: 58 6f 79 49 47 76 35 45 72 32 58 4f 71 79 4a 6a [0m
+[0;32mI (85125) GATTS_DEMO: 74 6b 4a 45 71 38 6d 43 59 32 6c 31 [0m
+[0;32mI (85135) GATTS_DEMO: User ID receive: XoyIGv5Er2XOqyJjtkJEq8mCY2l1[0m
+[0;32mI (85145) GATTS_DEMO: Start connect Wi-fi: B10-510 4G[0m
+[1;31mE (85145) wifi:NAN WiFi stop[0m
+[0;32mI (85155) wifi:flush txq[0m
+[0;32mI (85155) wifi:stop sw txq[0m
+[0;32mI (85155) wifi:lmac stop hw txq[0m
+[0;32mI (85195) wifi:mode : sta (3c:8a:1f:a7:7e:1c)[0m
+[0;32mI (85195) wifi:enable tsf[0m
+[0;32mI (86415) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1[0m
+[0;32mI (86685) wifi:state: init -> auth (b0)[0m
+[0;32mI (86695) wifi:state: auth -> assoc (0)[0m
+[0;32mI (86705) wifi:state: assoc -> run (10)[0m
+[0;32mI (86745) wifi:connected with B10-510 4G, aid = 1, channel 6, BW20, bssid = 76:5c:65:ee:13:ee[0m
+[0;32mI (86745) wifi:security: WPA2-PSK, phy: bgn, rssi: -44[0m
+[0;32mI (86805) wifi:pm start, type: 1[0m
+
+[0;32mI (86805) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (87815) esp_netif_handlers: sta ip: 192.168.34.38, mask: 255.255.255.0, gw: 192.168.34.28[0m
+[0;32mI (87815) WiFi: Đã nhận IP, kết nối thành công[0m
+[0;32mI (87815) GATTS_DEMO: Wi-Fi đã kết nối thành công.[0m
+[0;32mI (87825) GATTS_DEMO: Send notify success[0m
+[0;32mI (87825) gpio: GPIO[4]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (87835) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (87835) gpio: GPIO[2]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (87875) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (87875) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (88085) Sensor raw: Nhiệt độ: 30.00, CO: 161, Khói: 221.000000[0m
+[0;32mI (88085) Sensor ppm: Nhiệt độ: 30.00, CO: 9.828117, Khói: 94.032700[0m
+[0;32mI (88085) Sensor filter: Nhiệt độ: 30.00, CO: 9, Khói: 94[0m
+[0;32mI (88095) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (88295) wifi:<ba-add>idx:0 (ifx:0, 76:5c:65:ee:13:ee), tid:0, ssn:3, winSize:64[0m
+[0;32mI (88505) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":9,"smokes":94}[0m
+[0;32mI (88505) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (93535) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (93535) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (93745) Sensor raw: Nhiệt độ: 30.00, CO: 171, Khói: 224.000000[0m
+[0;32mI (93745) Sensor ppm: Nhiệt độ: 30.00, CO: 10.641341, Khói: 97.488945[0m
+[0;32mI (93745) Sensor filter: Nhiệt độ: 30.00, CO: 9, Khói: 97[0m
+[0;32mI (93755) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (94135) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":9,"smokes":97}[0m
+[0;32mI (94135) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (99165) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (99165) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (99375) Sensor raw: Nhiệt độ: 30.00, CO: 158, Khói: 227.000000[0m
+[0;32mI (99375) Sensor ppm: Nhiệt độ: 30.00, CO: 9.587625, Khói: 101.026443[0m
+[0;32mI (99375) Sensor filter: Nhiệt độ: 30.00, CO: 9, Khói: 101[0m
+[0;32mI (99385) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (99865) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":9,"smokes":101}[0m
+[0;32mI (99865) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (104895) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (104895) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (105105) Sensor raw: Nhiệt độ: 30.00, CO: 2314, Khói: 225.000000[0m
+[0;32mI (105105) Sensor ppm: Nhiệt độ: 30.00, CO: 782.287415, Khói: 98.659027[0m
+[0;32mI (105105) Sensor filter: Nhiệt độ: 30.00, CO: 241, Khói: 98[0m
+[0;33mW (105115) DHT11_APP: Cảnh báo vượt ngưỡng lần đầu![0m
+[0;33mW (105125) DHT11_APP: DA BAT COI![0m
+[0;32mI (105125) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (105505) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":241,"smokes":98}[0m
+[0;32mI (105515) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (110535) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (110535) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (110745) Sensor raw: Nhiệt độ: 30.00, CO: 1895, Khói: 257.000000[0m
+[0;32mI (110745) Sensor ppm: Nhiệt độ: 30.00, CO: 464.943695, Khói: 141.081512[0m
+[0;32mI (110755) Sensor filter: Nhiệt độ: 30.00, CO: 307, Khói: 141[0m
+[0;33mW (111255) DHT11_APP: DA TAT COI[0m
+[0;32mI (111255) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (111645) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":307,"smokes":141}[0m
+[0;32mI (111645) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (116675) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (116675) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (116885) Sensor raw: Nhiệt độ: 30.00, CO: 844, Khói: 243.000000[0m
+[0;32mI (116885) Sensor ppm: Nhiệt độ: 30.00, CO: 101.878632, Khói: 121.305351[0m
+[0;32mI (116885) Sensor filter: Nhiệt độ: 30.00, CO: 245, Khói: 121[0m
+[0;32mI (116895) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (117375) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":245,"smokes":121}[0m
+[0;32mI (117385) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (122405) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (122405) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (122615) Sensor raw: Nhiệt độ: 30.00, CO: 496, Khói: 239.000000[0m
+[0;32mI (122615) Sensor ppm: Nhiệt độ: 30.00, CO: 45.703468, Khói: 116.008446[0m
+[0;32mI (122615) Sensor filter: Nhiệt độ: 30.00, CO: 185, Khói: 116[0m
+[0;32mI (122625) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (123045) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":185,"smokes":116}[0m
+[0;32mI (123045) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (128075) DHT11_APP: Nhiệt độ: 30.0 °C[0m
+[0;32mI (128075) Sensor: [DHT11] Nhiệt độ (raw): 30.00°C, sau lọc: 30.00°C[0m
+[0;32mI (128285) Sensor raw: Nhiệt độ: 30.00, CO: 379, Khói: 232.000000[0m
+[0;32mI (128285) Sensor ppm: Nhiệt độ: 30.00, CO: 31.221956, Khói: 107.105576[0m
+[0;32mI (128285) Sensor filter: Nhiệt độ: 30.00, CO: 139, Khói: 107[0m
+[0;32mI (128295) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (128645) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":30,"co":139,"smokes":107}[0m
+[0;32mI (128645) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (133675) DHT11_APP: Nhiệt độ: 32.0 °C[0m
+[0;32mI (133675) Sensor: [DHT11] Nhiệt độ (raw): 32.00°C, sau lọc: 32.00°C[0m
+[0;32mI (133885) Sensor raw: Nhiệt độ: 32.00, CO: 327, Khói: 229.000000[0m
+[0;32mI (133885) Sensor ppm: Nhiệt độ: 32.00, CO: 25.450260, Khói: 103.430458[0m
+[0;32mI (133885) Sensor filter: Nhiệt độ: 32.00, CO: 104, Khói: 103[0m
+[0;32mI (133895) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (134275) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":32,"co":104,"smokes":103}[0m
+[0;32mI (134275) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (139305) DHT11_APP: Nhiệt độ: 35.0 °C[0m
+[0;32mI (139305) Sensor: [DHT11] Nhiệt độ (raw): 35.00°C, sau lọc: 35.00°C[0m
+[0;32mI (139515) Sensor raw: Nhiệt độ: 35.00, CO: 283, Khói: 226.000000[0m
+[0;32mI (139515) Sensor ppm: Nhiệt độ: 35.00, CO: 20.886484, Khói: 99.838181[0m
+[0;32mI (139515) Sensor filter: Nhiệt độ: 35.00, CO: 79, Khói: 99[0m
+[0;33mW (139525) DHT11_APP: Cảm biến đã ổn định trở lại.[0m
+[0;32mI (139535) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (139905) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":35,"co":79,"smokes":99}[0m
+[0;32mI (139905) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (144935) DHT11_APP: Nhiệt độ: 41.0 °C[0m
+[0;32mI (144935) Sensor: [DHT11] Nhiệt độ (raw): 41.00°C, sau lọc: 41.00°C[0m
+[0;32mI (145145) Sensor raw: Nhiệt độ: 41.00, CO: 260, Khói: 223.000000[0m
+[0;32mI (145145) Sensor ppm: Nhiệt độ: 41.00, CO: 18.619133, Khói: 96.327827[0m
+[0;32mI (145145) Sensor filter: Nhiệt độ: 41.00, CO: 61, Khói: 96[0m
+[0;32mI (145155) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (145655) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":41,"co":61,"smokes":96}[0m
+[0;32mI (145665) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (150685) DHT11_APP: Nhiệt độ: 46.0 °C[0m
+[0;32mI (150685) Sensor: [DHT11] Nhiệt độ (raw): 46.00°C, sau lọc: 46.00°C[0m
+[0;32mI (150895) Sensor raw: Nhiệt độ: 46.00, CO: 256, Khói: 221.000000[0m
+[0;32mI (150895) Sensor ppm: Nhiệt độ: 46.00, CO: 18.233208, Khói: 94.032700[0m
+[0;32mI (150895) Sensor filter: Nhiệt độ: 46.00, CO: 48, Khói: 94[0m
+[0;33mW (150905) DHT11_APP: Cảnh báo vượt ngưỡng lần đầu![0m
+[0;33mW (150915) DHT11_APP: DA BAT COI![0m
+[0;32mI (150915) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (151275) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":46,"co":48,"smokes":94}[0m
+[0;32mI (151285) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (156305) DHT11_APP: Nhiệt độ: 48.0 °C[0m
+[0;32mI (156305) Sensor: [DHT11] Nhiệt độ (raw): 48.00°C, sau lọc: 48.00°C[0m
+[0;32mI (156515) Sensor raw: Nhiệt độ: 48.00, CO: 244, Khói: 214.000000[0m
+[0;32mI (156515) Sensor ppm: Nhiệt độ: 48.00, CO: 17.090502, Khói: 86.279099[0m
+[0;32mI (156515) Sensor filter: Nhiệt độ: 48.00, CO: 38, Khói: 86[0m
+[0;33mW (157025) DHT11_APP: DA TAT COI[0m
+[0;32mI (157025) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (157415) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":48,"co":38,"smokes":86}[0m
+[0;32mI (157425) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (162445) DHT11_APP: Nhiệt độ: 49.0 °C[0m
+[0;32mI (162445) Sensor: [DHT11] Nhiệt độ (raw): 49.00°C, sau lọc: 49.00°C[0m
+[0;32mI (162655) Sensor raw: Nhiệt độ: 49.00, CO: 237, Khói: 210.000000[0m
+[0;32mI (162655) Sensor ppm: Nhiệt độ: 49.00, CO: 16.434429, Khói: 82.040314[0m
+[0;32mI (162655) Sensor filter: Nhiệt độ: 49.00, CO: 31, Khói: 82[0m
+[0;32mI (162665) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (163045) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_A77E1E","temp":49,"co":31,"smokes":82}[0m
+[0;32mI (163045) HTTP: Gửi thành công! Status = 200[0m
+Z�X�ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x1b (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Jun 15 2025 10:13:04[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (76) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00180000[0m
+[0;32mI (91) boot:  3 storage          Unknown data     01 82 00190000 00060000[0m
+[0;32mI (99) boot: End of partition table[0m
+[0;32mI (103) boot: Defaulting to factory image[0m
+[0;32mI (108) esp_image: segment 0: paddr=00010020 v0) map[0m
+[0;32mI (200) esp_image: segment 1: paddr=00048bf8 vaddr=3ffbdb60 size=059c8h ( 22984) load[0m
+[0;32mI (210) esp_image: segment 2: paddr=0004e5c8 vaddr=40080000 size=01a50h (  6736) load[0m
+[0;32mI (213) esp_image: segment 3: paddr=00050020 vaddr=400d0020 size=102c80h (1059968) map[0m
+[0;32mI (600) esp_image: segment 4: paddr=00152ca8 vaddr=40081a50 size=1d488h (119944) load[0m
+[0;32mI (665) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (665) boot: Disabling RNG early entropy source...[0m
+[0;32mI (677) cpu_start: Multicore app[0m
+[0;32mI (677) cpu_start: Pro cpu up.[0m
+[0;32mI (677) cpu_start: Starting app cpu, entry point is 0x40081418[0m
+[0;32mI (667) cpu_start: App cpu up.[0m
+[0;32mI (697) cpu_start: Pro cpu start user code[0m
+[0;32mI (698) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (698) cpu_start: Application information:[0m
+[0;32mI (702) cpu_start: Project name:     gatt_server_demos[0m
+[0;32mI (708) cpu_start: App version:      055b8aa2-dirty[0m
+[0;32mI (714) cpu_start: Compile time:     Jun 24 2025 01:38:43[0m
+[0;32mI (720) cpu_start: ELF file SHA256:  b4af7bc9...[0m
+[0;32mI (725) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (730) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (735) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (739) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (744) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (752) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (757) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (763) heap_init: At 3FFB9A20 en[0;32mI (600) esp_image: segment 4: paddr=00152ca8 vaddr=40081a50 size=1d488h (119944) load[0m
+[0;32mI (665) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (665) boot: Disabling RNG early entropy source...[0m
+[0;32mI (677) cpu_start: Multicore app[0m
+[0;32mI (677) cpu_start: Pro cpu up.[0m
+[0;32mI (677) cpu_start: Starting app cpu, entry point is 0x40081418[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (697) cpu_start: Pro cpu start user code[0m
+[0;32mI (697) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (697) cpu_start: Application information:[0m
+[0;32mI (702) cpu_start: Project name:     gatt_server_demos[0m
+[0;32mI (708) cpu_start: App version:      055b8aa2-dirty[0m
+[0;32mI (714) cpu_start: Compile time:     Jun 24 2025 01:38:43[0m
+[0;32mI (720) cpu_start: ELF file SHA256:  b4af7bc9...[0m
+[0;32mI (725) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (730) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (734) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (739) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (744) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (751) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (757) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (763) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (770) heap_init: At 3FFCBC60 len 000143A0 (80 KiB): DRAM[0m
+[0;32mI (776) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (782) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (788) heap_init: At 4009EED8 len 00001128 (4 KiB): IRAM[0m
+[0;32mI (796) spi_flash: detected chip: generic[0m
+[0;32mI (799) spi_flash: flash io: dio[0m
+[0;33mW (803) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (817) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (825) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (831) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (835) app_start: Starting scheduler on CPU1[0m
+mI (835) main_task: Started on CPU0[0m
+[0;32mI (845) main_task: Calling app_main()[0m
+[0;32mI (875) BLE: Đã lưu tên BLE vào NVS: ESP_NTH_A77E1E[0m
+[0;32mI (875) BLE: Đã khôi phục tên BLE: ESP_NTH_A77E1E[0m
+[0;32mI (885) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (885) BTDM_INIT: Bluetooth MAC: 3c:8a:1f:a7:7e:1e[0m
+[0;32mI (895) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (1315) GATTS_DEMO: GATT server register, status 0, app_id 0, gatts_if 3[0m
+[0;32mI (1315) main_task: Returned from app_main()[0m
+[0;32mI (1325) GATTS_DEMO: Service create, status 0, service_handle 40[0m
+[0;32mI (1325) GATTS_DEMO: GATT server register, status 0, app_id 1, gatts_if 4[0m
+[0;32mI (1325) GATTS_DEMO: GATT server register, status 0, app_id 2, gatts_if 5[0m
+[0;32mI (1355) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (1355) GATTS_DEMO: Service start, status 0, service_handle 40[0m
+[0;32mI (1355) GATTS_DEMO: Characteristic add, status 0, attr_handle 42, service_handle 40[0m
+[0;32mI (1365) GATTS_DEMO: the gatts demo char length = 3[0m
+[0;32mI (1365) GATTS_DEMO: prf_char[0] =11[0m
+[0;32mI (1375) GATTS_DEMO: prf_char[1] =22[0m
+[0;32mI (1375) GATTS_DEMO: prf_char[2] =33[0m
+[0;32mI (1375) GATTS_DEMO: Service create, status 0,  service_handle 44[0m
+[0;32mI (1385) GATTS_DEMO: Service create, status 0,  service_handle 48[0m
+[0;32mI (1395) GATTS_DEMO: Descriptor add, status 0, attr_handle 43, service_handle 40[0m
+[0;32mI (1405) GATTS_DEMO: Service start, status 0, service_handle 44[0m
+[0;32mI (1405) GATTS_DEMO: Characteristic add, status 0, attr_handle 46, service_handle 44[0m
+[0;32mI (1415) GATTS_DEMO: Service start, status 0, service_handle 48[0m
+[0;32mI (1425) GATTS_DEMO: Characteristic add, status 0, attr_handle 50, service_handle 48[0m
+[0;32mI (1435) GATTS_DEMO: Descriptor add, status 0, attr_handle 47, service_handle 44[0m
+[0;32mI (1435) GATTS_DEMO: Descriptor add, status 0, attr_handle 51, service_handle 48[0m

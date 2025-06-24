@@ -1,0 +1,1253 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x1b (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Jun 15 2025 10:13:04[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00005000[0m
+[0;32mI (77) boot:  1 otadata          OTA data         01 00 0000e000 00002000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00180000[0m
+[0;32mI (92) boot:  3 storage          Unknown data     01 82 00190000 00060000[0m
+[0;32mI (99) boot: End of partition table[0m
+[0;32mI (103) boot: Defaulting to factory image[0m
+[0;32mI (108) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=38bd0h (232400) map[0m
+[0;32mI (200) esp_image: segment 1: paddr=00048bf8 vaddr=3ffbdb60 size=059c8h ( 22984) load[0m
+[0;32mI (210) esp_image: segment 2: paddr=0004e5c8 vaddr=40080000 size=01a50h (  6736) load[0m
+[0;32mI (213) esp_image: segment 3: paddr=00050020 vaddr=400d0020 size=102c28h (1059880) map[0m
+[0;32mI (600) esp_image: segment 4: paddr=00152c50 vaddr=40081a50 size=1d488h (119944) load[0m
+[0;32mI (665) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (665) boot: Disabling RNG early entropy source...[0m
+[0;32mI (677) cpu_start: Multicore app[0m
+[0;32mI (677) cpu_start: Pro cpu up.[0m
+[0;32mI (677) cpu_start: Starting app cpu, entry point is 0x40081418[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (697) cpu_start: Pro cpu start user code[0m
+[0;32mI (697) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (697) cpu_start: Application information:[0m
+[0;32mI (702) cpu_start: Project name:     gatt_server_demos[0m
+[0;32mI (708) cpu_start: App version:      055b8aa2-dirty[0m
+[0;32mI (713) cpu_start: Compile time:     Jun 24 2025 01:38:43[0m
+[0;32mI (720) cpu_start: ELF file SHA256:  dc2b3945...[0m
+[0;32mI (725) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (730) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (734) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (739) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (744) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (751) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (757) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (763) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (770) heap_init: At 3FFCBC60 len 000143A0 (80 KiB): DRAM[0m
+[0;32mI (776) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (782) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (788) heap_init: At 4009EED8 len 00001128 (4 KiB): IRAM[0m
+[0;32mI (796) spi_flash: detected chip: generic[0m
+[0;32mI (799) spi_flash: flash io: dio[0m
+[0;33mW (803) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (817) ADC: legacy driver is deprecated, please migrate to `esp_adc/adc_oneshot.h`[0m
+[0;32mI (825) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (831) app_start: Starting scheduler on CPU0[0m
+[0;32m[0;32mI (835) app_start: Starting scheduler on CPU1[0m
+[0;32mI (835) main_task: Started on CPU0[0m[0m
+[0;32mI (845) main_task: Calling app_main()[0m
+[0;32mI (885) BLE: Đã lưu tên BLE vào NVS: ESP_NTH_27D9B6[0m
+[0;32mI (885) BLE: Đã khôi phục tên BLE: ESP_NTH_27D9B6[0m
+[0;32mI (885) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (895) BTDM_INIT: Bluetooth MAC: 08:d1:f9:27:d9:b6[0m
+[0;32mI (905) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (1315) GATTS_DEMO: GATT server register, status 0, app_id 0, gatts_if 3[0m
+[0;32mI (1315) main_task: Returned from app_main()[0m
+[0;32mI (1325) GATTS_DEMO: Service create, status 0, service_handle 40[0m
+[0;32mI (1325) GATTS_DEMO: GATT server register, status 0, app_id 1, gatts_if 4[0m
+[0;32mI (1325) GATTS_DEMO: GATT server register, status 0, app_id 2, gatts_if 5[0m
+[0;32mI (1355) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (1355) GATTS_DEMO: Service start, status 0, service_handle 40[0m
+[0;32mI (1355) GATTS_DEMO: Characteristic add, status 0, attr_handle 42, service_handle 40[0m
+[0;32mI (1365) GATTS_DEMO: the gatts demo char length = 3[0m
+[0;32mI (1365) GATTS_DEMO: prf_char[0] =11[0m
+[0;32mI (1375) GATTS_DEMO: prf_char[1] =22[0m
+[0;32mI (1375) GATTS_DEMO: prf_char[2] =33[0m
+[0;32mI (1385) GATTS_DEMO: Service create, status 0,  service_handle 44[0m
+[0;32mI (1385) GATTS_DEMO: Service create, status 0,  service_handle 48[0m
+[0;32mI (1395) GATTS_DEMO: Descriptor add, status 0, attr_handle 43, service_handle 40[0m
+[0;32mI (1405) GATTS_DEMO: Service start, status 0, service_handle 44[0m
+[0;32mI (1405) GATTS_DEMO: Characteristic add, status 0, attr_handle 46, service_handle 44[0m
+[0;32mI (1415) GATTS_DEMO: Service start, status 0, service_handle 48[0m
+[0;32mI (1425) GATTS_DEMO: Characteristic add, status 0, attr_handle 50, service_handle 48[0m
+[0;32mI (1435) GATTS_DEMO: Descriptor add, status 0, attr_handle 47, service_handle 44[0m
+[0;32mI (1445) GATTS_DEMO: Descriptor add, status 0, attr_handle 51, service_handle 48[0m
+[0;32mI (31545) GATTS_DEMO: Connected, conn_id 0, remote 7e:d9:e9:9b:e6:46[0m
+[0;32mI (31545) GATTS_DEMO: Connected, conn_id 0, remote 7e:d9:e9:9b:e6:46[0m
+[0;32mI (31555) GATTS_DEMO: Connected, conn_id 0, remote 7e:d9:e9:9b:e6:46[0m
+[0;32mI (32215) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (32735) GATTS_DEMO: Connection params update, status 0, conn_int 6, latency 0, timeout 500[0m
+[0;32mI (33215) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (33215) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (33215) GATTS_DEMO: MTU exchange, MTU 500[0m
+[0;32mI (33285) GATTS_DEMO: Connection params update, status 0, conn_int 30, latency 0, timeout 400[0m
+[0;32mI (47095) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 4, handle 51[0m
+[0;32mI (47095) GATTS_DEMO: value len 2, value [0m
+[0;32mI (47095) GATTS_DEMO: 01 00 [0m
+[0;32mI (47095) GATTS_DEMO: User ID receive: [0m
+[0;32mI (47105) GATTS_DEMO: Start connect Wi-fi: [0m
+[0;32mI (47125) wifi:wifi driver task: 3ffd66d0, prio:23, stack:6656, core=0[0m
+[0;32mI (47145) wifi:wifi firmware version: 91b9630[0m
+[0;32mI (47145) wifi:wifi certification version: v7.0[0m
+[0;32mI (47145) wifi:config NVS flash: enabled[0m
+[0;32mI (47145) wifi:config nano formating: disabled[0m
+[0;32mI (47155) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (47155) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (47155) wifi:Init management short buffer num: 32[0m
+[0;32mI (47165) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (47165) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (47175) wifi:Init static rx buffer num: 10[0m
+[0;32mI (47175) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (47185) wifi_init: rx ba win: 6[0m
+[0;32mI (47185) wifi_init: tcpip mbox: 32[0m
+[0;32mI (47185) wifi_init: udp mbox: 6[0m
+[0;32mI (47195) wifi_init: tcp mbox: 6[0m
+[0;32mI (47195) wifi_init: tcp tx win: 5760[0m
+[0;32mI (47205) wifi_init: tcp rx win: 5760[0m
+[0;32mI (47205) wifi_init: tcp mss: 1440[0m
+[0;32mI (47205) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (47215) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (47255) wifi:mode : sta (08:d1:f9:27:d9:b4)[0m
+[0;32mI (47255) wifi:enable tsf[0m
+[0;31mE (52265) GATTS_DEMO: Wi-Fi kết nối thất bại sau 5 giây[0m
+[0;32mI (52265) GATTS_DEMO: Send notify success[0m
+[0;32mI (52265) GATTS_DEMO: Notification enable[0m
+[0;32mI (52275) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (52275) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (52375) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 5, handle 42[0m
+[0;32mI (52375) GATTS_DEMO: value len 10, value [0m
+[0;32mI (52385) GATTS_DEMO: 42 31 30 2d 35 31 30 20 34 47 [0m
+[0;32mI (52385) GATTS_DEMO: SSID received: B10-510 4G[0m
+[0;32mI (52455) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 6, handle 46[0m
+[0;32mI (52455) GATTS_DEMO: value len 8, value [0m
+[0;32mI (52455) GATTS_DEMO: 32 30 32 31 30 35 33 31 [0m
+[0;32mI (52465) GATTS_DEMO: PASSWORD receive: 20210531[0m
+[0;32mI (52525) GATTS_DEMO: Characteristic write, conn_id 0, trans_id 7, handle 50[0m
+[0;32mI (52535) GATTS_DEMO: value len 28, value [0m
+[0;32mI (52535) GATTS_DEMO: 58 6f 79 49 47 76 35 45 72 32 58 4f 71 79 4a 6a [0m
+[0;32mI (52535) GATTS_DEMO: 74 6b 4a 45 71 38 6d 43 59 32 6c 31 [0m
+[0;32mI (52545) GATTS_DEMO: User ID receive: XoyIGv5Er2XOqyJjtkJEq8mCY2l1[0m
+[0;32mI (52555) GATTS_DEMO: Start connect Wi-fi: B10-510 4G[0m
+[1;31mE (52565) wifi:NAN WiFi stop[0m
+[0;32mI (52565) wifi:flush txq[0m
+[0;32mI (52565) wifi:stop sw txq[0m
+[0;32mI (52565) wifi:lmac stop hw txq[0m
+[0;32mI (52615) wifi:mode : sta (08:d1:f9:27:d9:b4)[0m
+[0;32mI (52615) wifi:enable tsf[0m
+[0;32mI (54115) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1[0m
+[0;32mI (54385) wifi:state: init -> auth (b0)[0m
+[0;32mI (54395) wifi:state: auth -> assoc (0)[0m
+[0;32mI (54415) wifi:state: assoc -> run (10)[0m
+[0;32mI (55475) wifi:connected with B10-510 4G, aid = 2, channel 6, BW20, bssid = 76:5c:65:ee:13:ee[0m
+[0;32mI (55475) wifi:security: WPA2-PSK, phy: bgn, rssi: -45[0m
+[0;32mI (55485) wifi:pm start, type: 1[0m
+
+[0;32mI (55545) wifi:AP's beacon interval = 102400 us, DTIM period = 2[0m
+[0;32mI (56495) esp_netif_handlers: sta ip: 192.168.34.134, mask: 255.255.255.0, gw: 192.168.34.28[0m
+[0;32mI (56495) WiFi: Đã nhận IP, kết nối thành công[0m
+[0;32mI (56495) GATTS_DEMO: Wi-Fi đã kết nối thành công.[0m
+[0;32mI (56505) GATTS_DEMO: Send notify success[0m
+[0;32mI (56505) gpio: GPIO[4]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (56515) GATTS_DEMO: Confirm receive, status 0, attr_handle 50[0m
+[0;32mI (56515) gpio: GPIO[2]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (56555) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (56555) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (56755) Sensor raw: Nhiệt độ: 1.00, CO: 1044, Khói: 213.000000[0m
+[0;32mI (56755) Sensor ppm: Nhiệt độ: 1.00, CO: 144.509567, Khói: 85.206451[0m
+[0;32mI (56755) Sensor filter: Nhiệt độ: 1.00, CO: 144, Khói: 85[0m
+[0;33mW (56765) DHT11_APP: Cảnh báo vượt ngưỡng lần đầu![0m
+[0;33mW (56775) DHT11_APP: DA BAT COI![0m
+[0;32mI (56775) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (56885) wifi:<ba-add>idx:0 (ifx:0, 76:5c:65:ee:13:ee), tid:0, ssn:3, winSize:64[0m
+[0;32mI (57095) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":144,"smokes":85}[0m
+[0;32mI (57095) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (62125) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (62135) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (62335) Sensor raw: Nhiệt độ: 1.00, CO: 1054, Khói: 182.000000[0m
+[0;32mI (62335) Sensor ppm: Nhiệt độ: 1.00, CO: 146.873047, Khói: 56.078339[0m
+[0;32mI (62335) Sensor filter: Nhiệt độ: 1.00, CO: 144, Khói: 56[0m
+[0;33mW (62845) DHT11_APP: DA TAT COI[0m
+[0;32mI (62845) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (63235) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":144,"smokes":56}[0m
+[0;32mI (63235) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (68265) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (68275) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (68475) Sensor raw: Nhiệt độ: 1.00, CO: 1069, Khói: 184.000000[0m
+[0;32mI (68475) Sensor ppm: Nhiệt độ: 1.00, CO: 150.462662, Khói: 57.726242[0m
+[0;32mI (68475) Sensor filter: Nhiệt độ: 1.00, CO: 146, Khói: 57[0m
+[0;32mI (68485) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (68865) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":146,"smokes":57}[0m
+[0;32mI (68865) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (73895) dht: HIGH bit timeout[0m
+[0;31mE (73905) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (73905) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (74105) Sensor raw: Nhiệt độ: -1.00, CO: 1070, Khói: 162.000000[0m
+[0;32mI (74105) Sensor ppm: Nhiệt độ: -1.00, CO: 150.703964, Khói: 41.228638[0m
+[0;32mI (74105) Sensor filter: Nhiệt độ: -1.00, CO: 147, Khói: 41[0m
+[0;32mI (74115) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (74495) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":147,"smokes":41}[0m
+[0;32mI (74505) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (79525) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (79535) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (79735) Sensor raw: Nhiệt độ: 1.00, CO: 1070, Khói: 190.000000[0m
+[0;32mI (79735) Sensor ppm: Nhiệt độ: 1.00, CO: 150.703964, Khói: 62.855312[0m
+[0;32mI (79735) Sensor filter: Nhiệt độ: 1.00, CO: 148, Khói: 62[0m
+[0;32mI (79745) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (80135) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":148,"smokes":62}[0m
+[0;32mI (80135) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (85165) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (85175) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (85375) Sensor raw: Nhiệt độ: 1.00, CO: 1054, Khói: 206.000000[0m
+[0;32mI (85375) Sensor ppm: Nhiệt độ: 1.00, CO: 146.873047, Khói: 77.938362[0m
+[0;32mI (85375) Sensor filter: Nhiệt độ: 1.00, CO: 147, Khói: 77[0m
+[0;32mI (85385) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (85865) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":147,"smokes":77}[0m
+[0;32mI (85875) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (90895) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (90895) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (91105) Sensor raw: Nhiệt độ: 1.00, CO: 1042, Khói: 177.000000[0m
+[0;32mI (91105) Sensor ppm: Nhiệt độ: 1.00, CO: 144.039658, Khói: 52.091011[0m
+[0;32mI (91105) Sensor filter: Nhiệt độ: 1.00, CO: 146, Khói: 52[0m
+[0;32mI (91115) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (91605) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":146,"smokes":52}[0m
+[0;32mI (91605) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (96635) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (96635) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (96635) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (96845) Sensor raw: Nhiệt độ: -1.00, CO: 1052, Khói: 190.000000[0m
+[0;32mI (96845) Sensor ppm: Nhiệt độ: -1.00, CO: 146.398499, Khói: 62.855312[0m
+[0;32mI (96855) Sensor filter: Nhiệt độ: -1.00, CO: 146, Khói: 62[0m
+[0;32mI (96855) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (97235) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":146,"smokes":62}[0m
+[0;32mI (97235) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (102265) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (102265) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (102265) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (102475) Sensor raw: Nhiệt độ: -1.00, CO: 1043, Khói: 145.000000[0m
+[0;32mI (102475) Sensor ppm: Nhiệt độ: -1.00, CO: 144.274536, Khói: 30.801052[0m
+[0;32mI (102485) Sensor filter: Nhiệt độ: -1.00, CO: 145, Khói: 30[0m
+[0;32mI (102485) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (102875) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":145,"smokes":30}[0m
+[0;32mI (102875) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (107895) DHT11_APP: Nhiệt độ: 0.0 °C[0m
+[0;32mI (107895) Sensor: [DHT11] Nhiệt độ (raw): 0.00°C, sau lọc: 0.00°C[0m
+[0;32mI (108105) Sensor raw: Nhiệt độ: 0.00, CO: 1032, Khói: 161.000000[0m
+[0;32mI (108105) Sensor ppm: Nhiệt độ: 0.00, CO: 141.704346, Khói: 40.561264[0m
+[0;32mI (108115) Sensor filter: Nhiệt độ: 0.00, CO: 144, Khói: 40[0m
+[0;32mI (108115) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (108505) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":0,"co":144,"smokes":40}[0m
+[0;32mI (108505) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (113535) DHT11_APP: Nhiệt độ: 1.0 °C[0m
+[0;32mI (113535) Sensor: [DHT11] Nhiệt độ (raw): 1.00°C, sau lọc: 1.00°C[0m
+[0;32mI (113745) Sensor raw: Nhiệt độ: 1.00, CO: 1043, Khói: 215.000000[0m
+[0;32mI (113745) Sensor ppm: Nhiệt độ: 1.00, CO: 144.274536, Khói: 87.360367[0m
+[0;32mI (113745) Sensor filter: Nhiệt độ: 1.00, CO: 144, Khói: 87[0m
+[0;32mI (113755) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (114125) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":1,"co":144,"smokes":87}[0m
+[0;32mI (114135) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (119155) dht: Initialization error, problem in phase 'C'[0m
+[0;31mE (119155) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (119155) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (119365) Sensor raw: Nhiệt độ: -1.00, CO: 1022, Khói: 169.000000[0m
+[0;32mI (119365) Sensor ppm: Nhiệt độ: -1.00, CO: 139.392197, Khói: 46.096519[0m
+[0;32mI (119375) Sensor filter: Nhiệt độ: -1.00, CO: 142, Khói: 46[0m
+[0;32mI (119375) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (119765) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":142,"smokes":46}[0m
+[0;32mI (119765) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (124785) DHT11_APP: Nhiệt độ: 26.0 °C[0m
+[0;32mI (124795) Sensor: [DHT11] Nhiệt độ (raw): 26.00°C, sau lọc: 26.00°C[0m
+[0;32mI (124995) Sensor raw: Nhiệt độ: 26.00, CO: 1039, Khói: 183.000000[0m
+[0;32mI (124995) Sensor ppm: Nhiệt độ: 26.00, CO: 143.336670, Khói: 56.898472[0m
+[0;32mI (125005) Sensor filter: Nhiệt độ: 26.00, CO: 142, Khói: 56[0m
+[0;32mI (125005) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (125395) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":26,"co":142,"smokes":56}[0m
+[0;32mI (125395) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (130425) DHT11_APP: Nhiệt độ: 26.0 °C[0m
+[0;32mI (130425) Sensor: [DHT11] Nhiệt độ (raw): 26.00°C, sau lọc: 26.00°C[0m
+[0;32mI (130635) Sensor raw: Nhiệt độ: 26.00, CO: 1027, Khói: 159.000000[0m
+[0;32mI (130635) Sensor ppm: Nhiệt độ: 26.00, CO: 140.545410, Khói: 39.247231[0m
+[0;32mI (130645) Sensor filter: Nhiệt độ: 26.00, CO: 141, Khói: 39[0m
+[0;32mI (130645) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (131025) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":26,"co":141,"smokes":39}[0m
+[0;32mI (131025) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (136055) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (136065) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (136265) Sensor raw: Nhiệt độ: 27.00, CO: 1036, Khói: 182.000000[0m
+[0;32mI (136265) Sensor ppm: Nhiệt độ: 27.00, CO: 142.635696, Khói: 56.078339[0m
+[0;32mI (136275) Sensor filter: Nhiệt độ: 27.00, CO: 141, Khói: 56[0m
+[0;32mI (136275) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (136665) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":141,"smokes":56}[0m
+[0;32mI (136665) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (141695) dht: Initialization error, problem in phase 'B'[0m
+[0;31mE (141695) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (141695) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (141905) Sensor raw: Nhiệt độ: -1.00, CO: 1026, Khói: 117.000000[0m
+[0;32mI (141905) Sensor ppm: Nhiệt độ: -1.00, CO: 140.314285, Khói: 17.574995[0m
+[0;32mI (141915) Sensor filter: Nhiệt độ: -1.00, CO: 141, Khói: 17[0m
+[0;32mI (141915) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (143625) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":141,"smokes":17}[0m
+[0;32mI (143625) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (148655) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (148655) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (148865) Sensor raw: Nhiệt độ: 27.00, CO: 1031, Khói: 190.000000[0m
+[0;32mI (148865) Sensor ppm: Nhiệt độ: 27.00, CO: 141.472092, Khói: 62.855312[0m
+[0;32mI (148875) Sensor filter: Nhiệt độ: 27.00, CO: 141, Khói: 62[0m
+[0;32mI (148875) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (149255) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":141,"smokes":62}[0m
+[0;32mI (149255) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (154285) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (154285) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (154495) Sensor raw: Nhiệt độ: 27.00, CO: 1016, Khói: 181.000000[0m
+[0;32mI (154495) Sensor ppm: Nhiệt độ: 27.00, CO: 138.015961, Khói: 55.265781[0m
+[0;32mI (154505) Sensor filter: Nhiệt độ: 27.00, CO: 140, Khói: 55[0m
+[0;32mI (154505) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (154885) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":140,"smokes":55}[0m
+[0;32mI (154885) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (159915) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (159915) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (160125) Sensor raw: Nhiệt độ: 27.00, CO: 1011, Khói: 185.000000[0m
+[0;32mI (160125) Sensor ppm: Nhiệt độ: 27.00, CO: 136.875305, Khói: 58.561729[0m
+[0;32mI (160135) Sensor filter: Nhiệt độ: 27.00, CO: 138, Khói: 58[0m
+[0;32mI (160135) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (160515) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":138,"smokes":58}[0m
+[0;32mI (160515) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (165545) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (165545) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (165755) Sensor raw: Nhiệt độ: 27.00, CO: 1017, Khói: 168.000000[0m
+[0;32mI (165755) Sensor ppm: Nhiệt độ: 27.00, CO: 138.244736, Khói: 45.379841[0m
+[0;32mI (165765) Sensor filter: Nhiệt độ: 27.00, CO: 138, Khói: 45[0m
+[0;32mI (165765) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (166155) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":138,"smokes":45}[0m
+[0;32mI (166155) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (171185) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (171185) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (171395) Sensor raw: Nhiệt độ: 27.00, CO: 1017, Khói: 194.000000[0m
+[0;32mI (171395) Sensor ppm: Nhiệt độ: 27.00, CO: 138.244736, Khói: 66.431709[0m
+[0;32mI (171405) Sensor filter: Nhiệt độ: 27.00, CO: 138, Khói: 66[0m
+[0;32mI (171405) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (171785) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":138,"smokes":66}[0m
+[0;32mI (171785) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (176815) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (176815) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (177025) Sensor raw: Nhiệt độ: 27.00, CO: 1006, Khói: 156.000000[0m
+[0;32mI (177025) Sensor ppm: Nhiệt độ: 27.00, CO: 135.740372, Khói: 37.327446[0m
+[0;32mI (177035) Sensor filter: Nhiệt độ: 27.00, CO: 137, Khói: 37[0m
+[0;32mI (177035) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (177425) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":137,"smokes":37}[0m
+[0;32mI (177425) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (182455) DHT11_APP: Nhiệt độ: 27.0 °C[0m
+[0;32mI (182465) Sensor: [DHT11] Nhiệt độ (raw): 27.00°C, sau lọc: 27.00°C[0m
+[0;32mI (182665) Sensor raw: Nhiệt độ: 27.00, CO: 1019, Khói: 155.000000[0m
+[0;32mI (182665) Sensor ppm: Nhiệt độ: 27.00, CO: 138.702972, Khói: 36.701035[0m
+[0;32mI (182675) Sensor filter: Nhiệt độ: 27.00, CO: 137, Khói: 36[0m
+[0;32mI (182675) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (183045) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":27,"co":137,"smokes":36}[0m
+[0;32mI (183045) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (188075) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (188075) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (188285) Sensor raw: Nhiệt độ: 28.00, CO: 1029, Khói: 1208.000000[0m
+[0;32mI (188285) Sensor ppm: Nhiệt độ: 28.00, CO: 141.008331, Khói: 14592.628906[0m
+[0;32mI (188295) Sensor filter: Nhiệt độ: 28.00, CO: 138, Khói: 14592[0m
+[0;32mI (188295) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (188675) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":138,"smokes":14592}[0m
+[0;32mI (188675) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (193705) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (193705) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (193915) Sensor raw: Nhiệt độ: 28.00, CO: 1023, Khói: 747.000000[0m
+[0;32mI (193915) Sensor ppm: Nhiệt độ: 28.00, CO: 139.622345, Khói: 2970.151367[0m
+[0;32mI (193925) Sensor filter: Nhiệt độ: 28.00, CO: 138, Khói: 2970[0m
+[0;32mI (193925) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (194095) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (194105) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (194105) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (194105) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":138,"smokes":2970}[0m
+[0;31mE (194125) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;32mI (199145) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (199145) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (199355) Sensor raw: Nhiệt độ: 28.00, CO: 2021, Khói: 468.000000[0m
+[0;32mI (199355) Sensor ppm: Nhiệt độ: 28.00, CO: 543.515686, Khói: 742.438232[0m
+[0;32mI (199365) Sensor filter: Nhiệt độ: 28.00, CO: 260, Khói: 742[0m
+[0;32mI (199365) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (199525) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (199525) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (199535) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (199535) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":260,"smokes":742}[0m
+[0;31mE (199555) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;32mI (204575) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (204575) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (204785) Sensor raw: Nhiệt độ: 28.00, CO: 1858, Khói: 340.000000[0m
+[0;32mI (204785) Sensor ppm: Nhiệt độ: 28.00, CO: 444.009277, Khói: 302.844055[0m
+[0;32mI (204795) Sensor filter: Nhiệt độ: 28.00, CO: 315, Khói: 302[0m
+[0;32mI (204795) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (204955) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (204955) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (204955) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (204965) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":315,"smokes":302}[0m
+[0;31mE (204975) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;32mI (210005) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (210005) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (210215) Sensor raw: Nhiệt độ: 28.00, CO: 1643, Khói: 325.000000[0m
+[0;32mI (210215) Sensor ppm: Nhiệt độ: 28.00, CO: 338.327942, Khói: 267.440125[0m
+[0;32mI (210225) Sensor filter: Nhiệt độ: 28.00, CO: 322, Khói: 267[0m
+[0;32mI (210225) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (210385) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (210385) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (210385) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (210395) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":322,"smokes":267}[0m
+[0;31mE (210405) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;31mE (215435) dht: Initialization error, problem in phase 'B'[0m
+[0;31mE (215435) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (215435) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (215645) Sensor raw: Nhiệt độ: -1.00, CO: 1388, Khói: 270.000000[0m
+[0;32mI (215645) Sensor ppm: Nhiệt độ: -1.00, CO: 241.117966, Khói: 161.233551[0m
+[0;32mI (215655) Sensor filter: Nhiệt độ: -1.00, CO: 297, Khói: 161[0m
+[0;32mI (215655) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;31mE (215805) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;31mE (215805) transport_base: Failed to open a new connection: 32772[0m
+[0;31mE (215805) HTTP_CLIENT: Connection failed, sock < 0[0m
+[0;32mI (215815) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":297,"smokes":161}[0m
+[0;31mE (215825) HTTP: Gửi thất bại: ESP_ERR_HTTP_CONNECT[0m
+[0;32mI (220855) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (220855) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (221065) Sensor raw: Nhiệt độ: 28.00, CO: 1281, Khói: 241.000000[0m
+[0;32mI (221065) Sensor ppm: Nhiệt độ: 28.00, CO: 207.403732, Khói: 118.637596[0m
+[0;32mI (221075) Sensor filter: Nhiệt độ: 28.00, CO: 270, Khói: 118[0m
+[0;32mI (221075) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (221445) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":270,"smokes":118}[0m
+[0;32mI (221445) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (226475) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (226475) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (226685) Sensor raw: Nhiệt độ: 28.00, CO: 1218, Khói: 267.000000[0m
+[0;32mI (226685) Sensor ppm: Nhiệt độ: 28.00, CO: 189.199860, Khói: 156.425842[0m
+[0;32mI (226695) Sensor filter: Nhiệt độ: 28.00, CO: 246, Khói: 156[0m
+[0;32mI (226695) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (227085) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":246,"smokes":156}[0m
+[0;32mI (227085) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (232115) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (232115) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (232325) Sensor raw: Nhiệt độ: 28.00, CO: 2925, Khói: 180.000000[0m
+[0;32mI (232325) Sensor ppm: Nhiệt độ: 28.00, CO: 1791.285400, Khói: 54.460827[0m
+[0;32mI (232335) Sensor filter: Nhiệt độ: 28.00, CO: 709, Khói: 54[0m
+[0;32mI (232335) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (232755) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":709,"smokes":54}[0m
+[0;32mI (232755) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (237785) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (237785) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (237995) Sensor raw: Nhiệt độ: 28.00, CO: 2319, Khói: 209.000000[0m
+[0;32mI (237995) Sensor ppm: Nhiệt độ: 28.00, CO: 787.224121, Khói: 81.002098[0m
+[0;32mI (238005) Sensor filter: Nhiệt độ: 28.00, CO: 732, Khói: 81[0m
+[0;32mI (238005) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (238345) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":732,"smokes":81}[0m
+[0;32mI (238345) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (243375) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (243375) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (243585) Sensor raw: Nhiệt độ: 28.00, CO: 1938, Khói: 199.000000[0m
+[0;32mI (243585) Sensor ppm: Nhiệt độ: 28.00, CO: 490.441040, Khói: 71.082649[0m
+[0;32mI (243595) Sensor filter: Nhiệt độ: 28.00, CO: 659, Khói: 71[0m
+[0;32mI (243595) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (244075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":659,"smokes":71}[0m
+[0;32mI (244085) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (249105) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (249105) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (249315) Sensor raw: Nhiệt độ: 28.00, CO: 1724, Khói: 185.000000[0m
+[0;32mI (249315) Sensor ppm: Nhiệt độ: 28.00, CO: 375.197968, Khói: 58.561729[0m
+[0;32mI (249325) Sensor filter: Nhiệt độ: 28.00, CO: 574, Khói: 58[0m
+[0;32mI (249325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (249805) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":574,"smokes":58}[0m
+[0;32mI (249815) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (254835) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (254835) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (255045) Sensor raw: Nhiệt độ: 28.00, CO: 1588, Khói: 190.000000[0m
+[0;32mI (255045) Sensor ppm: Nhiệt độ: 28.00, CO: 315.083374, Khói: 62.855312[0m
+[0;32mI (255055) Sensor filter: Nhiệt độ: 28.00, CO: 496, Khói: 62[0m
+[0;32mI (255055) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (255445) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":496,"smokes":62}[0m
+[0;32mI (255445) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (260475) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (260485) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (260685) Sensor raw: Nhiệt độ: 28.00, CO: 1472, Khói: 207.000000[0m
+[0;32mI (260685) Sensor ppm: Nhiệt độ: 28.00, CO: 270.308655, Khói: 78.951141[0m
+[0;32mI (260695) Sensor filter: Nhiệt độ: 28.00, CO: 428, Khói: 78[0m
+[0;32mI (260695) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (261075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":428,"smokes":78}[0m
+[0;32mI (261075) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (266105) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (266105) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (266315) Sensor raw: Nhiệt độ: 28.00, CO: 1425, Khói: 194.000000[0m
+[0;32mI (266315) Sensor ppm: Nhiệt độ: 28.00, CO: 253.663376, Khói: 66.431709[0m
+[0;32mI (266325) Sensor filter: Nhiệt độ: 28.00, CO: 375, Khói: 66[0m
+[0;32mI (266325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (266705) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":375,"smokes":66}[0m
+[0;32mI (266715) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (271735) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (271735) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (271945) Sensor raw: Nhiệt độ: 28.00, CO: 1350, Khói: 200.000000[0m
+[0;32mI (271945) Sensor ppm: Nhiệt độ: 28.00, CO: 228.720779, Khói: 72.037216[0m
+[0;32mI (271955) Sensor filter: Nhiệt độ: 28.00, CO: 331, Khói: 72[0m
+[0;32mI (271955) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (272335) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":331,"smokes":72}[0m
+[0;32mI (272345) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (277365) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (277375) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (277575) Sensor raw: Nhiệt độ: 28.00, CO: 1314, Khói: 215.000000[0m
+[0;32mI (277575) Sensor ppm: Nhiệt độ: 28.00, CO: 217.412170, Khói: 87.360367[0m
+[0;32mI (277585) Sensor filter: Nhiệt độ: 28.00, CO: 297, Khói: 87[0m
+[0;32mI (277585) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (277975) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":297,"smokes":87}[0m
+[0;32mI (277975) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (283005) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (283005) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (283215) Sensor raw: Nhiệt độ: 28.00, CO: 1277, Khói: 157.000000[0m
+[0;32mI (283215) Sensor ppm: Nhiệt độ: 28.00, CO: 206.213226, Khói: 37.960567[0m
+[0;32mI (283225) Sensor filter: Nhiệt độ: 28.00, CO: 269, Khói: 37[0m
+[0;32mI (283225) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (283705) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":269,"smokes":37}[0m
+[0;32mI (283705) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (288735) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (288745) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (288945) Sensor raw: Nhiệt độ: 28.00, CO: 1231, Khói: 205.000000[0m
+[0;32mI (288945) Sensor ppm: Nhiệt độ: 28.00, CO: 192.862183, Khói: 76.933998[0m
+[0;32mI (288955) Sensor filter: Nhiệt độ: 28.00, CO: 246, Khói: 76[0m
+[0;32mI (288955) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (289335) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":246,"smokes":76}[0m
+[0;32mI (289335) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (294365) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (294375) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (294575) Sensor raw: Nhiệt độ: 28.00, CO: 1213, Khói: 151.000000[0m
+[0;32mI (294575) Sensor ppm: Nhiệt độ: 28.00, CO: 187.803970, Khói: 34.262299[0m
+[0;32mI (294585) Sensor filter: Nhiệt độ: 28.00, CO: 228, Khói: 34[0m
+[0;32mI (294585) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (295075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":228,"smokes":34}[0m
+[0;32mI (295075) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (300105) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (300105) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (300315) Sensor raw: Nhiệt độ: 28.00, CO: 1214, Khói: 203.000000[0m
+[0;32mI (300315) Sensor ppm: Nhiệt độ: 28.00, CO: 188.082642, Khói: 74.950386[0m
+[0;32mI (300325) Sensor filter: Nhiệt độ: 28.00, CO: 216, Khói: 74[0m
+[0;32mI (300325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (300705) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":216,"smokes":74}[0m
+[0;32mI (300705) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (305725) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (305735) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (305935) Sensor raw: Nhiệt độ: 28.00, CO: 1187, Khói: 161.000000[0m
+[0;32mI (305935) Sensor ppm: Nhiệt độ: 28.00, CO: 180.657593, Khói: 40.561264[0m
+[0;32mI (305945) Sensor filter: Nhiệt độ: 28.00, CO: 205, Khói: 40[0m
+[0;32mI (305945) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (306335) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":205,"smokes":40}[0m
+[0;32mI (306335) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (311365) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (311365) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (311575) Sensor raw: Nhiệt độ: 28.00, CO: 1175, Khói: 159.000000[0m
+[0;32mI (311575) Sensor ppm: Nhiệt độ: 28.00, CO: 177.421600, Khói: 39.247231[0m
+[0;32mI (311585) Sensor filter: Nhiệt độ: 28.00, CO: 196, Khói: 39[0m
+[0;32mI (311585) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (311985) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":196,"smokes":39}[0m
+[0;32mI (311995) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (317015) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (317025) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (317225) Sensor raw: Nhiệt độ: 28.00, CO: 1128, Khói: 150.000000[0m
+[0;32mI (317225) Sensor ppm: Nhiệt độ: 28.00, CO: 165.115097, Khói: 33.669170[0m
+[0;32mI (317235) Sensor filter: Nhiệt độ: 28.00, CO: 187, Khói: 33[0m
+[0;32mI (317235) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (317595) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":187,"smokes":33}[0m
+[0;32mI (317595) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (322625) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (322625) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (322835) Sensor raw: Nhiệt độ: 28.00, CO: 1140, Khói: 209.000000[0m
+[0;32mI (322835) Sensor ppm: Nhiệt độ: 28.00, CO: 168.202316, Khói: 81.002098[0m
+[0;32mI (322845) Sensor filter: Nhiệt độ: 28.00, CO: 181, Khói: 81[0m
+[0;32mI (322845) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (323335) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":181,"smokes":81}[0m
+[0;32mI (323335) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (328355) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (328355) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (328565) Sensor raw: Nhiệt độ: 28.00, CO: 1126, Khói: 161.000000[0m
+[0;32mI (328565) Sensor ppm: Nhiệt độ: 28.00, CO: 164.604111, Khói: 40.561264[0m
+[0;32mI (328575) Sensor filter: Nhiệt độ: 28.00, CO: 176, Khói: 40[0m
+[0;32mI (328575) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (328965) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":176,"smokes":40}[0m
+[0;32mI (328965) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (333995) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (333995) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (334205) Sensor raw: Nhiệt độ: 28.00, CO: 1098, Khói: 192.000000[0m
+[0;32mI (334205) Sensor ppm: Nhiệt độ: 28.00, CO: 157.556931, Khói: 64.627594[0m
+[0;32mI (334215) Sensor filter: Nhiệt độ: 28.00, CO: 170, Khói: 64[0m
+[0;32mI (334215) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (334705) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":170,"smokes":64}[0m
+[0;32mI (334705) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (339735) dht: HIGH bit timeout[0m
+[0;31mE (339745) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (339745) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (339945) Sensor raw: Nhiệt độ: -1.00, CO: 1101, Khói: 165.000000[0m
+[0;32mI (339945) Sensor ppm: Nhiệt độ: -1.00, CO: 158.302551, Khói: 43.272537[0m
+[0;32mI (339955) Sensor filter: Nhiệt độ: -1.00, CO: 166, Khói: 43[0m
+[0;32mI (339955) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (340395) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":166,"smokes":43}[0m
+[0;32mI (340395) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (345425) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (345425) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (345635) Sensor raw: Nhiệt độ: 28.00, CO: 1083, Khói: 199.000000[0m
+[0;32mI (345635) Sensor ppm: Nhiệt độ: 28.00, CO: 153.861847, Khói: 71.082649[0m
+[0;32mI (345645) Sensor filter: Nhiệt độ: 28.00, CO: 162, Khói: 71[0m
+[0;32mI (345645) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (345965) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":162,"smokes":71}[0m
+[0;32mI (345975) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (350995) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (350995) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (351205) Sensor raw: Nhiệt độ: 28.00, CO: 1085, Khói: 156.000000[0m
+[0;32mI (351205) Sensor ppm: Nhiệt độ: 28.00, CO: 154.351349, Khói: 37.327446[0m
+[0;32mI (351215) Sensor filter: Nhiệt độ: 28.00, CO: 160, Khói: 37[0m
+[0;32mI (351215) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (351555) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":160,"smokes":37}[0m
+[0;32mI (351555) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (356585) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (356585) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (356795) Sensor raw: Nhiệt độ: 28.00, CO: 1101, Khói: 205.000000[0m
+[0;32mI (356795) Sensor ppm: Nhiệt độ: 28.00, CO: 158.302551, Khói: 76.933998[0m
+[0;32mI (356805) Sensor filter: Nhiệt độ: 28.00, CO: 159, Khói: 76[0m
+[0;32mI (356805) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (357125) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":159,"smokes":76}[0m
+[0;32mI (357125) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (362155) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (362155) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (362365) Sensor raw: Nhiệt độ: 28.00, CO: 1083, Khói: 156.000000[0m
+[0;32mI (362365) Sensor ppm: Nhiệt độ: 28.00, CO: 153.861847, Khói: 37.327446[0m
+[0;32mI (362375) Sensor filter: Nhiệt độ: 28.00, CO: 157, Khói: 37[0m
+[0;32mI (362375) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (362755) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":157,"smokes":37}[0m
+[0;32mI (362765) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (367785) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (367785) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (367995) Sensor raw: Nhiệt độ: 28.00, CO: 1071, Khói: 189.000000[0m
+[0;32mI (367995) Sensor ppm: Nhiệt độ: 28.00, CO: 150.945404, Khói: 61.980972[0m
+[0;32mI (368005) Sensor filter: Nhiệt độ: 28.00, CO: 155, Khói: 61[0m
+[0;32mI (368005) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (368385) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":155,"smokes":61}[0m
+[0;32mI (368395) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (373415) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (373415) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (373625) Sensor raw: Nhiệt độ: 28.00, CO: 1072, Khói: 141.000000[0m
+[0;32mI (373625) Sensor ppm: Nhiệt độ: 28.00, CO: 151.187073, Khói: 28.621748[0m
+[0;32mI (373635) Sensor filter: Nhiệt độ: 28.00, CO: 153, Khói: 28[0m
+[0;32mI (373635) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (374075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":153,"smokes":28}[0m
+[0;32mI (374075) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (379105) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (379115) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (379315) Sensor raw: Nhiệt độ: 28.00, CO: 1066, Khói: 172.000000[0m
+[0;32mI (379315) Sensor ppm: Nhiệt độ: 28.00, CO: 149.740479, Khói: 48.289734[0m
+[0;32mI (379325) Sensor filter: Nhiệt độ: 28.00, CO: 152, Khói: 48[0m
+[0;32mI (379325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (379655) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":152,"smokes":48}[0m
+[0;32mI (379655) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (384685) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (384685) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (384895) Sensor raw: Nhiệt độ: 28.00, CO: 1056, Khói: 143.000000[0m
+[0;32mI (384895) Sensor ppm: Nhiệt độ: 28.00, CO: 147.348572, Khói: 29.698765[0m
+[0;32mI (384905) Sensor filter: Nhiệt độ: 28.00, CO: 150, Khói: 29[0m
+[0;32mI (384905) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (385285) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":150,"smokes":29}[0m
+[0;32mI (385295) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (390315) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (390315) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (390525) Sensor raw: Nhiệt độ: 28.00, CO: 0, Khói: 209.000000[0m
+[0;32mI (390525) Sensor ppm: Nhiệt độ: 28.00, CO: 0.000000, Khói: 81.002098[0m
+[0;32mI (390525) Sensor filter: Nhiệt độ: 28.00, CO: 105, Khói: 81[0m
+[0;32mI (390535) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (390915) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":105,"smokes":81}[0m
+[0;32mI (390915) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (395945) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (395955) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (396155) Sensor raw: Nhiệt độ: 28.00, CO: 0, Khói: 224.000000[0m
+[0;32mI (396155) Sensor ppm: Nhiệt độ: 28.00, CO: 0.000000, Khói: 97.488945[0m
+[0;32mI (396155) Sensor filter: Nhiệt độ: 28.00, CO: 73, Khói: 97[0m
+[0;33mW (396165) DHT11_APP: Cảm biến đã ổn định trở lại.[0m
+[0;32mI (396175) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (397985) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":73,"smokes":97}[0m
+[0;32mI (397985) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (403005) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (403015) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (403215) Sensor raw: Nhiệt độ: 28.00, CO: 118, Khói: 165.000000[0m
+[0;32mI (403215) Sensor ppm: Nhiệt độ: 28.00, CO: 6.541526, Khói: 43.272537[0m
+[0;32mI (403215) Sensor filter: Nhiệt độ: 28.00, CO: 53, Khói: 43[0m
+[0;32mI (403225) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (403615) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":53,"smokes":43}[0m
+[0;32mI (403615) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (408645) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (408655) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (408855) Sensor raw: Nhiệt độ: 28.00, CO: 1116, Khói: 142.000000[0m
+[0;32mI (408855) Sensor ppm: Nhiệt độ: 28.00, CO: 162.064606, Khói: 29.157108[0m
+[0;32mI (408865) Sensor filter: Nhiệt độ: 28.00, CO: 86, Khói: 29[0m
+[0;32mI (408865) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (410475) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":86,"smokes":29}[0m
+[0;32mI (410475) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (415505) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (415515) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (415715) Sensor raw: Nhiệt độ: 28.00, CO: 1422, Khói: 151.000000[0m
+[0;32mI (415715) Sensor ppm: Nhiệt độ: 28.00, CO: 252.628174, Khói: 34.262299[0m
+[0;32mI (415725) Sensor filter: Nhiệt độ: 28.00, CO: 135, Khói: 34[0m
+[0;33mW (415725) DHT11_APP: Cảnh báo vượt ngưỡng lần đầu![0m
+[0;33mW (415735) DHT11_APP: DA BAT COI![0m
+[0;32mI (415735) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (416105) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":135,"smokes":34}[0m
+[0;32mI (416115) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (421135) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (421145) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (421345) Sensor raw: Nhiệt độ: 28.00, CO: 1343, Khói: 185.000000[0m
+[0;32mI (421345) Sensor ppm: Nhiệt độ: 28.00, CO: 226.489304, Khói: 58.561729[0m
+[0;32mI (421355) Sensor filter: Nhiệt độ: 28.00, CO: 162, Khói: 58[0m
+[0;33mW (421855) DHT11_APP: DA TAT COI[0m
+[0;32mI (421855) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (422255) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":162,"smokes":58}[0m
+[0;32mI (422255) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (427285) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (427285) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (427495) Sensor raw: Nhiệt độ: 28.00, CO: 1291, Khói: 197.000000[0m
+[0;32mI (427495) Sensor ppm: Nhiệt độ: 28.00, CO: 210.401276, Khói: 69.197952[0m
+[0;32mI (427505) Sensor filter: Nhiệt độ: 28.00, CO: 177, Khói: 69[0m
+[0;32mI (427505) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (427985) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":177,"smokes":69}[0m
+[0;32mI (427985) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (433015) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (433015) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (433225) Sensor raw: Nhiệt độ: 28.00, CO: 1239, Khói: 150.000000[0m
+[0;32mI (433225) Sensor ppm: Nhiệt độ: 28.00, CO: 195.139709, Khói: 33.669170[0m
+[0;32mI (433235) Sensor filter: Nhiệt độ: 28.00, CO: 182, Khói: 33[0m
+[0;32mI (433235) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (433615) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":182,"smokes":33}[0m
+[0;32mI (433625) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (438645) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (438645) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (438855) Sensor raw: Nhiệt độ: 28.00, CO: 1200, Khói: 151.000000[0m
+[0;32mI (438855) Sensor ppm: Nhiệt độ: 28.00, CO: 184.207458, Khói: 34.262299[0m
+[0;32mI (438865) Sensor filter: Nhiệt độ: 28.00, CO: 182, Khói: 34[0m
+[0;32mI (438865) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (439245) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":182,"smokes":34}[0m
+[0;32mI (439255) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (444275) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (444275) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (444485) Sensor raw: Nhiệt độ: 28.00, CO: 1192, Khói: 164.000000[0m
+[0;32mI (444485) Sensor ppm: Nhiệt độ: 28.00, CO: 182.017441, Khói: 42.584236[0m
+[0;32mI (444495) Sensor filter: Nhiệt độ: 28.00, CO: 182, Khói: 42[0m
+[0;32mI (444495) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (444875) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":182,"smokes":42}[0m
+[0;32mI (444885) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (449905) dht: HIGH bit timeout[0m
+[0;31mE (449905) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (449915) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (450115) Sensor raw: Nhiệt độ: -1.00, CO: 1164, Khói: 129.000000[0m
+[0;32mI (450115) Sensor ppm: Nhiệt độ: -1.00, CO: 174.489227, Khói: 22.676109[0m
+[0;32mI (450125) Sensor filter: Nhiệt độ: -1.00, CO: 180, Khói: 22[0m
+[0;32mI (450125) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (450485) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":180,"smokes":22}[0m
+[0;32mI (450485) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (455505) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (455515) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (455715) Sensor raw: Nhiệt độ: 28.00, CO: 1157, Khói: 172.000000[0m
+[0;32mI (455715) Sensor ppm: Nhiệt độ: 28.00, CO: 172.639984, Khói: 48.289734[0m
+[0;32mI (455725) Sensor filter: Nhiệt độ: 28.00, CO: 177, Khói: 48[0m
+[0;32mI (455725) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (456045) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":177,"smokes":48}[0m
+[0;32mI (456045) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (461075) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (461085) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (461285) Sensor raw: Nhiệt độ: 28.00, CO: 1132, Khói: 174.000000[0m
+[0;32mI (461285) Sensor ppm: Nhiệt độ: 28.00, CO: 166.140106, Khói: 49.788181[0m
+[0;32mI (461295) Sensor filter: Nhiệt độ: 28.00, CO: 174, Khói: 49[0m
+[0;32mI (461295) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (461635) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":174,"smokes":49}[0m
+[0;32mI (461645) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (466665) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (466675) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (466875) Sensor raw: Nhiệt độ: 28.00, CO: 1127, Khói: 163.000000[0m
+[0;32mI (466875) Sensor ppm: Nhiệt độ: 28.00, CO: 164.859497, Khói: 41.902950[0m
+[0;32mI (466885) Sensor filter: Nhiệt độ: 28.00, CO: 171, Khói: 41[0m
+[0;32mI (466885) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (467305) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":171,"smokes":41}[0m
+[0;32mI (467305) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (472335) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (472345) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (472545) Sensor raw: Nhiệt độ: 28.00, CO: 1124, Khói: 133.000000[0m
+[0;32mI (472545) Sensor ppm: Nhiệt độ: 28.00, CO: 164.094162, Khói: 24.561350[0m
+[0;32mI (472555) Sensor filter: Nhiệt độ: 28.00, CO: 168, Khói: 24[0m
+[0;32mI (472555) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (472945) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":168,"smokes":24}[0m
+[0;32mI (472945) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (477975) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (477985) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (478185) Sensor raw: Nhiệt độ: 28.00, CO: 1105, Khói: 151.000000[0m
+[0;32mI (478185) Sensor ppm: Nhiệt độ: 28.00, CO: 159.300308, Khói: 34.262299[0m
+[0;32mI (478195) Sensor filter: Nhiệt độ: 28.00, CO: 165, Khói: 34[0m
+[0;32mI (478195) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (478575) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":165,"smokes":34}[0m
+[0;32mI (478575) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (483605) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (483615) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (483815) Sensor raw: Nhiệt độ: 28.00, CO: 1101, Khói: 131.000000[0m
+[0;32mI (483815) Sensor ppm: Nhiệt độ: 28.00, CO: 158.302551, Khói: 23.606869[0m
+[0;32mI (483825) Sensor filter: Nhiệt độ: 28.00, CO: 163, Khói: 23[0m
+[0;32mI (483825) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (484305) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":163,"smokes":23}[0m
+[0;32mI (484315) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (489335) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (489345) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (489545) Sensor raw: Nhiệt độ: 28.00, CO: 1078, Khói: 203.000000[0m
+[0;32mI (489545) Sensor ppm: Nhiệt độ: 28.00, CO: 152.642441, Khói: 74.950386[0m
+[0;32mI (489555) Sensor filter: Nhiệt độ: 28.00, CO: 160, Khói: 74[0m
+[0;32mI (489555) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (490035) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":160,"smokes":74}[0m
+[0;32mI (490035) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (495065) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (495075) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (495275) Sensor raw: Nhiệt độ: 28.00, CO: 1075, Khói: 149.000000[0m
+[0;32mI (495275) Sensor ppm: Nhiệt độ: 28.00, CO: 151.913727, Khói: 33.082584[0m
+[0;32mI (495285) Sensor filter: Nhiệt độ: 28.00, CO: 157, Khói: 33[0m
+[0;32mI (495285) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (495875) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":157,"smokes":33}[0m
+[0;32mI (495875) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (500905) dht: Initialization error, problem in phase 'B'[0m
+[0;31mE (500905) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (500905) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (501115) Sensor raw: Nhiệt độ: -1.00, CO: 1082, Khói: 156.000000[0m
+[0;32mI (501115) Sensor ppm: Nhiệt độ: -1.00, CO: 153.617508, Khói: 37.327446[0m
+[0;32mI (501125) Sensor filter: Nhiệt độ: -1.00, CO: 156, Khói: 37[0m
+[0;32mI (501125) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (501615) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":156,"smokes":37}[0m
+[0;32mI (501615) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (506645) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (506655) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (506855) Sensor raw: Nhiệt độ: 28.00, CO: 1093, Khói: 122.000000[0m
+[0;32mI (506855) Sensor ppm: Nhiệt độ: 28.00, CO: 156.319138, Khói: 19.601444[0m
+[0;32mI (506865) Sensor filter: Nhiệt độ: 28.00, CO: 156, Khói: 19[0m
+[0;32mI (506865) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (507345) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":156,"smokes":19}[0m
+[0;32mI (507345) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (512375) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (512385) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (512585) Sensor raw: Nhiệt độ: 28.00, CO: 1086, Khói: 182.000000[0m
+[0;32mI (512585) Sensor ppm: Nhiệt độ: 28.00, CO: 154.596512, Khói: 56.078339[0m
+[0;32mI (512595) Sensor filter: Nhiệt độ: 28.00, CO: 155, Khói: 56[0m
+[0;32mI (512595) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (513005) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":155,"smokes":56}[0m
+[0;32mI (513005) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (518035) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (518035) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (518245) Sensor raw: Nhiệt độ: 28.00, CO: 1084, Khói: 180.000000[0m
+[0;32mI (518245) Sensor ppm: Nhiệt độ: 28.00, CO: 154.106476, Khói: 54.460827[0m
+[0;32mI (518255) Sensor filter: Nhiệt độ: 28.00, CO: 155, Khói: 54[0m
+[0;32mI (518255) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (518845) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":155,"smokes":54}[0m
+[0;32mI (518855) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (523875) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (523885) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (524085) Sensor raw: Nhiệt độ: 28.00, CO: 1081, Khói: 133.000000[0m
+[0;32mI (524085) Sensor ppm: Nhiệt độ: 28.00, CO: 153.373383, Khói: 24.561350[0m
+[0;32mI (524095) Sensor filter: Nhiệt độ: 28.00, CO: 154, Khói: 24[0m
+[0;32mI (524095) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (524445) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":154,"smokes":24}[0m
+[0;32mI (524455) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (529475) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (529485) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (529685) Sensor raw: Nhiệt độ: 28.00, CO: 1082, Khói: 138.000000[0m
+[0;32mI (529685) Sensor ppm: Nhiệt độ: 28.00, CO: 153.617508, Khói: 27.053068[0m
+[0;32mI (529695) Sensor filter: Nhiệt độ: 28.00, CO: 153, Khói: 27[0m
+[0;32mI (529695) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (530075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":153,"smokes":27}[0m
+[0;32mI (530085) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (535105) dht: HIGH bit timeout[0m
+[0;31mE (535115) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (535115) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (535315) Sensor raw: Nhiệt độ: -1.00, CO: 1090, Khói: 169.000000[0m
+[0;32mI (535315) Sensor ppm: Nhiệt độ: -1.00, CO: 155.579285, Khói: 46.096519[0m
+[0;32mI (535325) Sensor filter: Nhiệt độ: -1.00, CO: 154, Khói: 46[0m
+[0;32mI (535325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (535685) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":154,"smokes":46}[0m
+[0;32mI (535695) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (540715) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (540725) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (540925) Sensor raw: Nhiệt độ: 28.00, CO: 1092, Khói: 186.000000[0m
+[0;32mI (540925) Sensor ppm: Nhiệt độ: 28.00, CO: 156.072266, Khói: 59.404907[0m
+[0;32mI (540935) Sensor filter: Nhiệt độ: 28.00, CO: 154, Khói: 59[0m
+[0;32mI (540935) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (541235) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":154,"smokes":59}[0m
+[0;32mI (541235) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (546265) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (546275) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (546475) Sensor raw: Nhiệt độ: 28.00, CO: 1088, Khói: 181.000000[0m
+[0;32mI (546475) Sensor ppm: Nhiệt độ: 28.00, CO: 155.087418, Khói: 55.265781[0m
+[0;32mI (546485) Sensor filter: Nhiệt độ: 28.00, CO: 154, Khói: 55[0m
+[0;32mI (546485) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (546975) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":154,"smokes":55}[0m
+[0;32mI (546975) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (552005) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (552015) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (552215) Sensor raw: Nhiệt độ: 28.00, CO: 1060, Khói: 143.000000[0m
+[0;32mI (552215) Sensor ppm: Nhiệt độ: 28.00, CO: 148.302444, Khói: 29.698765[0m
+[0;32mI (552225) Sensor filter: Nhiệt độ: 28.00, CO: 152, Khói: 29[0m
+[0;32mI (552225) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (552825) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":152,"smokes":29}[0m
+[0;32mI (552825) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (557855) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (557865) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (558065) Sensor raw: Nhiệt độ: 28.00, CO: 1091, Khói: 159.000000[0m
+[0;32mI (558065) Sensor ppm: Nhiệt độ: 28.00, CO: 155.825714, Khói: 39.247231[0m
+[0;32mI (558075) Sensor filter: Nhiệt độ: 28.00, CO: 153, Khói: 39[0m
+[0;32mI (558075) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (558445) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":153,"smokes":39}[0m
+[0;32mI (558445) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (563465) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (563475) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (563675) Sensor raw: Nhiệt độ: 28.00, CO: 1087, Khói: 157.000000[0m
+[0;32mI (563675) Sensor ppm: Nhiệt độ: 28.00, CO: 154.841812, Khói: 37.960567[0m
+[0;32mI (563685) Sensor filter: Nhiệt độ: 28.00, CO: 153, Khói: 37[0m
+[0;32mI (563685) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (564075) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":153,"smokes":37}[0m
+[0;32mI (564075) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (569105) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (569105) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (569315) Sensor raw: Nhiệt độ: 28.00, CO: 1089, Khói: 168.000000[0m
+[0;32mI (569315) Sensor ppm: Nhiệt độ: 28.00, CO: 155.333237, Khói: 45.379841[0m
+[0;32mI (569325) Sensor filter: Nhiệt độ: 28.00, CO: 154, Khói: 45[0m
+[0;32mI (569325) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (570875) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":154,"smokes":45}[0m
+[0;32mI (570875) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (575905) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (575905) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (576115) Sensor raw: Nhiệt độ: 28.00, CO: 1064, Khói: 172.000000[0m
+[0;32mI (576115) Sensor ppm: Nhiệt độ: 28.00, CO: 149.260193, Khói: 48.289734[0m
+[0;32mI (576125) Sensor filter: Nhiệt độ: 28.00, CO: 152, Khói: 48[0m
+[0;32mI (576125) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (576565) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":152,"smokes":48}[0m
+[0;32mI (576565) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (581595) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (581605) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (581805) Sensor raw: Nhiệt độ: 28.00, CO: 1046, Khói: 202.000000[0m
+[0;32mI (581805) Sensor ppm: Nhiệt độ: 28.00, CO: 144.980377, Khói: 73.971054[0m
+[0;32mI (581815) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 73[0m
+[0;32mI (581815) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (582205) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":73}[0m
+[0;32mI (582205) HTTP: Gửi thành công! Status = 200[0m
+[0;33mW (583785) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (583785) GATTS_DEMO: Disconnected, remote 7e:d9:e9:9b:e6:46, reason 0x13[0m
+[0;32mI (583795) GATTS_DEMO: Disconnected, remote 7e:d9:e9:9b:e6:46, reason 0x13[0m
+[0;32mI (583795) GATTS_DEMO: Disconnected, remote 7e:d9:e9:9b:e6:46, reason 0x13[0m
+[0;32mI (583825) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (583835) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (583845) GATTS_DEMO: Advertising start successfully[0m
+[0;32mI (587225) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (587225) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (587435) Sensor raw: Nhiệt độ: 28.00, CO: 1063, Khói: 171.000000[0m
+[0;32mI (587435) Sensor ppm: Nhiệt độ: 28.00, CO: 149.020462, Khói: 47.551430[0m
+[0;32mI (587445) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 47[0m
+[0;32mI (587445) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (587835) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":47}[0m
+[0;32mI (587835) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (592865) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (592865) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (593075) Sensor raw: Nhiệt độ: 28.00, CO: 1074, Khói: 182.000000[0m
+[0;32mI (593075) Sensor ppm: Nhiệt độ: 28.00, CO: 151.671234, Khói: 56.078339[0m
+[0;32mI (593085) Sensor filter: Nhiệt độ: 28.00, CO: 150, Khói: 56[0m
+[0;32mI (593085) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (593465) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":150,"smokes":56}[0m
+[0;32mI (593465) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (598495) dht: HIGH bit timeout[0m
+[0;31mE (598495) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (598505) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (598705) Sensor raw: Nhiệt độ: -1.00, CO: 1070, Khói: 140.000000[0m
+[0;32mI (598705) Sensor ppm: Nhiệt độ: -1.00, CO: 150.703964, Khói: 28.092648[0m
+[0;32mI (598715) Sensor filter: Nhiệt độ: -1.00, CO: 150, Khói: 28[0m
+[0;32mI (598715) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (599095) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":150,"smokes":28}[0m
+[0;32mI (599105) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (604125) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (604125) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (604335) Sensor raw: Nhiệt độ: 28.00, CO: 1065, Khói: 171.000000[0m
+[0;32mI (604335) Sensor ppm: Nhiệt độ: 28.00, CO: 149.500229, Khói: 47.551430[0m
+[0;32mI (604345) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 47[0m
+[0;32mI (604345) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (604725) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":47}[0m
+[0;32mI (604725) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (609755) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (609755) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (609965) Sensor raw: Nhiệt độ: 28.00, CO: 1067, Khói: 180.000000[0m
+[0;32mI (609965) Sensor ppm: Nhiệt độ: 28.00, CO: 149.980957, Khói: 54.460827[0m
+[0;32mI (609975) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 54[0m
+[0;32mI (609975) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (610365) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":54}[0m
+[0;32mI (610365) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (615395) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (615395) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (615605) Sensor raw: Nhiệt độ: 28.00, CO: 1067, Khói: 184.000000[0m
+[0;32mI (615605) Sensor ppm: Nhiệt độ: 28.00, CO: 149.980957, Khói: 57.726242[0m
+[0;32mI (615615) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 57[0m
+[0;32mI (615615) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (615995) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":57}[0m
+[0;32mI (616005) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (621025) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (621025) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (621235) Sensor raw: Nhiệt độ: 28.00, CO: 1080, Khói: 153.000000[0m
+[0;32mI (621235) Sensor ppm: Nhiệt độ: 28.00, CO: 153.129486, Khói: 35.468376[0m
+[0;32mI (621245) Sensor filter: Nhiệt độ: 28.00, CO: 150, Khói: 35[0m
+[0;32mI (621245) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (621625) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":150,"smokes":35}[0m
+[0;32mI (621625) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (626655) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (626655) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (626865) Sensor raw: Nhiệt độ: 28.00, CO: 1086, Khói: 162.000000[0m
+[0;32mI (626865) Sensor ppm: Nhiệt độ: 28.00, CO: 154.596512, Khói: 41.228638[0m
+[0;32mI (626875) Sensor filter: Nhiệt độ: 28.00, CO: 151, Khói: 41[0m
+[0;32mI (626875) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (627255) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":151,"smokes":41}[0m
+[0;32mI (627255) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (632285) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (632285) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (632495) Sensor raw: Nhiệt độ: 28.00, CO: 1077, Khói: 182.000000[0m
+[0;32mI (632495) Sensor ppm: Nhiệt độ: 28.00, CO: 152.399277, Khói: 56.078339[0m
+[0;32mI (632505) Sensor filter: Nhiệt độ: 28.00, CO: 151, Khói: 56[0m
+[0;32mI (632505) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (632885) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":151,"smokes":56}[0m
+[0;32mI (632895) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (637915) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (637915) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (638125) Sensor raw: Nhiệt độ: 28.00, CO: 1055, Khói: 177.000000[0m
+[0;32mI (638125) Sensor ppm: Nhiệt độ: 28.00, CO: 147.110703, Khói: 52.091011[0m
+[0;32mI (638135) Sensor filter: Nhiệt độ: 28.00, CO: 150, Khói: 52[0m
+[0;32mI (638135) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (638525) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":150,"smokes":52}[0m
+[0;32mI (638535) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (643555) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (643555) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (643765) Sensor raw: Nhiệt độ: 28.00, CO: 1075, Khói: 185.000000[0m
+[0;32mI (643765) Sensor ppm: Nhiệt độ: 28.00, CO: 151.913727, Khói: 58.561729[0m
+[0;32mI (643775) Sensor filter: Nhiệt độ: 28.00, CO: 150, Khói: 58[0m
+[0;32mI (643775) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (644145) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":150,"smokes":58}[0m
+[0;32mI (644155) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (649175) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (649175) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (649385) Sensor raw: Nhiệt độ: 28.00, CO: 1062, Khói: 154.000000[0m
+[0;32mI (649385) Sensor ppm: Nhiệt độ: 28.00, CO: 148.780869, Khói: 36.081364[0m
+[0;32mI (649395) Sensor filter: Nhiệt độ: 28.00, CO: 149, Khói: 36[0m
+[0;32mI (649395) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (649785) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":149,"smokes":36}[0m
+[0;32mI (649795) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (654815) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (654815) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (655025) Sensor raw: Nhiệt độ: 28.00, CO: 1052, Khói: 196.000000[0m
+[0;32mI (655025) Sensor ppm: Nhiệt độ: 28.00, CO: 146.398499, Khói: 68.267830[0m
+[0;32mI (655035) Sensor filter: Nhiệt độ: 28.00, CO: 148, Khói: 68[0m
+[0;32mI (655035) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (655415) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":148,"smokes":68}[0m
+[0;32mI (655415) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (660445) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (660445) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (660655) Sensor raw: Nhiệt độ: 28.00, CO: 1058, Khói: 162.000000[0m
+[0;32mI (660655) Sensor ppm: Nhiệt độ: 28.00, CO: 147.825058, Khói: 41.228638[0m
+[0;32mI (660665) Sensor filter: Nhiệt độ: 28.00, CO: 148, Khói: 41[0m
+[0;32mI (660665) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (661045) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":148,"smokes":41}[0m
+[0;32mI (661055) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (666075) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (666075) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (666285) Sensor raw: Nhiệt độ: 28.00, CO: 1048, Khói: 115.000000[0m
+[0;32mI (666285) Sensor ppm: Nhiệt độ: 28.00, CO: 145.452087, Khói: 16.802950[0m
+[0;32mI (666295) Sensor filter: Nhiệt độ: 28.00, CO: 147, Khói: 16[0m
+[0;32mI (666295) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (666675) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":147,"smokes":16}[0m
+[0;32mI (666685) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (671705) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (671705) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (671915) Sensor raw: Nhiệt độ: 28.00, CO: 1041, Khói: 127.000000[0m
+[0;32mI (671915) Sensor ppm: Nhiệt độ: 28.00, CO: 143.805145, Khói: 21.768787[0m
+[0;32mI (671925) Sensor filter: Nhiệt độ: 28.00, CO: 145, Khói: 21[0m
+[0;32mI (671925) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (672315) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":145,"smokes":21}[0m
+[0;32mI (672315) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (677335) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (677335) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (677545) Sensor raw: Nhiệt độ: 28.00, CO: 1049, Khói: 220.000000[0m
+[0;32mI (677545) Sensor ppm: Nhiệt độ: 28.00, CO: 145.688400, Khói: 92.898514[0m
+[0;32mI (677555) Sensor filter: Nhiệt độ: 28.00, CO: 145, Khói: 92[0m
+[0;32mI (677555) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (677945) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":145,"smokes":92}[0m
+[0;32mI (677945) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (682975) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (682975) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (683185) Sensor raw: Nhiệt độ: 28.00, CO: 1061, Khói: 213.000000[0m
+[0;32mI (683185) Sensor ppm: Nhiệt độ: 28.00, CO: 148.541504, Khói: 85.206451[0m
+[0;32mI (683195) Sensor filter: Nhiệt độ: 28.00, CO: 146, Khói: 85[0m
+[0;32mI (683195) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (683575) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":146,"smokes":85}[0m
+[0;32mI (683575) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (688605) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (688605) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (688815) Sensor raw: Nhiệt độ: 28.00, CO: 1062, Khói: 209.000000[0m
+[0;32mI (688815) Sensor ppm: Nhiệt độ: 28.00, CO: 148.780869, Khói: 81.002098[0m
+[0;32mI (688825) Sensor filter: Nhiệt độ: 28.00, CO: 146, Khói: 81[0m
+[0;32mI (688825) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (689205) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":146,"smokes":81}[0m
+[0;32mI (689205) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (694235) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (694245) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (694445) Sensor raw: Nhiệt độ: 28.00, CO: 1042, Khói: 185.000000[0m
+[0;32mI (694445) Sensor ppm: Nhiệt độ: 28.00, CO: 144.039658, Khói: 58.561729[0m
+[0;32mI (694455) Sensor filter: Nhiệt độ: 28.00, CO: 145, Khói: 58[0m
+[0;32mI (694455) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (694845) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":145,"smokes":58}[0m
+[0;32mI (694845) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (699875) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (699875) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (700085) Sensor raw: Nhiệt độ: 28.00, CO: 1041, Khói: 213.000000[0m
+[0;32mI (700085) Sensor ppm: Nhiệt độ: 28.00, CO: 143.805145, Khói: 85.206451[0m
+[0;32mI (700095) Sensor filter: Nhiệt độ: 28.00, CO: 145, Khói: 85[0m
+[0;32mI (700095) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (700465) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":145,"smokes":85}[0m
+[0;32mI (700475) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (705495) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (705495) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (705705) Sensor raw: Nhiệt độ: 28.00, CO: 1030, Khói: 171.000000[0m
+[0;32mI (705705) Sensor ppm: Nhiệt độ: 28.00, CO: 141.240067, Khói: 47.551430[0m
+[0;32mI (705715) Sensor filter: Nhiệt độ: 28.00, CO: 143, Khói: 47[0m
+[0;32mI (705715) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (706105) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":143,"smokes":47}[0m
+[0;32mI (706105) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (711135) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (711135) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (711345) Sensor raw: Nhiệt độ: 28.00, CO: 1032, Khói: 233.000000[0m
+[0;32mI (711345) Sensor ppm: Nhiệt độ: 28.00, CO: 141.704346, Khói: 108.349228[0m
+[0;32mI (711355) Sensor filter: Nhiệt độ: 28.00, CO: 143, Khói: 108[0m
+[0;32mI (711355) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (711735) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":143,"smokes":108}[0m
+[0;32mI (711735) HTTP: Gửi thành công! Status = 200[0m
+[0;31mE (716765) dht: Initialization error, problem in phase 'B'[0m
+[0;31mE (716765) DHT11_APP: Lỗi đọc nhiệt độ: ESP_ERR_TIMEOUT[0m
+[0;32mI (716765) Sensor: [DHT11] Nhiệt độ (raw): -1.00°C, sau lọc: -1.00°C[0m
+[0;32mI (716975) Sensor raw: Nhiệt độ: -1.00, CO: 1021, Khói: 130.000000[0m
+[0;32mI (716975) Sensor ppm: Nhiệt độ: -1.00, CO: 139.162201, Khói: 23.138531[0m
+[0;32mI (716985) Sensor filter: Nhiệt độ: -1.00, CO: 141, Khói: 23[0m
+[0;32mI (716985) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (717365) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":-1,"co":141,"smokes":23}[0m
+[0;32mI (717375) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (722395) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (722405) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (722605) Sensor raw: Nhiệt độ: 28.00, CO: 1026, Khói: 158.000000[0m
+[0;32mI (722605) Sensor ppm: Nhiệt độ: 28.00, CO: 140.314285, Khói: 38.600498[0m
+[0;32mI (722615) Sensor filter: Nhiệt độ: 28.00, CO: 141, Khói: 38[0m
+[0;32mI (722615) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (722995) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":141,"smokes":38}[0m
+[0;32mI (723005) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (728025) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (728025) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (728235) Sensor raw: Nhiệt độ: 28.00, CO: 1033, Khói: 201.000000[0m
+[0;32mI (728235) Sensor ppm: Nhiệt độ: 28.00, CO: 141.936905, Khói: 73.000061[0m
+[0;32mI (728245) Sensor filter: Nhiệt độ: 28.00, CO: 141, Khói: 73[0m
+[0;32mI (728245) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (728625) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":141,"smokes":73}[0m
+[0;32mI (728635) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (733655) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (733655) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (733865) Sensor raw: Nhiệt độ: 28.00, CO: 1032, Khói: 188.000000[0m
+[0;32mI (733865) Sensor ppm: Nhiệt độ: 28.00, CO: 141.704346, Khói: 61.114483[0m
+[0;32mI (733875) Sensor filter: Nhiệt độ: 28.00, CO: 141, Khói: 61[0m
+[0;32mI (733875) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (734265) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":141,"smokes":61}[0m
+[0;32mI (734265) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (739295) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (739295) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (739505) Sensor raw: Nhiệt độ: 28.00, CO: 1021, Khói: 141.000000[0m
+[0;32mI (739505) Sensor ppm: Nhiệt độ: 28.00, CO: 139.162201, Khói: 28.621748[0m
+[0;32mI (739515) Sensor filter: Nhiệt độ: 28.00, CO: 140, Khói: 28[0m
+[0;32mI (739515) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (739895) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":140,"smokes":28}[0m
+[0;32mI (739895) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (744925) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (744925) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (745135) Sensor raw: Nhiệt độ: 28.00, CO: 1024, Khói: 199.000000[0m
+[0;32mI (745135) Sensor ppm: Nhiệt độ: 28.00, CO: 139.852783, Khói: 71.082649[0m
+[0;32mI (745145) Sensor filter: Nhiệt độ: 28.00, CO: 140, Khói: 71[0m
+[0;32mI (745145) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (745525) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":140,"smokes":71}[0m
+[0;32mI (745535) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (750555) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (750565) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (750765) Sensor raw: Nhiệt độ: 28.00, CO: 1024, Khói: 175.000000[0m
+[0;32mI (750765) Sensor ppm: Nhiệt độ: 28.00, CO: 139.852783, Khói: 50.548405[0m
+[0;32mI (750775) Sensor filter: Nhiệt độ: 28.00, CO: 139, Khói: 50[0m
+[0;32mI (750775) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (752285) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":139,"smokes":50}[0m
+[0;32mI (752295) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (757315) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (757315) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (757525) Sensor raw: Nhiệt độ: 28.00, CO: 1000, Khói: 133.000000[0m
+[0;32mI (757525) Sensor ppm: Nhiệt độ: 28.00, CO: 134.385864, Khói: 24.561350[0m
+[0;32mI (757535) Sensor filter: Nhiệt độ: 28.00, CO: 138, Khói: 24[0m
+[0;32mI (757535) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (758015) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":138,"smokes":24}[0m
+[0;32mI (758025) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (763045) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (763045) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (763255) Sensor raw: Nhiệt độ: 28.00, CO: 1020, Khói: 142.000000[0m
+[0;32mI (763255) Sensor ppm: Nhiệt độ: 28.00, CO: 138.932526, Khói: 29.157108[0m
+[0;32mI (763265) Sensor filter: Nhiệt độ: 28.00, CO: 138, Khói: 29[0m
+[0;32mI (763265) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (763655) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":138,"smokes":29}[0m
+[0;32mI (763655) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (768685) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (768685) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (768895) Sensor raw: Nhiệt độ: 28.00, CO: 1057, Khói: 210.000000[0m
+[0;32mI (768895) Sensor ppm: Nhiệt độ: 28.00, CO: 147.586670, Khói: 82.040314[0m
+[0;32mI (768905) Sensor filter: Nhiệt độ: 28.00, CO: 140, Khói: 82[0m
+[0;32mI (768905) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (769285) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":140,"smokes":82}[0m
+[0;32mI (769285) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (774315) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (774325) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (774525) Sensor raw: Nhiệt độ: 28.00, CO: 1019, Khói: 163.000000[0m
+[0;32mI (774525) Sensor ppm: Nhiệt độ: 28.00, CO: 138.702972, Khói: 41.902950[0m
+[0;32mI (774535) Sensor filter: Nhiệt độ: 28.00, CO: 139, Khói: 41[0m
+[0;32mI (774535) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (774915) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":139,"smokes":41}[0m
+[0;32mI (774915) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (779945) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (779945) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (780155) Sensor raw: Nhiệt độ: 28.00, CO: 1024, Khói: 171.000000[0m
+[0;32mI (780155) Sensor ppm: Nhiệt độ: 28.00, CO: 139.852783, Khói: 47.551430[0m
+[0;32mI (780165) Sensor filter: Nhiệt độ: 28.00, CO: 139, Khói: 47[0m
+[0;32mI (780165) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (780545) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":139,"smokes":47}[0m
+[0;32mI (780545) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (785575) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (785575) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (785785) Sensor raw: Nhiệt độ: 28.00, CO: 1038, Khói: 177.000000[0m
+[0;32mI (785785) Sensor ppm: Nhiệt độ: 28.00, CO: 143.102753, Khói: 52.091011[0m
+[0;32mI (785795) Sensor filter: Nhiệt độ: 28.00, CO: 140, Khói: 52[0m
+[0;32mI (785795) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (786175) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":140,"smokes":52}[0m
+[0;32mI (786175) HTTP: Gửi thành công! Status = 200[0m
+[0;32mI (791205) DHT11_APP: Nhiệt độ: 28.0 °C[0m
+[0;32mI (791215) Sensor: [DHT11] Nhiệt độ (raw): 28.00°C, sau lọc: 28.00°C[0m
+[0;32mI (791415) Sensor raw: Nhiệt độ: 28.00, CO: 1012, Khói: 208.000000[0m
+[0;32mI (791415) Sensor ppm: Nhiệt độ: 28.00, CO: 137.102951, Khói: 79.972404[0m
+[0;32mI (791425) Sensor filter: Nhiệt độ: 28.00, CO: 139, Khói: 79[0m
+[0;32mI (791425) HTTP: Bắt đầu gửi dữ liệu sensor lên server[0m
+[0;32mI (791815) HTTP: Payload gửi đi: {"user_id":"XoyIGv5Er2XOqyJjtkJEq8mCY2l1","device_name":"ESP_NTH_27D9B6","temp":28,"co":139,"smokes":79}[0m
+[0;32mI (791815) HTTP: Gửi thành công! Status = 200[0m
