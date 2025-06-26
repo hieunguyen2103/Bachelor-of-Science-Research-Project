@@ -116,7 +116,7 @@ static uint8_t adv_config_done = 0;
 static const char *TAG = "DHT11_APP";
 
 #define EMA_ALPHA_SMOKE  0.2             // Độ mượt (0.1 - 0.3 là hợp lý)
-#define EMA_ALPHA_CO 0.1
+#define EMA_ALPHA_CO 0.5
 
 
 #define TEMP_THRESHOLD 45.0    // Ngưỡng nhiệt độ
@@ -355,18 +355,35 @@ void send_sensor_data(const char *user_id, float temp, float co, float smoke)
 }
 
 // Hàm đọc nhiệt độ từ DHT11
+// float get_temperature() {
+//     int16_t temperature = 0;
+//     int16_t humidity = 0;
+//     esp_err_t ret = dht_read_data(DHT_TYPE, DHT_GPIO, &humidity, &temperature);
+//     if (ret == ESP_OK) {
+//         ESP_LOGI(TAG, "Nhiệt độ: %d.%d °C", temperature / 10, abs(temperature % 10));
+//         return temperature / 10.0; // Trả về giá trị nhiệt độ
+//     } else {
+//         ESP_LOGE(TAG, "Lỗi đọc nhiệt độ: %s", esp_err_to_name(ret));
+//         return -1.0; // Trả về giá trị lỗi
+//     }
+// }
+
 float get_temperature() {
+    static float last_temperature = 0.0; // Lưu giá trị nhiệt độ trước đó
     int16_t temperature = 0;
     int16_t humidity = 0;
+
     esp_err_t ret = dht_read_data(DHT_TYPE, DHT_GPIO, &humidity, &temperature);
     if (ret == ESP_OK) {
+        last_temperature = temperature / 10.0; // Cập nhật nhiệt độ mới
         ESP_LOGI(TAG, "Nhiệt độ: %d.%d °C", temperature / 10, abs(temperature % 10));
-        return temperature / 10.0; // Trả về giá trị nhiệt độ
     } else {
-        ESP_LOGE(TAG, "Lỗi đọc nhiệt độ: %s", esp_err_to_name(ret));
-        return -1.0; // Trả về giá trị lỗi
+        ESP_LOGE(TAG, "Lỗi đọc nhiệt độ: %s. Trả về nhiệt độ trước đó: %.1f °C", esp_err_to_name(ret), last_temperature);
     }
+
+    return last_temperature;
 }
+
 
 static void init_relay()
 {
@@ -402,8 +419,8 @@ float smoke_ppm_from_adc(int adc_value) {
 
     // Hệ số từ đồ thị "Smoke" của MP-2: m = -0.395, b = 1.37
     float ppm = powf(10.0f, (log10f(ratio) - 1.37f) / -0.395f);
-    if(ppm > 10000.0f) {
-        ppm = 10000.0f; // Giới hạn ppm tối đa để tránh giá trị quá lớn
+    if(ppm > 1000.0f) {
+        ppm = 1000.0f; // Giới hạn ppm tối đa để tránh giá trị quá lớn
     }
     if(ppm < 8.0f) {
         ppm = 8.0f; // Tránh giá trị âm
@@ -440,8 +457,9 @@ void sensor_task(void *param) {
         //MQ7 CO
         int raw_co = 4095 - read_adc_filtered(MQ7_CHANNEL);
         float ppm_co = co_ppm_from_adc(raw_co);
-        int filtered_co = (int)filter_mq7_apply_ema(ppm_co, 0.3f);  // Lọc EMA với alpha = 0.3
-
+        //int filtered_co = (int)filter_mq7_apply_ema(ppm_co, 0.3f);  // Lọc EMA với alpha = 0.3
+        int filtered_co = (int)ppm_co; // Không cần lọc EMA cho CO, chỉ dùng trung bình
+        
         //MQ2 Smoke
         float raw_smoke = 4095 - read_adc_filtered(MP2_CHANNEL);
         float ppm_smoke = smoke_ppm_from_adc(raw_smoke);
