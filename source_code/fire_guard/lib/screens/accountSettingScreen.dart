@@ -6,6 +6,7 @@ import 'package:fire_guard/screens/mainDrawerScreen.dart';
 import 'package:fire_guard/screens/mainScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class AccountSettingScreen extends StatefulWidget
 {
@@ -53,6 +54,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
         final data = userDoc.data();
         if(data != null && data.containsKey('activated'))
         {
+          final jsonString = JsonEncoder.withIndent('  ').convert(data);
+          print('[DEBUG] JSON user data:\n$jsonString');
           setState(() 
           {
             _isAccountActivated = data['activated'] == true;
@@ -92,7 +95,10 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
       Navigator.of(context).popUntil((route) => route.isFirst);  // Quay về AuthScreen
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.')),
+        SnackBar(
+          content: Text('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.'),
+          backgroundColor: Colors.green,
+        ),
       );
     } catch (e) {
       print('Password change failed: $e');
@@ -126,10 +132,6 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
 
       if (updateData.isNotEmpty) {
         await FirebaseFirestore.instance.collection('users').doc(uid).update(updateData);
-      }
-
-      if (email != originalEmail) {
-        await user.updateEmail(email);
       }
 
       if (password.isNotEmpty) {
@@ -213,9 +215,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
                           TextFormField(
                             initialValue: email,
                             decoration: inputDecoration('Email', Icons.email),
-                            onChanged: (value) => email = value.trim(),
-                            validator: (value) =>
-                                value!.contains('@') ? null : 'Email không hợp lệ',
+                            readOnly: true,
+                            enabled: false,
                           ),
                           SizedBox(height: 12),
                           DropdownMenu<String>(

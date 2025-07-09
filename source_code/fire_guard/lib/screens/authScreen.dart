@@ -35,6 +35,7 @@ class _AuthScreenState extends State<AuthScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Check your email to confirm the password reset request.'),
+          backgroundColor: Colors.green,
         ),
       );
     } on FirebaseAuthException catch(error)

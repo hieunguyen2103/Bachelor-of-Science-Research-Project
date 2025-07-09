@@ -53,7 +53,6 @@ dependencies:
   shared_preferences: ^2.5.3
   dropdown_button2: ^2.3.9
   rtmp_broadcaster: ^2.3.4
-  # better_player: ^0.0.84
 
 dev_dependencies:
   flutter_test:

@@ -86,11 +86,6 @@ class MainDrawerScreen extends StatelessWidget
                 Navigator.of(context).pop();
                 await FirebaseAuth.instance.signOut(); // Dòng này để SignOut
 
-                // Navigator.of(context).pushAndRemoveUntil(
-                //   MaterialPageRoute(builder: (ctx) => const AuthGateControll()),
-                //   (route) => false, // remove tất cả các route
-                // );
-
                 Navigator.of(context).popUntil((route) => route.isFirst);  // cái này là nó sẽ loại bỏ toàn bộ route và quay về cái route ban đầu chính là AuthScreen 
 
                 ScaffoldMessenger.of(context).showSnackBar(

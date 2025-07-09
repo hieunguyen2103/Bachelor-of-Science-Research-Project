@@ -79,7 +79,10 @@ class _ActivateAccountScreenState extends State<ActivateAccountScreen>
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Tài khoản đã được kích hoạt!')),
+        SnackBar(
+          content: Text('Tài khoản đã được kích hoạt!'),
+          backgroundColor: Colors.green,
+          ),
       );
 
       Navigator.pushReplacement(
@@ -103,7 +106,7 @@ class _ActivateAccountScreenState extends State<ActivateAccountScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Enter the 6-digit code sent to your email/phone:'),
+            const Text('Enter 6-digit OTP:'),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

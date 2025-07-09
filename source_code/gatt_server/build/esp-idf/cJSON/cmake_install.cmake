@@ -1,8 +1,8 @@
-# Install script for directory: D:/Technology/DANC/backup/gatt_server/components/cjson
+# Install script for directory: D:/Technology/DANC/backup/gatt_server/components/cJSON
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/gatt_server")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/gatt_server_demos")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

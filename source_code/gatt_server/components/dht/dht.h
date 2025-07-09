@@ -13,9 +13,9 @@ extern "C" {
  */
 typedef enum
 {
-    DHT_TYPE_DHT11 = 0,   //!< DHT11
-    DHT_TYPE_AM2301,      //!< AM2301 (DHT21, DHT22, AM2302, AM2321)
-    DHT_TYPE_SI7021       //!< Itead Si7021
+    DHT_TYPE_DHT11 = 0,   // DHT11
+    DHT_TYPE_AM2301,      // AM2301 (DHT21, DHT22, AM2302, AM2321)
+    DHT_TYPE_SI7021       // Itead Si7021
 } dht_sensor_type_t;
 
 /**

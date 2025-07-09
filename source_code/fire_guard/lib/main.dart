@@ -22,9 +22,6 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,  // lấy cấu hình Firebase tương ứng với từng nền tảng, đã tạo sẵn bằng tool flutterfire configure.
   );
 
-  // Lắng nghe thông báo khi app tắt
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   // Lắng nghe thông báo khi app đang chạy (foreground)
   FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
   
@@ -32,14 +29,14 @@ void main() async{
 }
 
 Future<void> _handleForegroundMessage(RemoteMessage message) async {
-  print("🔔 [FG] Nhận thông báo: ${message.notification?.title}");
+  print("[FG] Nhận thông báo: ${message.notification?.title}");
 
   final prefs = await SharedPreferences.getInstance();
   final title = message.notification?.title ?? 'Thông báo';
   final body = message.notification?.body ?? '';
   final timestamp = DateTime.now().toIso8601String();
 
-  // 📝 Lưu thông báo vào local
+  // Lưu thông báo vào local
   final alert = {
     'type': title,
     'location': body,
@@ -50,7 +47,7 @@ Future<void> _handleForegroundMessage(RemoteMessage message) async {
   final newList = [jsonEncode(alert), ...oldList].take(10).toList();
   await prefs.setStringList('alert_history', newList);
 
-  // ❗Đóng popup cũ nếu có
+  // Đóng popup cũ
   final navigator = navigatorKey.currentState;
   if (navigator == null) return;
 

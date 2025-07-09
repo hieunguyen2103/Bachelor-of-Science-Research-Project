@@ -24,15 +24,6 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     // Đăng ký topic chung để nhận thông báo từ FCM
     FirebaseMessaging.instance.subscribeToTopic('fire_guard');
 
-    // Nhận thông báo khi app đang mở
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   if (message.notification != null) {
-    //     final title = message.notification!.title ?? 'Thông báo';
-    //     final body = message.notification!.body ?? '';
-    //     _handlePushNotification(title, body);
-    //   }
-    // });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadAlertsFromLocal();  // Load lại sau khi build
     });
@@ -59,18 +50,6 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     await prefs.setStringList('alert_history', data);
   }
 
-  // void _handlePushNotification(String title, String body) {
-  //   setState(() {
-  //     _alertHistory.insert(0, {
-  //       'type': title,
-  //       'location': body,
-  //       'timestamp': DateTime.now().toString(),
-  //     });
-  //   });
-
-  //   _showBottomSheet(context);
-  // }
-
   void _handlePushNotification(String title, String body) {
     final newAlert = {
       'type': title,
@@ -84,7 +63,6 @@ class _NotificationIconButtonState extends State<NotificationIconButton> {
     });
 
     _saveAlertsToLocal(); // Ghi vào local
-    // _showBottomSheet(context);
   }
 
   void _showBottomSheet(BuildContext context) async {

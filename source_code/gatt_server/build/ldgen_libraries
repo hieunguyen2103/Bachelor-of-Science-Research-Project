@@ -80,7 +80,7 @@ D:/Technology/DANC/backup/gatt_server/build/esp-idf/nvs_sec_provider/libnvs_sec_
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/perfmon/libperfmon.a
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/spiffs/libspiffs.a
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
-D:/Technology/DANC/backup/gatt_server/build/esp-idf/cjson/libcjson.a
+D:/Technology/DANC/backup/gatt_server/build/esp-idf/cJSON/libcJSON.a
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/dht/libdht.a
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/sensor_filter/libsensor_filter.a
 D:/Technology/DANC/backup/gatt_server/build/esp-idf/main/libmain.a

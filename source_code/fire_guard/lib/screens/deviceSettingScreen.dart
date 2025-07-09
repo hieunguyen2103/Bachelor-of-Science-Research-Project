@@ -234,22 +234,10 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
 
     final userServiceUuid = Guid("000000dd-0000-1000-8000-00805f9b34fb"); // 0x00EE
     final userUuid    = Guid("0000dd01-0000-1000-8000-00805f9b34fb"); // 0xEE01
-    
-    // final nameDeviceServiceUuid = Guid("000000aa-0000-1000-8000-00805f9b34fb"); // 0x00AA
-    // final nameDeviceUuid    = Guid("0000aa01-0000-1000-8000-00805f9b34fb"); // 0xAA01
 
     try {
       await device.discoverServices();
-      // final services = await device.services.first;
       final services = await device.discoverServices(); 
-
-      // print("Các service tìm thấy:");
-      // for (var s in services) {
-      //   print("- Service UUID: ${s.uuid}");
-      //   for (var c in s.characteristics) {
-      //     print("  - Characteristic UUID: ${c.uuid}");
-      //   }
-      // }
 
       final ssidService = services.firstWhere(
         (s) => s.uuid == serviceUuid,
@@ -263,10 +251,6 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (s) => s.uuid == userServiceUuid,
         orElse: () => throw Exception("Không tìm thấy service USER"),
       );
-      // final nameDeviceService = services.firstWhere(
-      //   (s) => s.uuid == nameDeviceServiceUuid,
-      //   orElse: () => throw Exception("Không tìm thấy service NAME"),
-      // );
 
       final ssidChar = ssidService.characteristics.firstWhere(
         (c) => c.uuid == ssidUuid,
@@ -280,10 +264,6 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
         (c) => c.uuid == userUuid,
         orElse: () => throw Exception("Không tìm thấy characteristic USER"),
       );
-      // final nameChar = nameDeviceService.characteristics.firstWhere(
-      //   (c) => c.uuid == nameDeviceUuid,
-      //   orElse: () => throw Exception("Không tìm thấy characteristic NAME"),
-      // );
 
       // Hủy stream cũ nếu có
       await _userNotifySub?.cancel();
@@ -331,7 +311,6 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
       await ssidChar.write(ssid.codeUnits, withoutResponse: false);
       await passChar.write(password.codeUnits, withoutResponse: false);
       await userChar.write(userID.codeUnits, withoutResponse: false);
-      // await nameChar.write(nameDevice.codeUnits, withoutResponse: false);
       
       print("Đã gửi SSID và PASS thành công.");
     } catch (e) {
@@ -364,10 +343,6 @@ class _DeviceSettingScreenState extends State<DeviceSettingScreen>
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
-              // TextField(
-              //   controller: nameDeviceController,
-              //   decoration: const InputDecoration(labelText: 'Name Device'),
-              // ),
             ],
           ),
         ),

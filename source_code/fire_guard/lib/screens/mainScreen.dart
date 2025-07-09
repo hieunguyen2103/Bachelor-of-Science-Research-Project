@@ -30,80 +30,107 @@ class MainScreen extends StatefulWidget {
 class _MainSCreenState extends State<MainScreen> {
   bool _isAccountActivated = false;
   bool _isLoading = true;
+  bool _sensorApiSuccess = false;
 
   double? coLevel;
   double? smokeLevel;
   double? temperature;
+  String _currentStatus = 'offline';
   DateTime _lastUpdated = DateTime.now();
   DateTime _currentTime = DateTime.now();
   Timer? _clockTimer;
+  Timer? _dataUpdateTimer;
 
-  // String? _selectedSensor;
   final List<String> _defaultSensorList  = ['Sensor 1', 'Sensor 2', 'Sensor 3'];
   List<String> _customSensorNames = [];
   List<String> _deviceNames = [];
+  List<String> _statusList = [];
 
   int _currentSensorIndex = 0;
   late PageController _sensorPageController;
 
-  // Future<void> _loadSensorNames() async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     _customSensorNames = List.generate(_defaultSensorList.length, (i) {
-  //       return prefs.getString('sensor_name_$i') ?? _defaultSensorList[i];
-  //     });
-  //   } catch (e) {
-  //     debugPrint("❌ Lỗi khi load SharedPreferences: $e");
-  //     // fallback nếu lỗi
-  //     _customSensorNames = List.from(_defaultSensorList);
-  //   }
-  // }
+  void _initFCM() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    // Yêu cầu quyền nhận thông báo (Android 13+)
+    await messaging.requestPermission();
+
+    // Lấy token thiết bịư
+    final fcmToken = await messaging.getToken();
+    print('FCM Token: $fcmToken');
+
+    // Gửi token về server
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && fcmToken != null) {
+      try {
+        // Lấy level_id từ Firestore
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')  // thay bằng tên collection của bạn nếu khác
+            .doc(user.uid)
+            .get();
+
+        final levelId = userDoc.data()?['level_id'] ?? 'unknown';
+
+        final bodyData = {
+          'user_id': user.uid,
+          'token': fcmToken,
+          'level_id': levelId,
+        };
+
+        print('GỬI LÊN SERVER: ${jsonEncode(bodyData)}');
+        final response = await http.post(
+          Uri.parse('http://103.69.97.153:5000/register-token'),  // Gửi token tài khoản lên cho server
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(bodyData),
+        );
+
+        if (response.statusCode == 200) {
+          print('Gửi token thành công!');
+        } else {
+          print('Gửi token thất bại: ${response.statusCode} - ${response.body}');
+        }
+
+      } catch (e) {
+          print('Lỗi khi gửi token (Connection r): $e');
+      }
+    }
+    else {
+      print('user hoặc fcmToken bị null. Không gửi được.');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAccountActivated();
+    _customSensorNames = [];
+    _sensorPageController = PageController(initialPage: 50);
+    _currentSensorIndex = 0;
+    _loadSensorNames().then((_) {
+      // Chỉ cập nhật khi load xong
+      if (_customSensorNames.isNotEmpty) {
+        _sensorPageController.jumpToPage(50);
+        setState(() {
+          _currentSensorIndex = 50 % _customSensorNames.length;
+        });
+      }
+    });
+
+    _loadUserAndData();
+    _dataUpdateTimer = Timer.periodic(const Duration(seconds: 2), (_) { // Cập nhật data 2 giây 1 lần
+      _loadUserAndData();
+    });
+    _initFCM();
+    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {
+        _currentTime = DateTime.now();
+      });
+    });
+  }
 
   /**************************************** Hàm lấy tên thiết bị từ trên Server ************************************/
   /*****************************************************************************************************************/
-  // Future<void> _loadSensorNames() async {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   if (user == null) return;
-
-  //   try {
-  //     final url = Uri.parse('http://103.69.97.153:5000/get-devices?user_id=${user.uid}');
-  //     final response = await http.get(url);
-  //     final prefs = await SharedPreferences.getInstance();
-
-  //     if (response.statusCode == 200) {
-  //       final data = json.decode(response.body);
-  //       final List<dynamic> names = data['device_names'];
-  //       final prefs = await SharedPreferences.getInstance();
-  //       setState(() {
-  //         _deviceNames = List<String>.from(names); // Lưu danh sách gốc
-  //         // _customSensorNames = List<String>.from(names);
-  //         _customSensorNames = List<String>.from(names.map((deviceName) {
-  //           final customName = prefs.getString('sensor_name_$deviceName');
-  //           return customName ?? deviceName;
-  //         }));
-  //       });
-  //     } else {
-  //       print('❌ Lỗi gọi get-devices: ${response.statusCode}');
-  //       // _customSensorNames = List.from(_defaultSensorList); // fallback
-  //       final prefs = await SharedPreferences.getInstance();
-  //       setState(() {
-  //         _customSensorNames = List.generate(_defaultSensorList.length, (i) {
-  //           return prefs.getString('sensor_name_${_defaultSensorList[i]}') ?? _defaultSensorList[i];
-  //         });
-  //       });
-  //       // _customSensorNames = List.generate(_defaultSensorList.length, (i) {
-  //       //   return prefs.getString('sensor_name_${_defaultSensorList[i]}') ?? _defaultSensorList[i];
-  //       // });
-  //     }
-  //   } catch (e) {
-  //     print('❌ Lỗi lấy tên thiết bị: $e');
-  //     setState(() {
-  //       _customSensorNames = List.from(_defaultSensorList);
-  //     });
-  //     // _customSensorNames = List.from(_defaultSensorList); // fallback
-  //   }
-  // }
-
   Future<void> _loadSensorNames() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -117,110 +144,33 @@ class _MainSCreenState extends State<MainScreen> {
         final data = json.decode(response.body);
         final List<dynamic> names = data['device_names'];
 
-        if (names != null && names.isNotEmpty) {
-          setState(() {
+        setState(() {
+          _sensorApiSuccess = true;  // API gọi thành công
+          if (names != null && names.isNotEmpty) {
             _deviceNames = List<String>.from(names);
             _customSensorNames = _deviceNames.map((deviceName) {
               final custom = prefs.getString('sensor_name_$deviceName');
               return custom ?? deviceName;
             }).toList();
-          });
-          return;
-        }
+             // Tạo list status mặc định ban đầu
+            _statusList = List<String>.filled(_deviceNames.length, 'offline');
+          } else {
+            _deviceNames = [];
+            _customSensorNames = [];
+            _statusList = [];
+          }
+        });
+        return;
       }
-
-      // ❌ Nếu không có data hợp lệ → fallback
-      debugPrint('❌ Lỗi gọi API hoặc không có dữ liệu');
-      setState(() {
-        _deviceNames = List.from(_defaultSensorList); // ❗ phải có dòng này
-        _customSensorNames = _defaultSensorList.map((deviceName) {
-          return prefs.getString('sensor_name_$deviceName') ?? deviceName;
-        }).toList();
-      });
     } catch (e) {
-      print('❌ Lỗi lấy tên thiết bị: $e');
-      final prefs = await SharedPreferences.getInstance();
+      print('Lỗi lấy tên thiết bị: $e');
       setState(() {
-        _deviceNames = List.from(_defaultSensorList); // ❗ phải có dòng này
-        _customSensorNames = _defaultSensorList.map((deviceName) {
-          return prefs.getString('sensor_name_$deviceName') ?? deviceName;
-        }).toList();
+        _sensorApiSuccess = false;
+        _deviceNames = [];
+        _customSensorNames = [];
       });
     }
   }
-
-  // Future<void> _editSensorName(int index) async {
-  //   // final originalDeviceName = _customSensorNames[index];
-  //   final controller = TextEditingController(text: _customSensorNames[index]);
-  //   const maxLength = 18;
-  //   int currentLength = controller.text.length;
-
-  //   await showDialog(
-  //     context: context,
-  //     builder: (BuildContext dialogContext) {
-  //       return StatefulBuilder(
-  //         builder: (context, setState) {
-  //           return AlertDialog(
-  //             title: const Text('Đặt tên cảm biến'),
-  //             content: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 TextField(
-  //                   controller: controller,
-  //                   maxLength: maxLength,
-  //                   onChanged: (text) {
-  //                     setState(() {
-  //                       currentLength = text.length;
-  //                     });
-  //                   },
-  //                   decoration: const InputDecoration(
-  //                     hintText: 'Nhập tên mới',
-  //                     counterText: '', // Ẩn đếm ký tự mặc định
-  //                   ),
-  //                 ),
-  //                 Align(
-  //                   alignment: Alignment.centerRight,
-  //                   child: Text(
-  //                     '$currentLength/$maxLength',
-  //                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             actions: [
-  //               TextButton(
-  //                 onPressed: () => Navigator.pop(dialogContext),
-  //                 child: const Text('Hủy'),
-  //               ),
-  //               TextButton(
-  //                 onPressed: () async {
-  //                   final newName = controller.text.trim();
-  //                   if (newName.isNotEmpty) {
-  //                     try {
-  //                       final prefs = await SharedPreferences.getInstance();
-  //                       final deviceName  = _deviceNames[index];
-  //                       await prefs.setString('sensor_name_$deviceName', newName);
-  //                       // await prefs.setString('sensor_name_$index', newName);
-  //                       setState(() {
-  //                         _customSensorNames[index] = newName;
-  //                       });
-  //                     } catch (e) {
-  //                       debugPrint('Lỗi khi lưu SharedPreferences: $e');
-  //                     }
-  //                     FocusScope.of(dialogContext).unfocus();
-  //                     Navigator.pop(dialogContext);
-  //                   }
-  //                 },
-  //                 child: const Text('Lưu'),
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
 
   Future<void> _editSensorName(int index) async {
     final controller = TextEditingController(text: _customSensorNames[index]);
@@ -285,7 +235,7 @@ class _MainSCreenState extends State<MainScreen> {
                             _customSensorNames[index] = newName;
                           });
                         } else {
-                          debugPrint('❌ Không tìm thấy tên thiết bị tại index $index');
+                          debugPrint('Không tìm thấy tên thiết bị tại index $index');
                         }
                       } catch (e) {
                         debugPrint('Lỗi khi lưu SharedPreferences: $e');
@@ -305,136 +255,23 @@ class _MainSCreenState extends State<MainScreen> {
     );
   }
 
-  void _initFCM() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    // Yêu cầu quyền nhận thông báo (Android 13+)
-    await messaging.requestPermission();
-
-    // Lấy token thiết bịư
-    final fcmToken = await messaging.getToken();
-    print('🟢 FCM Token: $fcmToken');
-
-    // Gửi token về server
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null && fcmToken != null) {
-      try {
-        // Lấy level_id từ Firestore
-        final userDoc = await FirebaseFirestore.instance
-            .collection('users')  // thay bằng tên collection của bạn nếu khác
-            .doc(user.uid)
-            .get();
-
-        final levelId = userDoc.data()?['level_id'] ?? 'unknown';
-
-        final bodyData = {
-          'user_id': user.uid,
-          'token': fcmToken,
-          'level_id': levelId,
-        };
-
-        print('📤 GỬI LÊN SERVER: ${jsonEncode(bodyData)}');
-
-        // await http.post(
-        //   Uri.parse('http://103.69.97.153:5000/register-token'),
-        //   headers: {'Content-Type': 'application/json'},
-        //   body: jsonEncode(bodyData),
-        // );
-
-        final response = await http.post(
-          Uri.parse('http://103.69.97.153:5000/register-token'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(bodyData),
-        );
-
-        if (response.statusCode == 200) {
-          print('✅ Gửi token thành công!');
-        } else {
-          print('❌ Gửi token thất bại: ${response.statusCode} - ${response.body}');
-        }
-
-      } catch (e) {
-          print('❌ Lỗi khi gửi token (Connection r): $e');
-      }
-    }
-    else {
-      print('⚠️ user hoặc fcmToken bị null. Không gửi được.');
-    }
-
-    // Lắng nghe khi app đang mở
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-    //   print("🔔 Nhận thông báo: ${message.notification?.title}");
-
-    //   if (message.notification != null) {
-    //     // Đóng dialog đang mở (nếu có)
-    //     if (Navigator.of(context, rootNavigator: true).canPop()) {
-    //       Navigator.of(context, rootNavigator: true).pop();
-    //       await Future.delayed(const Duration(milliseconds: 100));
-    //     }
-
-    //     // Chờ 100ms để đảm bảo dialog trước đã đóng
-    //     // await Future.delayed(Duration(milliseconds: 100));
-        
-    //     showDialog(
-    //       context: context,
-    //       builder: (_) => AlertDialog(
-    //         title: Text(message.notification!.title ?? "Thông báo"),
-    //         content: Text(message.notification!.body ?? "Không có nội dung"),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () => Navigator.pop(context),
-    //             child: const Text("Đóng"),
-    //           )
-    //         ],
-    //       ),
-    //     );
-    //   }
-    // });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _customSensorNames = [];
-    _sensorPageController = PageController(initialPage: 50);
-    _currentSensorIndex = 0;
-    _loadSensorNames().then((_) {
-      // Chỉ cập nhật khi load xong
-      if (_customSensorNames.isNotEmpty) {
-        _sensorPageController.jumpToPage(50);
-        setState(() {
-          _currentSensorIndex = 50 % _customSensorNames.length;
-        });
-      }
-    });
-    // _customSensorNames = List.from(_defaultSensorList); // fallback
-
-    //_loadSensorNames();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _loadSensorNames();
-    // });
-    // _sensorPageController = PageController(initialPage: _currentSensorIndex);
-    _loadUserAndData();
-    _initFCM();
-    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-      setState(() {
-        _currentTime = DateTime.now();
-      });
-    });
-  }
-
   @override
   void dispose() {
     _clockTimer?.cancel();
+    _dataUpdateTimer?.cancel();
     _sensorPageController.dispose();
     super.dispose();
   }
 
-  Future<void> _loadUserAndData() async {
+  Future<void> _checkAccountActivated() async {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+    if (user == null)
+    {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
 
     try {
       final userDoc = await FirebaseFirestore.instance
@@ -447,44 +284,65 @@ class _MainSCreenState extends State<MainScreen> {
         setState(() {
           _isAccountActivated = true;
         });
-
-        final currentDeviceName = _deviceNames[_currentSensorIndex];
-        // final url = Uri.parse('http://103.69.97.153:5000/get-sensor-data?user_id=${user.uid}');
-        final url = Uri.parse('http://103.69.97.153:5000/get-sensor-data?device_name=$currentDeviceName');
-        final response = await http.get(url);
-        if(response.statusCode == 200)
-        {
-          final jsonData = json.decode(response.body);
-          setState(() {
-            coLevel = (jsonData['co'] as num?)?.toDouble() ?? 0;
-            smokeLevel = (jsonData['smokes'] as num?)?.toDouble() ?? 0;
-            temperature = (jsonData['temp'] as num?)?.toDouble() ?? 0;
-            _lastUpdated = DateTime.now();
-          });
-        }
-        else
-        {
-          print('Lỗi khi gọi API: ${response.statusCode}');
-        }
-
-        // final sensorDoc = await FirebaseFirestore.instance
-        //     .collection('users')
-        //     .doc(user.uid)
-        //     .collection('data_sensor')
-        //     .doc('00000000')
-        //     .get();
-
-        // final sensorData = sensorDoc.data();
-        // if (sensorData != null) {
-        //   setState(() {
-        //     coLevel = (sensorData['Co_level'] as num).toDouble();
-        //     smokeLevel = (sensorData['Smoke_level'] as num).toDouble();
-        //     _lastUpdated = DateTime.now();
-        //   });
-        // }
+      }
+      else
+      {
+        setState(() {
+          _isAccountActivated = false;
+        });
       }
     } catch (e) {
-      print('Error loading user or sensor data: $e');
+      print('Lỗi khi kiểm tra activated: $e');
+    }
+
+    // Kế thúc kiểm tra activate account
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _loadUserAndData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null || !_isAccountActivated) return;
+
+    if (_deviceNames.isEmpty || _currentSensorIndex >= _deviceNames.length) {
+      print('⚠️ Không có thiết bị hoặc index quá giới hạn');
+      return;
+    }
+
+    try {
+      final currentDeviceName = _deviceNames[_currentSensorIndex];
+      final url = Uri.parse('http://103.69.97.153:5000/get-sensor-data?device_name=$currentDeviceName');
+      final response = await http.get(url);
+      if(response.statusCode == 200)
+      {
+        final jsonData = json.decode(response.body);
+        print("Dữ liệu từ server: $jsonData (${jsonData.runtimeType})");
+
+        Map<String, dynamic> data;
+        if (jsonData is List && jsonData.isNotEmpty) {
+          data = jsonData[0]; // Lấy bản ghi đầu tiên nếu có nhiều dòng
+        } else if (jsonData is Map<String, dynamic>) {
+          data = jsonData;
+        } else {
+          print("Dữ liệu trả về không đúng định dạng: $jsonData");
+          return;
+        }
+        setState(() {
+          coLevel = (data['co'] as num?)?.toDouble() ?? 0;
+          smokeLevel = (data['smokes'] as num?)?.toDouble() ?? 0;
+          temperature = (data['temp'] as num?)?.toDouble() ?? 0;
+          _statusList[_currentSensorIndex] = data['status'] ?? 'offline';
+          print(">>> Status cho sensor ${_deviceNames[_currentSensorIndex]}: ${_statusList[_currentSensorIndex]}");
+          _lastUpdated = DateTime.now();
+        });
+      }
+      else
+      {
+        print('Lỗi khi gọi API: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Lỗi khi lấy dữ liệu: $e');
     }
 
     setState(() {
@@ -540,21 +398,30 @@ class _MainSCreenState extends State<MainScreen> {
                   ),
                   const SizedBox(height: 12),
 
-                  // ✅ PageView cho toàn bộ block sensor
+                  // PageView cho toàn bộ block sensor
                   Expanded(
-                    child: PageView.builder(
+                    child: _customSensorNames.isEmpty
+                    ? Center(
+                        child: Text(
+                          _sensorApiSuccess
+                          ? 'Chưa có thiết bị nào được đăng ký'
+                          : 'Lỗi kết nối, hiện không thể đọc dữ liệu từ cảm biến!',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : PageView.builder(
                       controller: _sensorPageController,
-                      // itemCount: _defaultSensorList .length,
-                      itemCount: _customSensorNames.length > 0 ? 100 : 1,
+                      itemCount: 100,
                       onPageChanged: (index) {
                         setState(() {
                           _currentSensorIndex = index % _customSensorNames .length;
-                          // TODO: Load lại data theo sensor nếu cần
                         });
                         _loadUserAndData(); // Load lại data theo thiết bị mới
                       },
                       itemBuilder: (context, index) {
                         final sensorIndex = index % _customSensorNames .length;
+                        final status = (_statusList.length > sensorIndex) ? _statusList[sensorIndex] : 'offline';
                         return SingleChildScrollView(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
@@ -586,83 +453,89 @@ class _MainSCreenState extends State<MainScreen> {
                                     ),
                                   ],
                                 ),
-
-                                // child: Text(
-                                //   _defaultSensorList [sensorIndex],
-                                //   style: const TextStyle(
-                                //     color: Colors.white,
-                                //     fontSize: 18,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-
                               ),
                               const SizedBox(height: 16),
-
-                              // Block Smoke + CO
-                              SizedBox(
-                                height: 240,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: buildGauge(
-                                          'Smoke',
-                                          smokeLevel ?? 0,
-                                          0,
-                                          100,
-                                          [
-                                            GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
-                                            GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
-                                            GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
-                                          ],
-                                          '',
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: buildGauge(
-                                          'CO',
-                                          coLevel ?? 0,
-                                          0,
-                                          100,
-                                          [
-                                            GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
-                                            GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
-                                            GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
-                                          ],
-                                          '',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              const SizedBox(height: 8),
-
-                              // Block Temperature
-                              Center(
-                                child: SizedBox(
+                              
+                              // Nếu offline, hiện cảnh báo
+                              if (status.trim().toLowerCase() == 'offline')
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Text(
+                                    '⚠️ Không thể kết nối đến cảm biến!',
+                                    style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              else ...[
+                                // Khối Smoke + CO
+                                SizedBox(
                                   height: 200,
-                                  width: 200,
-                                  child: buildGauge(
-                                    'Temperature',
-                                    temperature ?? 0,
-                                    0,
-                                    100,
-                                    [
-                                      GaugeRange(startValue: 0, endValue: 30, color: Colors.green),
-                                      GaugeRange(startValue: 31, endValue: 50, color: Colors.orange),
-                                      GaugeRange(startValue: 51, endValue: 100, color: Colors.red),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: buildGauge(
+                                            'Smoke',
+                                            smokeLevel ?? 0,
+                                            0,
+                                            1000,
+                                            [
+                                              GaugeRange(startValue: 0, endValue: 199, color: Colors.green),
+                                              GaugeRange(startValue: 200, endValue: 399, color: Colors.orange),
+                                              GaugeRange(startValue: 400, endValue: 1000, color: Colors.red),
+                                            ],
+                                            '',
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: buildGauge(
+                                            'CO',
+                                            coLevel ?? 0,
+                                            0,
+                                            300,
+                                            [
+                                              GaugeRange(startValue: 0, endValue: 74, color: Colors.green),
+                                              GaugeRange(startValue: 74, endValue: 149, color: Colors.orange),
+                                              GaugeRange(startValue: 150, endValue: 300, color: Colors.red),
+                                            ],
+                                            '',
+                                          ),
+                                        ),
+                                      ),
                                     ],
-                                    '',
                                   ),
                                 ),
-                              ),
+
+                                const SizedBox(height: 8),
+
+                                // Khối Nhiệt độ
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    width: 200,
+                                    child: buildGauge(
+                                      'Temperature',
+                                      temperature ?? 0,
+                                      0,
+                                      50,
+                                      [
+                                        GaugeRange(startValue: 0, endValue: 34, color: Colors.green),
+                                        GaugeRange(startValue: 35, endValue: 44, color: Colors.orange),
+                                        GaugeRange(startValue: 45, endValue: 50, color: Colors.red),
+                                      ],
+                                      '',
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 16),
+
+                                _buildStatusWarning(temperature, coLevel, smokeLevel),
+                              ]
                             ],
                           ),
                         );
@@ -674,145 +547,10 @@ class _MainSCreenState extends State<MainScreen> {
             : const Center(
                 child: Text(
                   'Please activate your account to use features',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
                 ),
               ),
-
-      // body: _isLoading
-      //     ? const Center(child: CircularProgressIndicator())
-      //     : _isAccountActivated
-      //         ? Padding(
-      //             padding: const EdgeInsets.all(16.0),
-      //             child: SingleChildScrollView(
-      //               child: Column(
-      //                 crossAxisAlignment: CrossAxisAlignment.center,
-      //                 children: [
-      //                   Text(
-      //                     'Fire Guard',
-      //                     style: GoogleFonts.robotoSlab(
-      //                       fontSize: 28,
-      //                       fontWeight: FontWeight.bold,
-      //                     ),
-      //                   ),
-      //                   const SizedBox(height: 12,),
-
-      //                   //*************** Phần hiển thị nút chọn cảm biến ***********************/
-      //                   SizedBox(
-      //                     height: 60,
-      //                     child: PageView.builder(
-      //                       controller: _sensorPageController,
-      //                       itemCount: _defaultSensorList .length,
-      //                       onPageChanged: (index) {
-      //                         setState(() {
-      //                           _currentSensorIndex = index;
-      //                           // TODO: Load lại data theo sensor nếu cần
-      //                         });
-      //                       },
-      //                       itemBuilder: (context, index) {
-      //                         return Center(
-      //                           child: Container(
-      //                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      //                             decoration: BoxDecoration(
-      //                               color: Colors.grey[850],
-      //                               borderRadius: BorderRadius.circular(12),
-      //                               border: Border.all(color: Colors.white),
-      //                             ),
-      //                             child: Text(
-      //                               _defaultSensorList [index],
-      //                               style: const TextStyle(
-      //                                 color: Colors.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.bold,
-      //                               ),
-      //                             ),
-      //                           ),
-      //                         );
-      //                       },
-      //                     ),
-      //                   ),
-      //                   /**************************************************************************/
-
-      //                   const SizedBox(height: 16),
-      //                   SizedBox(
-      //                     height: 240,
-      //                     child: Row(
-      //                       children: [
-      //                         Expanded(
-      //                           child: Padding(
-      //                             padding: const EdgeInsets.all(8.0),
-      //                             child: buildGauge(
-      //                               'Smoke',
-      //                               smokeLevel ?? 0,
-      //                               0,
-      //                               100,
-      //                               [
-      //                                 GaugeRange(startValue: 0, endValue: 20, color: Colors.green),
-      //                                 GaugeRange(startValue: 21, endValue: 60, color: Colors.orange),
-      //                                 GaugeRange(startValue: 61, endValue: 100, color: Colors.red),
-      //                               ],
-      //                               '',
-      //                             ),
-      //                           ),
-      //                         ),
-      //                         Expanded(
-      //                           child: Padding(
-      //                             padding: const EdgeInsets.all(8.0),
-      //                             child: buildGauge(
-      //                               'CO',
-      //                               coLevel ?? 0,
-      //                               0,
-      //                               100,
-      //                               [
-      //                                 GaugeRange(startValue: 0, endValue: 10, color: Colors.green),
-      //                                 GaugeRange(startValue: 11, endValue: 35, color: Colors.orange),
-      //                                 GaugeRange(startValue: 36, endValue: 100, color: Colors.red),
-      //                               ],
-      //                               '',
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ),
-                    
-      //                   const SizedBox(height: 8),
-      //                   Center(
-      //                   child: SizedBox(
-      //                     height: 200,
-      //                     width: 200,
-      //                     child: buildGauge(
-      //                       'Temperature',
-      //                       temperature ?? 0,
-      //                       0,
-      //                       100,
-      //                       [
-      //                         GaugeRange(startValue: 0, endValue: 30, color: Colors.green),
-      //                         GaugeRange(startValue: 31, endValue: 50, color: Colors.orange),
-      //                         GaugeRange(startValue: 51, endValue: 100, color: Colors.red),
-      //                       ],
-      //                       '',
-      //                     ),
-      //                   ),
-      //                 ),
-                    
-      //                   // const SizedBox(height: 20),
-      //                   // _buildStatusWarning(temperature, coLevel, smokeLevel),
-      //                   // const SizedBox(height: 16),
-      //                   // Text(
-      //                   //   '⏱ Bây giờ là: ${DateFormat('HH:mm:ss dd/MM/yyyy').format(_currentTime)}',
-      //                   //   style: const TextStyle(fontSize: 14, color: Colors.grey),
-      //                   // )
-      //                 ],
-      //               ),
-      //             ),
-      //           )
-      //         : const Center(
-      //             child: Text(
-      //               'Please activate your account to use features',
-      //               style: TextStyle(color: Colors.red),
-      //             ),
-      //           ),
-
     );
   }
 
@@ -888,32 +626,32 @@ class _MainSCreenState extends State<MainScreen> {
     String tempStatus = 'Chưa có dữ liệu';
 
     if (co != null) {
-      if (co > 35) {
-        coStatus = '⚠️ Mức CO cao! Nguy hiểm!';
-      } else if (co > 10) {
+      if (co >= 150) {
+        coStatus = 'Mức CO cao! Nguy hiểm!';
+      } else if (co >= 75) {
         coStatus = 'CO ở mức trung bình';
       } else {
-        coStatus = '✅ Mức CO an toàn';
+        coStatus = 'Mức CO an toàn';
       }
     }
 
     if (smoke != null) {
-      if (smoke > 60) {
-        smokeStatus = '🚨 Phát hiện khói dày!';
-      } else if (smoke > 20) {
-        smokeStatus = '⚠️ Mức khói tăng cao';
+      if (smoke >= 400) {
+        smokeStatus = 'Phát hiện khói dày!';
+      } else if (smoke >= 200) {
+        smokeStatus = 'Mức khói tăng cao';
       } else {
-        smokeStatus = '✅ Mức khói ổn định';
+        smokeStatus = 'Mức khói ổn định';
       }
     }
 
     if (temperature != null) {
-      if (temperature > 50) {
-        tempStatus = '🔥 Nhiệt độ rất cao!';
-      } else if (temperature > 30) {
-        tempStatus = '⚠️ Nhiệt độ khá nóng';
+      if (temperature >= 45) {
+        tempStatus = 'Nhiệt độ rất cao!';
+      } else if (temperature >= 35) {
+        tempStatus = 'Nhiệt độ khá cao';
       } else {
-        tempStatus = '✅ Nhiệt độ ổn định';
+        tempStatus = 'Nhiệt độ ổn định';
       }
     }
 
